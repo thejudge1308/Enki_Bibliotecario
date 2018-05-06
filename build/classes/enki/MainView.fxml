@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.MainViewController">
+   <left>
+      <Accordion prefHeight="569.0" prefWidth="241.0" BorderPane.alignment="CENTER">
+        <panes>
+          <TitledPane animated="false" text="Prestamos">
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#crear" text="Crear" />
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" />
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" />
+                     </children>
+                  </VBox>
+               </content>
+          </TitledPane>
+          <TitledPane animated="false" text="Usuarios">
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Button id="buttonBibiotecario" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Bibliotecario" />
+                        <Button id="buttonLector" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Lector" />
+                     </children>
+                  </VBox>
+               </content>
+          </TitledPane>
+            <TitledPane animated="false" text="Estantes">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </TitledPane>
+          <TitledPane animated="false" text="Libros">
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Button fx:id="buttonCrearLibroCopia" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#crearCopia" text="Nuevo libro/copia" />
+                        <Button fx:id="buttonListaLibros" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#listaLibros" text="Lista de libros" />
+                     </children>
+                  </VBox>
+               </content></TitledPane>
+        </panes>
+      </Accordion>
+   </left>
+   <top>
+      <MenuBar maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Archivo">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Configuracion">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Ayuda :c">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="384.0" prefWidth="412.0" BorderPane.alignment="CENTER">
+         <children>
+            <BorderPane fx:id="contenido_View" layoutX="110.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="490.0" prefWidth="542.0" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+   </center>
+   <padding>
+      <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+   </padding>
+</BorderPane>
