@@ -19,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -68,6 +69,7 @@ public class DetalleCopiaController implements Initializable {
         Stage agregarCopia = new Stage();
         agregarCopia.setTitle("Agregar Copia");
         agregarCopia.setScene(scene);
+        agregarCopia.initModality(Modality.APPLICATION_MODAL);
         agregarCopia.show();
             }
     }

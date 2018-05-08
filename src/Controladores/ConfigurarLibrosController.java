@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -34,6 +35,9 @@ public class ConfigurarLibrosController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
+     //Stage stage = (Stage) borderPaneConfigurarLibros.getScene().getWindow();
+     //stage.initModality(Modality.APPLICATION_MODAL);
     }    
 
     @FXML

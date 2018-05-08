@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -55,6 +56,7 @@ public class Libro
         Stage configurarLibro = new Stage();
         configurarLibro.setTitle("Configurar Libro");
         configurarLibro.setScene(scene);
+        configurarLibro.initModality(Modality.APPLICATION_MODAL);
         configurarLibro.show();
             }
         });
@@ -74,6 +76,7 @@ public class Libro
         Stage detalleCopia = new Stage();
         detalleCopia.setTitle("Detalle copia");
         detalleCopia.setScene(scene2);
+        detalleCopia.initModality(Modality.APPLICATION_MODAL);
         detalleCopia.show();
             }
         });
