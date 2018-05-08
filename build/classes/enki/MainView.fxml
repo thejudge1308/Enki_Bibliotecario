@@ -52,7 +52,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="Archivo">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem mnemonicParsing="false" onAction="#cerrar" text="Close" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Configuracion">
@@ -71,7 +71,7 @@
    <center>
       <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="384.0" prefWidth="412.0" BorderPane.alignment="CENTER">
          <children>
-            <BorderPane fx:id="contenido_View" layoutX="110.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="490.0" prefWidth="542.0" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="110.0" AnchorPane.topAnchor="0.0" />
+            <BorderPane fx:id="contenido_View" layoutX="106.0" layoutY="-13.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="490.0" prefWidth="542.0" AnchorPane.bottomAnchor="92.0" AnchorPane.leftAnchor="106.0" AnchorPane.topAnchor="-13.0" />
          </children>
       </AnchorPane>
    </center>

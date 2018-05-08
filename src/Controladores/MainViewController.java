@@ -76,5 +76,11 @@ public class MainViewController implements Initializable {
         //bp.setPrefSize(Double.MAX_VALUE,Double.MAX_VALUE);
         contenido_View.setCenter(bp);
     }
+
+    @FXML
+    private void cerrar(ActionEvent event) {
+        
+        System.exit(0);
+    }
     
 }

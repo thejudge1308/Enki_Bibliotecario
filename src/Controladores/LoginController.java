@@ -19,11 +19,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+
 
 /**
  * FXML Controller class
@@ -92,7 +98,10 @@ public class LoginController implements Initializable {
     private void onClick_buttonIngresar(ActionEvent event) {
         Parent root;
          try {
-            root = FXMLLoader.load(getClass().getResource("/enki/MainView.fxml"));
+             
+             if(isValidEmailAddress(textBoxCorreo.getText()))
+             {
+                 root = FXMLLoader.load(getClass().getResource("/enki/MainView.fxml"));
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             //stage.setResizable(false);
@@ -100,6 +109,13 @@ public class LoginController implements Initializable {
             stage.setScene(scene);
            ((Node)(event.getSource())).getScene().getWindow().hide(); //Cierra la ventana actual
             stage.show();
+             }
+             else
+             {
+                 Alert alert = new Alert(AlertType.NONE, "Ingrese email correctamente", ButtonType.OK);
+alert.showAndWait();
+             }
+            
             
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
@@ -142,6 +158,17 @@ public class LoginController implements Initializable {
         }
 
     }
+    
+   public static boolean isValidEmailAddress(String email) {
+   boolean result = true;
+   try {
+      InternetAddress emailAddr = new InternetAddress(email);
+      emailAddr.validate();
+   } catch (AddressException ex) {
+      result = false;
+   }
+   return result;
+}
     
     
     
