@@ -7,8 +7,19 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,6 +40,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 /**
@@ -79,8 +92,6 @@ public class LoginController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-       
     }
 
     @FXML
@@ -98,17 +109,23 @@ public class LoginController implements Initializable {
     private void onClick_buttonIngresar(ActionEvent event) {
         Parent root;
          try {
-             
-             if(isValidEmailAddress(textBoxCorreo.getText()))
-             {
-                 root = FXMLLoader.load(getClass().getResource("/enki/MainView.fxml"));
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            //stage.setResizable(false);
-            stage.setTitle(Valores.ValoresEstaticos.enki); 
-            stage.setScene(scene);
-           ((Node)(event.getSource())).getScene().getWindow().hide(); //Cierra la ventana actual
-            stage.show();
+             if(isValidEmailAddress(textBoxCorreo.getText())) {
+                 if(usuarioCorrecto()){
+                           root = FXMLLoader.load(getClass().getResource("/enki/MainView.fxml"));
+                           Scene scene = new Scene(root);
+                           Stage stage = new Stage();
+                           //stage.setResizable(false);
+                           stage.setTitle(Valores.ValoresEstaticos.enki); 
+                           stage.setScene(scene);
+                          ((Node)(event.getSource())).getScene().getWindow().hide(); //Cierra la ventana actual
+                           stage.show();
+                 }else{
+                     Alert alert = new Alert(AlertType.INFORMATION);
+                     alert.setTitle("Informacion");
+                     alert.setHeaderText(null);
+                     alert.setContentText("Usuario Incorrecto");
+                     alert.showAndWait();
+                 }
              }
              else
              {
@@ -119,7 +136,7 @@ alert.showAndWait();
             
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }  
     }
 
     @FXML
@@ -169,7 +186,48 @@ alert.showAndWait();
    }
    return result;
 }
+
+   public boolean usuarioCorrecto() throws MalformedURLException, ProtocolException, IOException {
+       boolean flag=false;
+          URL url = new URL("http://localhost/web/login.php"); // URL to your application
+    Map<String,Object> params = new LinkedHashMap<>();
+    params.put("correo", this.textBoxCorreo.getText()); // All parameters, also easy
+    params.put("contasena", this.passwordFieldContrasena.getText());
+
+    StringBuilder postData = new StringBuilder();
+    for (Map.Entry<String,Object> param : params.entrySet()) {
+        if (postData.length() != 0) postData.append('&');
+        postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+        postData.append('=');
+        postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+    }
+
+    // Convert string to byte array, as it should be sent
+    byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+
+    // Connect, easy
+    HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+    // Tell server that this is POST and in which format is the data
+    conn.setRequestMethod("POST");
+    conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+    conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+    conn.setDoOutput(true);
+    conn.getOutputStream().write(postDataBytes);
+
+    // This gets the output from your server
+    Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+    String response="";
+    System.out.println(in);
+    for (int c; (c = in.read()) >= 0;)
+       response=response + (char)c;
+       
+       System.out.println(response);
     
-    
-    
+     if(response.equals("true")){
+         return true;
+     }  
+     
+       
+       return flag;
+   }
 }

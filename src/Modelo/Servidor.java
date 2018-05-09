@@ -56,5 +56,8 @@ public class Servidor {
         this.puerto = puerto;
     }
     
+    public String getDireccion(){
+        return this.servidor+":"+this.puerto;
+    }
   
 }
