@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="borderPaneConfigurarLibros" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.ConfigurarLibrosController">
+   <center>
+      <HBox maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="517.0">
+               <children>
+                  <Label text="Titulo" />
+                  <TextField maxWidth="1.7976931348623157E308" />
+                  <Pane prefHeight="20.0" prefWidth="277.0" />
+                  <Label text="Edición" />
+                  <TextField maxWidth="1.7976931348623157E308" />
+                  <Pane prefHeight="20.0" prefWidth="200.0" />
+                  <Pane prefHeight="20.0" prefWidth="200.0" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="503.0">
+               <children>
+                  <Label text="Autor" />
+                  <TextField maxWidth="1.7976931348623157E308" />
+                  <Pane maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="200.0" />
+                  <Label text="Año" />
+                  <TextField maxWidth="1.7976931348623157E308" />
+                  <HBox alignment="BOTTOM_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="43.0" prefWidth="263.0" spacing="10.0">
+                     <children>
+                        <Button fx:id="buttonGuardar" mnemonicParsing="false" onAction="#guardar" text="Guardar" />
+                        <Button fx:id="buttonCancelar" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </BorderPane.margin>
+      </HBox>
+   </center>
+</BorderPane>
