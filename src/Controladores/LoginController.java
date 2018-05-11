@@ -114,7 +114,7 @@ public class LoginController implements Initializable {
                            root = FXMLLoader.load(getClass().getResource("/enki/MainView.fxml"));
                            Scene scene = new Scene(root);
                            Stage stage = new Stage();
-                           //stage.setResizable(false);
+                           stage.setMinWidth(1000);
                            stage.setTitle(Valores.ValoresEstaticos.enki); 
                            stage.setScene(scene);
                           ((Node)(event.getSource())).getScene().getWindow().hide(); //Cierra la ventana actual

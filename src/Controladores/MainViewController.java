@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 package Controladores;
 
@@ -19,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import enki.*;
+import javafx.scene.control.Button;
 
 /**
  * FXML Controller class
@@ -28,6 +25,13 @@ import enki.*;
 public class MainViewController implements Initializable {
     @FXML
     private BorderPane contenido_View;
+    @FXML
+    private Button buttonCrearLibroCopia;
+    @FXML
+    private Button buttonListaLibros;
+    @FXML
+    private Button buttonListarEstantes;
+    
     /**
      * Initializes the controller class.
      */
@@ -36,7 +40,7 @@ public class MainViewController implements Initializable {
        
         BorderPane bp = null;
         try {
-            bp = FXMLLoader.load(getClass().getResource("/enki/LectorMainView.fxml"));
+            bp = FXMLLoader.load(getClass().getResource("/enki/ListaLibros.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -55,7 +59,7 @@ public class MainViewController implements Initializable {
     {
         
         
-       BorderPane bp2 = FXMLLoader.load(getClass().getResource("/enki/copiaLibro.fxml"));
+       BorderPane bp2 = FXMLLoader.load(getClass().getResource("/enki/CrearLibroCopia.fxml"));
        contenido_View.setCenter(bp2);
     }
     
@@ -64,25 +68,29 @@ public class MainViewController implements Initializable {
     {
         BorderPane bp = null;
         try {
-            bp = FXMLLoader.load(getClass().getResource("/enki/LectorMainView.fxml"));
+            bp = FXMLLoader.load(getClass().getResource("/enki/ListaLibros.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         //bp.setPrefSize(Double.MAX_VALUE,Double.MAX_VALUE);
         contenido_View.setCenter(bp);
+    }
+
+    @FXML
+    private void cerrar(ActionEvent event) {
+        
+        System.exit(0);
     }
     
-    @FXML
-    private void listaEstantes(ActionEvent event) throws IOException
-    {
-       BorderPane bp = null;
+     @FXML
+     private void onClick_buttonListarEstantes(ActionEvent event){
+          BorderPane bp = null;
         try {
-            bp = FXMLLoader.load(getClass().getResource("/enki/EstanteMainView.fxml"));
+            bp = FXMLLoader.load(getClass().getResource("/enki/ListaEstantes.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //bp.setPrefSize(Double.MAX_VALUE,Double.MAX_VALUE);
         contenido_View.setCenter(bp);
-    }
+     }
     
 }

@@ -8,9 +8,9 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Enki.jar" size="38287" download="eager" />
-    <jar href="lib/java-json.jar" size="88983" download="eager" />
-    <jar href="lib/javax.mail.jar" size="464749" download="eager" />
+    <jar href="Enki.jar" size="39828" download="eager" />
+    <jar href="lib/java-json.jar" size="88986" download="eager" />
+    <jar href="lib/javax.mail.jar" size="464754" download="eager" />
   </resources>
 <security>
   <all-permissions/>

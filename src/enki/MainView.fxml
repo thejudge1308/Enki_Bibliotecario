@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.MainViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.MainViewController">
    <left>
       <Accordion prefHeight="569.0" prefWidth="241.0" BorderPane.alignment="CENTER">
         <panes>
@@ -31,16 +31,21 @@
                </content>
           </TitledPane>
             <TitledPane animated="false" text="Estantes">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Button fx:id="buttonListarEstantes" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClick_buttonListarEstantes" text="Listar estantes" />
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Crear estante" />
+                     </children>
+                  </VBox>
+               </content>
             </TitledPane>
           <TitledPane animated="false" text="Libros">
                <content>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Button fx:id="buttonCrearLibroCopia" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#crearCopia" text="Nuevo libro/copia" />
                         <Button fx:id="buttonListaLibros" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#listaLibros" text="Lista de libros" />
+                        <Button fx:id="buttonCrearLibroCopia" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#crearCopia" text="Nuevo libro" />
                      </children>
                   </VBox>
                </content></TitledPane>
@@ -60,9 +65,9 @@
               <MenuItem mnemonicParsing="false" text="Delete" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Ayuda :c">
+          <Menu mnemonicParsing="false" text="Ayuda">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" text="Acerca de" />
             </items>
           </Menu>
         </menus>
@@ -71,7 +76,7 @@
    <center>
       <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="384.0" prefWidth="412.0" BorderPane.alignment="CENTER">
          <children>
-            <BorderPane fx:id="contenido_View" layoutX="106.0" layoutY="-13.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="490.0" prefWidth="542.0" AnchorPane.bottomAnchor="92.0" AnchorPane.leftAnchor="106.0" AnchorPane.topAnchor="-13.0" />
+            <BorderPane fx:id="contenido_View" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="490.0" prefWidth="542.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
          </children>
       </AnchorPane>
    </center>

@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/home/patricio/Escritorio/proyecto/Radegast/Enki/src/Controladores/EstanteMainViewController.java</file>
+            <file>file:/home/patricio/Escritorio/proyecto/Radegast/Enki/src/Controladores/LoginController.java</file>
+            <file>file:/home/patricio/Escritorio/proyecto/Radegast/Enki/src/enki/Login.fxml</file>
+            <file>file:/home/patricio/Escritorio/proyecto/Radegast/Enki/src/Controladores/ListaLibrosController.java</file>
+            <file>file:/home/patricio/Escritorio/proyecto/Radegast/Enki/src/enki/MainView.fxml</file>
+            <file>file:/home/patricio/Escritorio/proyecto/Radegast/Enki/src/Controladores/MainViewController.java</file>
+            <file>file:/home/patricio/Escritorio/proyecto/Radegast/Enki/src/enki/ListaEstantes.fxml</file>
+        </group>
     </open-files>
 </project-private>
