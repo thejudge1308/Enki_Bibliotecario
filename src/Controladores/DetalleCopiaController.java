@@ -67,6 +67,8 @@ public class DetalleCopiaController implements Initializable {
                     Logger.getLogger(Libro.class.getName()).log(Level.SEVERE, null, ex);
                 }
         Stage agregarCopia = new Stage();
+        agregarCopia.setMinWidth(650);
+        agregarCopia.setMinHeight(401);
         agregarCopia.setTitle("Agregar Copia");
         agregarCopia.setScene(scene);
         agregarCopia.initModality(Modality.APPLICATION_MODAL);

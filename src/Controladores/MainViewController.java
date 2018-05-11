@@ -45,7 +45,9 @@ public class MainViewController implements Initializable {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         //bp.setPrefSize(Double.MAX_VALUE,Double.MAX_VALUE);
+        
         contenido_View.setCenter(bp);
+        
     }    
 
     @FXML
@@ -90,6 +92,7 @@ public class MainViewController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         contenido_View.setCenter(bp);
      }
     

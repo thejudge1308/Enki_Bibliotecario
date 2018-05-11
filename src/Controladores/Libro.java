@@ -54,6 +54,8 @@ public class Libro
                     Logger.getLogger(Libro.class.getName()).log(Level.SEVERE, null, ex);
                 }
         Stage configurarLibro = new Stage();
+        configurarLibro.setMinWidth(650);
+        configurarLibro.setMinHeight(413);
         configurarLibro.setTitle("Configurar Libro");
         configurarLibro.setScene(scene);
         configurarLibro.initModality(Modality.APPLICATION_MODAL);
@@ -74,6 +76,8 @@ public class Libro
                     Logger.getLogger(Libro.class.getName()).log(Level.SEVERE, null, ex);
                 }
         Stage detalleCopia = new Stage();
+        detalleCopia.setMinWidth(750);
+        detalleCopia.setMinHeight(365);
         detalleCopia.setTitle("Detalle copia");
         detalleCopia.setScene(scene2);
         detalleCopia.initModality(Modality.APPLICATION_MODAL);
