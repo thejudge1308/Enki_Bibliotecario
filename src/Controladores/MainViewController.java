@@ -31,7 +31,8 @@ public class MainViewController implements Initializable {
     private Button buttonListaLibros;
     @FXML
     private Button buttonListarEstantes;
-    
+     @FXML
+    private Button buttonLector;
     /**
      * Initializes the controller class.
      */
@@ -96,4 +97,10 @@ public class MainViewController implements Initializable {
         contenido_View.setCenter(bp);
      }
     
+     @FXML
+     private void onClick_buttonLector(ActionEvent event) throws IOException{
+          BorderPane bp2 = FXMLLoader.load(getClass().getResource("/enki/ListaLector.fxml"));
+        contenido_View.setCenter(bp2);
+     }
+     
 }

@@ -15,11 +15,14 @@ public class ValoresEstaticos {
      */
     public static final String carpetaConfiguracion="configuracion";
     /**
-     * Archivos
+     * Archivos Locales
      */
     public static final String archivoServidor="configuracion.conf";
    
-    
-    
+    /**
+     * Archivos Del servidor
+     */
+    public static final String loginPHP="login.php";
+    public static final String crearLectorPHP="usuario/crearLector.php";
     
 }

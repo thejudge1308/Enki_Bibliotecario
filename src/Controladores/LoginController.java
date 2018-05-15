@@ -189,10 +189,10 @@ alert.showAndWait();
 
    public boolean usuarioCorrecto() throws MalformedURLException, ProtocolException, IOException {
        boolean flag=false;
-          URL url = new URL("http://localhost/web/login.php"); // URL to your application
-    Map<String,Object> params = new LinkedHashMap<>();
-    params.put("correo", this.textBoxCorreo.getText()); // All parameters, also easy
-    params.put("contasena", this.passwordFieldContrasena.getText());
+        URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+Valores.ValoresEstaticos.loginPHP); // URL to your application
+        Map<String,Object> params = new LinkedHashMap<>();
+        params.put("correo", this.textBoxCorreo.getText()); // All parameters, also easy
+        params.put("contasena", this.passwordFieldContrasena.getText());
 
     StringBuilder postData = new StringBuilder();
     for (Map.Entry<String,Object> param : params.entrySet()) {
