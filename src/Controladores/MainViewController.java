@@ -108,7 +108,7 @@ public class MainViewController implements Initializable {
     @FXML
     private void onActionBibliotecario(ActionEvent event) throws IOException {
         
-        BorderPane bp2 = FXMLLoader.load(getClass().getResource("/enki/CrearBibliotecario.fxml"));
+        BorderPane bp2 = FXMLLoader.load(getClass().getResource("/enki/ListaBibliotecarios.fxml"));
        contenido_View.setCenter(bp2);
     }
      

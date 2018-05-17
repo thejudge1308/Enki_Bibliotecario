@@ -191,7 +191,7 @@ alert.showAndWait();
 
    public boolean usuarioCorrecto() throws MalformedURLException, ProtocolException, IOException, JSONException {
        boolean flag=false;
-        URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+Valores.ValoresEstaticos.loginPHP); // URL to your application
+        URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.loginPHP); // URL to your application
         System.out.println(url);
         Map<String,Object> params = new LinkedHashMap<>();
         params.put("correo", this.textBoxCorreo.getText().trim()); // All parameters, also easy

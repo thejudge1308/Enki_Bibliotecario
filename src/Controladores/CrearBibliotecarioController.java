@@ -54,10 +54,13 @@ public class CrearBibliotecarioController implements Initializable {
     private TextField textBoxTelefono;
     @FXML
     private TextField textBoxDIreccion;
-    @FXML
     private TextField textBoxContactoEmergencia;
     @FXML
     private TextField textBoxContraseña;
+    @FXML
+    private TextField textBoxNombreContactoEmergencia;
+    @FXML
+    private TextField textBoxTelefonoContactoEmergencia;
  @Override
     public void initialize(URL url, ResourceBundle rb) {
       
@@ -66,10 +69,12 @@ public class CrearBibliotecarioController implements Initializable {
     @FXML
     private void onClick_buttonAceptar(ActionEvent event) {
         crearBibliotecario();
+        ((Node)(event.getSource())).getScene().getWindow().hide(); 
     }
 
     @FXML
     private void onClick_buttonCancelar(ActionEvent event) {
+        ((Node)(event.getSource())).getScene().getWindow().hide(); 
          
     }
     
@@ -82,13 +87,14 @@ public class CrearBibliotecarioController implements Initializable {
         String direccion = textBoxDIreccion.getText().equals("")?"":textBoxDIreccion.getText();
         String email = textBoxEmail.getText().equals("")?"":textBoxEmail.getText();
         String telefono = textBoxTelefono.getText().equals("")?"":textBoxTelefono.getText();
-        String contactoEmergencia = textBoxContactoEmergencia.getText().equals("")?"":textBoxContactoEmergencia.getText();
-        String contraseña = textBoxContraseña.getText().equals("")?"":textBoxContraseña.getText();
+        String contactoEmergenciaNombre = textBoxNombreContactoEmergencia.getText().equals("")?"":textBoxNombreContactoEmergencia.getText();
+        String contactoEmergenciaTelefono = textBoxTelefonoContactoEmergencia.getText().equals("")?"":textBoxTelefonoContactoEmergencia.getText();
+        String contrasena = textBoxContraseña.getText().equals("")?"":textBoxContraseña.getText();
         
         if(!rut.equals("")){
             
             try {
-                this.crearBibliotecarioEnBaseDeDatos(rut, nombre, apellidoPat, apellidoMat, direccion, email, telefono,contactoEmergencia,contraseña);
+                this.crearBibliotecarioEnBaseDeDatos(rut, nombre, apellidoPat, apellidoMat, direccion, email, telefono,contactoEmergenciaNombre,contactoEmergenciaTelefono,contrasena);
             } catch (UnsupportedEncodingException ex) {
                 System.out.println(ex);
                // Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
@@ -123,15 +129,16 @@ public class CrearBibliotecarioController implements Initializable {
      * @param direccion
      * @param email
      * @param telefono 
-     * @param contactoEmergencia 
-     * @param contraseña 
+     * @param contactoEmergenciaNombre 
+     * @param contactoEmergenciaTelefono 
+     * @param contrasena 
      */
     
     public void crearBibliotecarioEnBaseDeDatos(String rut,String nombre,String apellidoPat,
                                          String apellidoMat,String direccion,String email,
-                                         String telefono,String contactoEmergencia,String contraseña) throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
+                                         String telefono,String contactoEmergenciaNombre,String contactoEmergenciaTelefono,String contrasena) throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
     
-    URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+Valores.ValoresEstaticos.crearBibliotecarioPHP);
+    URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.crearBibliotecarioPHP);
     Map<String,Object> params = new LinkedHashMap<>();
     params.put("rut", rut);
     params.put("nombre", nombre);
@@ -140,8 +147,9 @@ public class CrearBibliotecarioController implements Initializable {
     params.put("direccion", direccion);
     params.put("telefono", telefono);
     params.put("correoElectronico", email);
-    params.put("contactoEmergencia", email);
-    params.put("contraseña", email);
+    params.put("contactoEmergenciaNombre", contactoEmergenciaNombre);
+    params.put("contactoEmergenciaTelefono", contactoEmergenciaTelefono);
+    params.put("contrasena", contrasena);
     StringBuilder postData = new StringBuilder();
     for (Map.Entry<String,Object> param : params.entrySet()) {
         if (postData.length() != 0) postData.append('&');
