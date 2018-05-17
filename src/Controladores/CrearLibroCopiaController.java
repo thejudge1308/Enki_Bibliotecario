@@ -23,6 +23,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -67,24 +68,30 @@ public class CrearLibroCopiaController implements Initializable {
 
     @FXML
     private void guardar(ActionEvent event) {
-        
       
+        System.out.println("Datos: "+textBoxAutor.getText()+" "+textBoxAño.getText()+" "+textBoxDewey.getText()+" "+textBoxEdicion.getText()+" "+textBoxISBN.getText()+" "+textBoxTitulo.getText());
+      crearLibro();
+         //((Node)(event.getSource())).getScene().getWindow().hide(); 
     }
 
     @FXML
     private void cancelar(ActionEvent event) {
+        
+        ((Node)(event.getSource())).getScene().getWindow().hide(); 
     }
  
     
     
     
-     private void crearLibror(){
+     private void crearLibro(){
         String isbn = textBoxISBN.getText().equals("")?"":textBoxISBN.getText();
         String autor=textBoxAutor.getText().equals("")?"":textBoxAutor.getText();
         String anio=textBoxAño.getText().equals("")?"":textBoxAño.getText();
         String dewey=textBoxDewey.getText().equals("")?"":textBoxDewey.getText();
         String titulo = textBoxTitulo.getText().equals("")?"":textBoxTitulo.getText();
         String  edicion= textBoxEdicion.getText().equals("")?"":textBoxEdicion.getText();
+        
+         System.out.println("Datos: "+isbn+" "+autor+" "+anio+" "+dewey+" "+titulo+" "+edicion);
         
         if(!isbn.equals("")){
             
@@ -97,7 +104,7 @@ public class CrearLibroCopiaController implements Initializable {
                 System.out.println(ex);
                 //Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (JSONException ex) {
-                Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CrearLibroCopiaController.class.getName()).log(Level.SEVERE, null, ex);
             }
             
             
@@ -116,18 +123,18 @@ public class CrearLibroCopiaController implements Initializable {
     //TODO: Decodificar JSON
     /**
      * 
-     * @param ISBN
-     * @param Autor
-     * @param Año
-     * @param Dewey
-     * @param Titulo
-     * @param Edición
+     * @param isbn
+     * @param autor
+     * @param anio
+     * @param dewey
+     * @param titulo
+     * @param edicion
      */
     
     public void crearLibroEnBaseDeDatos(String isbn,String autor,String anio,String dewey,
                                          String titulo,String edicion) throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
     
-    URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+Valores.ValoresEstaticos.crearLectorPHP);
+    URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+Valores.ValoresEstaticos.crearLibroPHP);
     Map<String,Object> params = new LinkedHashMap<>();
     params.put("isbn", isbn);
     params.put("autor", autor);
