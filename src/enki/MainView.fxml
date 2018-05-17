@@ -24,7 +24,7 @@
                <content>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Button id="buttonBibiotecario" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Bibliotecario" />
+                        <Button id="buttonBibiotecario" fx:id="buttonBibliotecario" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onActionBibliotecario" text="Bibliotecario" />
                         <Button id="buttonLector" fx:id="buttonLector" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClick_buttonLector" text="Lector" />
                      </children>
                   </VBox>

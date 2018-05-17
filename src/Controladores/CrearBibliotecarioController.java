@@ -66,12 +66,11 @@ public class CrearBibliotecarioController implements Initializable {
     @FXML
     private void onClick_buttonAceptar(ActionEvent event) {
         crearBibliotecario();
-         ((Node)(event.getSource())).getScene().getWindow().hide(); 
     }
 
     @FXML
     private void onClick_buttonCancelar(ActionEvent event) {
-         ((Node)(event.getSource())).getScene().getWindow().hide(); 
+         
     }
     
     //TODO
@@ -89,7 +88,7 @@ public class CrearBibliotecarioController implements Initializable {
         if(!rut.equals("")){
             
             try {
-                this.crearLectorEnBaseDeDatos(rut, nombre, apellidoPat, apellidoMat, direccion, email, telefono,contactoEmergencia,contraseña);
+                this.crearBibliotecarioEnBaseDeDatos(rut, nombre, apellidoPat, apellidoMat, direccion, email, telefono,contactoEmergencia,contraseña);
             } catch (UnsupportedEncodingException ex) {
                 System.out.println(ex);
                // Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
@@ -97,7 +96,7 @@ public class CrearBibliotecarioController implements Initializable {
                 System.out.println(ex);
                 //Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (JSONException ex) {
-                Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CrearBibliotecarioController.class.getName()).log(Level.SEVERE, null, ex);
             }
             
             
@@ -128,11 +127,11 @@ public class CrearBibliotecarioController implements Initializable {
      * @param contraseña 
      */
     
-    public void crearLectorEnBaseDeDatos(String rut,String nombre,String apellidoPat,
+    public void crearBibliotecarioEnBaseDeDatos(String rut,String nombre,String apellidoPat,
                                          String apellidoMat,String direccion,String email,
                                          String telefono,String contactoEmergencia,String contraseña) throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
     
-    URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+Valores.ValoresEstaticos.crearLectorPHP);
+    URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+Valores.ValoresEstaticos.crearBibliotecarioPHP);
     Map<String,Object> params = new LinkedHashMap<>();
     params.put("rut", rut);
     params.put("nombre", nombre);
