@@ -35,7 +35,7 @@
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <Button fx:id="buttonListarEstantes" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClick_buttonListarEstantes" text="Listar estantes" />
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Crear estante" />
+                        <Button fx:id="buttonCrearEstante" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClick_buttonCrearEstante" text="Crear estante" />
                      </children>
                   </VBox>
                </content>
