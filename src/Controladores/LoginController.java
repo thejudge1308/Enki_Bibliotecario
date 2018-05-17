@@ -136,6 +136,8 @@ alert.showAndWait();
             
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }  catch (JSONException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }  
     }
 
@@ -187,12 +189,13 @@ alert.showAndWait();
    return result;
 }
 
-   public boolean usuarioCorrecto() throws MalformedURLException, ProtocolException, IOException {
+   public boolean usuarioCorrecto() throws MalformedURLException, ProtocolException, IOException, JSONException {
        boolean flag=false;
         URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+Valores.ValoresEstaticos.loginPHP); // URL to your application
+        System.out.println(url);
         Map<String,Object> params = new LinkedHashMap<>();
-        params.put("correo", this.textBoxCorreo.getText()); // All parameters, also easy
-        params.put("contasena", this.passwordFieldContrasena.getText());
+        params.put("correo", this.textBoxCorreo.getText().trim()); // All parameters, also easy
+        params.put("contasena", this.passwordFieldContrasena.getText().trim());
 
     StringBuilder postData = new StringBuilder();
     for (Map.Entry<String,Object> param : params.entrySet()) {
@@ -217,13 +220,18 @@ alert.showAndWait();
     // This gets the output from your server
     Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
     String response="";
-    System.out.println(in);
-    for (int c; (c = in.read()) >= 0;)
-       response=response + (char)c;
-       
+    System.out.println(in.toString());
+    for (int c; (c = in.read()) >= 0;){
+        response=response + (char)c;
+    }
        System.out.println(response);
+       JSONObject obj = new JSONObject(response);
+       String mensaje = obj.getString("mensaje");
+       
+       System.out.println("Mensaje: "+obj);
     
-     if(response.equals("true")){
+     if(mensaje.contains("true")){
+         System.out.println(obj.get("tipo"));
          return true;
      }  
      

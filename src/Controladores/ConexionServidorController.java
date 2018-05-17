@@ -28,7 +28,7 @@ import javafx.scene.control.TextField;
 /**
  * FXML Controller class
  *
- * @author patricio
+ * @author Gerardo Estrada
  */
 public class ConexionServidorController implements Initializable {
 

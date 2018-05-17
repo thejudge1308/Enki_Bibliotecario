@@ -29,7 +29,7 @@ import org.json.JSONObject;
 /**
  * FXML Controller class
  *
- * @author patricio
+ * @author Gerardo Estrada
  */
 public class CrearLectorController implements Initializable {
 
