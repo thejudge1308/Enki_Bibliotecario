@@ -125,7 +125,7 @@ public class CrearLectorController implements Initializable {
                                          String apellidoMat,String direccion,String email,
                                          String telefono) throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
     
-    URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+Valores.ValoresEstaticos.crearLectorPHP);
+    URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.crearLectorPHP);
     Map<String,Object> params = new LinkedHashMap<>();
     params.put("rut", rut);
     params.put("nombre", nombre);
