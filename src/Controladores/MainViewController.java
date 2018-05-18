@@ -98,6 +98,18 @@ public class MainViewController implements Initializable {
         
         contenido_View.setCenter(bp);
      }
+     
+     @FXML
+     private void onClick_buttonCrearEstante(ActionEvent event){
+          BorderPane bp = null;
+        try {
+            bp = FXMLLoader.load(getClass().getResource("/enki/CrearEstante.fxml"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        contenido_View.setCenter(bp);
+     }
     
      @FXML
      private void onClick_buttonLector(ActionEvent event) throws IOException{
