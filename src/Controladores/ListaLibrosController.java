@@ -77,6 +77,8 @@ public class ListaLibrosController implements Initializable {
     private int tiempo;
     @FXML
     private ToggleGroup filtro;
+    @FXML
+    private TableColumn<Libro,String> tableColumnNCopias;
    
     
 
@@ -196,9 +198,10 @@ public class ListaLibrosController implements Initializable {
             
             String autor=jsonArray.getJSONObject(i).getString("autor")==null?"":jsonArray.getJSONObject(i).getString("autor");
             String edicion=jsonArray.getJSONObject(i).getString("edicion")==null?"":jsonArray.getJSONObject(i).getString("edicion");
-            String anio=jsonArray.getJSONObject(i).getString("anio")==null?"":jsonArray.getJSONObject(i).getString("edicion");
-           
-            libro  = new Libro(isbn,titulo,autor,edicion,anio);
+            String anio=jsonArray.getJSONObject(i).getString("anio")==null?"":jsonArray.getJSONObject(i).getString("anio");
+            String ncopias=jsonArray.getJSONObject(i).getString("ncopias")==null?"":jsonArray.getJSONObject(i).getString("ncopias");
+            
+            libro  = new Libro(isbn,titulo,autor,edicion,anio,ncopias);
             //System.out.println(lector.getRut());
             libros.add(libro);
         }
@@ -216,6 +219,7 @@ public class ListaLibrosController implements Initializable {
         tableColumnAutor.setCellValueFactory(new PropertyValueFactory<Libro,String>("autor"));
         tableColumnEdicion.setCellValueFactory(new PropertyValueFactory<Libro,String>("edicion"));
         tableColumnAnio.setCellValueFactory(new PropertyValueFactory<Libro,String>("anio"));
+        tableColumnNCopias.setCellValueFactory(new PropertyValueFactory<Libro,String>("ncopias"));
         tableColumnConfigurar.setCellValueFactory(new PropertyValueFactory<Libro,Button>("buttonConfigurar"));    
         tableColumnDetalle.setCellValueFactory(new PropertyValueFactory<Libro,Button>("buttonDetalle"));
         

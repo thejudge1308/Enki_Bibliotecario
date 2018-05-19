@@ -5,6 +5,7 @@
  */
 package Modelo;
 
+import Controladores.ConfigurarLibrosController;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -12,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Modality;
@@ -30,36 +32,50 @@ public class Libro
     private String autor;
     private String edicion;
     private String anio;
+    private String ncopias;
     private Button buttonDetalle;
     private Button buttonConfigurar;
 
-    public Libro(String isbn, String titulo, String autor, String edicion,String anio) {
+    public Libro(String isbn, String titulo, String autor, String edicion,String anio,String ncopias) {
         this.isbn = isbn;
         this.titulo = titulo;
         this.autor = autor;
         this.edicion = edicion;
         this.anio = anio;
+        this.ncopias = ncopias;
         this.buttonDetalle = new Button("Ver detalle");
         this.buttonConfigurar = new Button("Configurar");
         
         this.buttonConfigurar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/enki/ConfigurarLibros.fxml"));
-        Scene scene = null;
                 try {
-                    scene = new Scene(fxmlLoader.load(), 600, 400);
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource("/enki/ConfigurarLibros.fxml"));
+                    
+                    Parent principalParent = fxmlLoader.load();
+                    
+                    ConfigurarLibrosController controller = fxmlLoader.getController();
+                    controller.setIsbn(isbn);
+                    
+                    
+                    System.out.println("ISBN; "+isbn);
+                    Scene scene = null;
+                    scene = new Scene(principalParent);
+                    
+                    ConfigurarLibrosController configurarLibros = new ConfigurarLibrosController();
+                    configurarLibros.setIsbn(isbn);
+                    
+                    Stage configurarLibro = new Stage();
+                    configurarLibro.setMinWidth(650);
+                    configurarLibro.setMinHeight(413);
+                    configurarLibro.setTitle("Configurar Libro");
+                    configurarLibro.setScene(scene);
+                    configurarLibro.initModality(Modality.APPLICATION_MODAL);
+                    configurarLibro.show();
                 } catch (IOException ex) {
                     Logger.getLogger(Libro.class.getName()).log(Level.SEVERE, null, ex);
                 }
-        Stage configurarLibro = new Stage();
-        configurarLibro.setMinWidth(650);
-        configurarLibro.setMinHeight(413);
-        configurarLibro.setTitle("Configurar Libro");
-        configurarLibro.setScene(scene);
-        configurarLibro.initModality(Modality.APPLICATION_MODAL);
-        configurarLibro.show();
             }
         });
         

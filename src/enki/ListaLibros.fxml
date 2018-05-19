@@ -47,6 +47,7 @@
                         <TableColumn fx:id="tableColumnAutor" editable="false" prefWidth="78.0" sortable="false" text="Autor" />
                         <TableColumn fx:id="tableColumnEdicion" editable="false" minWidth="9.0" prefWidth="110.0" sortable="false" text="Edición" />
                         <TableColumn fx:id="tableColumnAnio" prefWidth="75.0" text="Año" />
+                        <TableColumn fx:id="tableColumnNCopias" prefWidth="75.0" text="N° Copias" />
                         <TableColumn fx:id="tableColumnConfigurar" minWidth="50.0" prefWidth="99.0" text="Configurar" />
                         <TableColumn fx:id="tableColumnDetalle" minWidth="50.0" prefWidth="97.0" text="Detalle" />
                     </columns>

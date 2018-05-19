@@ -34,13 +34,13 @@
         </rowConstraints>
          <children>
             <Label text="Titulo" />
-            <TextField maxWidth="1.7976931348623157E308" GridPane.rowIndex="1" />
+            <TextField fx:id="textFieldTitulo" maxWidth="1.7976931348623157E308" GridPane.rowIndex="1" />
             <Label text="Edición" GridPane.rowIndex="2" />
-            <TextField maxWidth="1.7976931348623157E308" GridPane.rowIndex="3" />
+            <TextField fx:id="textFieldEdicion" maxWidth="1.7976931348623157E308" GridPane.rowIndex="3" />
             <Label text="Autor" GridPane.rowIndex="4" />
-            <TextField maxWidth="1.7976931348623157E308" GridPane.rowIndex="5" />
+            <TextField fx:id="textFieldAutor" maxWidth="1.7976931348623157E308" GridPane.rowIndex="5" />
             <Label text="Año" GridPane.rowIndex="6" />
-            <TextField maxWidth="1.7976931348623157E308" GridPane.rowIndex="7" />
+            <TextField fx:id="textFieldAnio" maxWidth="1.7976931348623157E308" GridPane.rowIndex="7" />
          </children>
          <BorderPane.margin>
             <Insets bottom="10.0" left="25.0" right="25.0" top="10.0" />

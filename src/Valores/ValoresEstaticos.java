@@ -33,4 +33,10 @@ public class ValoresEstaticos {
      */
     public static final String obtenerLectorPHP ="usuario/obtenerLectores.php" ;
     public static final String obtenerLibroPHP ="libro/obtenerLibros.php" ;
+    
+    /**
+     * Modificar
+     */
+    
+    public static final String modificarLibroPHP="libro/modificarLibro.php";
 }
