@@ -22,7 +22,10 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -63,7 +66,11 @@ public class CrearLectorController implements Initializable {
     @FXML
     private void onClick_buttonAceptar(ActionEvent event) {
         crearLector();
-         ((Node)(event.getSource())).getScene().getWindow().hide(); 
+        if(isValidEmailAddress(textBoxEmail.getText()))
+        {
+          ((Node)(event.getSource())).getScene().getWindow().hide();   
+        }
+         
     }
 
     @FXML
@@ -82,8 +89,10 @@ public class CrearLectorController implements Initializable {
         String telefono = textBoxTelefono.getText().equals("")?"":textBoxTelefono.getText();
         
         if(!rut.equals("")){
-            
-            try {
+            if
+                    (isValidEmailAddress(email))
+            {
+                try {
                 this.crearLectorEnBaseDeDatos(rut, nombre, apellidoPat, apellidoMat, direccion, email, telefono);
             } catch (UnsupportedEncodingException ex) {
                 System.out.println(ex);
@@ -103,6 +112,13 @@ public class CrearLectorController implements Initializable {
             alerta.setContentText("EL campo rut esta vacio, ingrese un rut valido.");
             alerta.showAndWait();
         }
+            }
+        else
+        {
+            Alert alert = new Alert(AlertType.NONE, "Ingrese email correctamente", ButtonType.OK);
+alert.showAndWait();
+        }
+            
         
         
     }
@@ -175,5 +191,16 @@ public class CrearLectorController implements Initializable {
          
        
      }
+    
+    public static boolean isValidEmailAddress(String email) {
+   boolean result = true;
+   try {
+      InternetAddress emailAddr = new InternetAddress(email);
+      emailAddr.validate();
+   } catch (AddressException ex) {
+      result = false;
+   }
+   return result;
+}
     }
 

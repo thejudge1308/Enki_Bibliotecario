@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="lector_View" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="412.0" prefWidth="704.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.ListaLibrosController">
+<BorderPane fx:id="libro_View" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="412.0" prefWidth="704.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.ListaLibrosController">
    <center>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="600.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
@@ -34,6 +34,7 @@
                   </RadioButton>
                   <RadioButton mnemonicParsing="false" text="Autor" toggleGroup="$filtro" />
                   <RadioButton mnemonicParsing="false" text="Edición" toggleGroup="$filtro" />
+                  <RadioButton mnemonicParsing="false" text="Año" />
                   <RadioButton mnemonicParsing="false" text="ISBN" toggleGroup="$filtro" />
                </children>
             </HBox>
@@ -45,7 +46,7 @@
                       <TableColumn fx:id="tableColumnTitulo" editable="false" prefWidth="115.0" sortable="false" text="Título" />
                         <TableColumn fx:id="tableColumnAutor" editable="false" prefWidth="78.0" sortable="false" text="Autor" />
                         <TableColumn fx:id="tableColumnEdicion" editable="false" minWidth="9.0" prefWidth="110.0" sortable="false" text="Edición" />
-                        <TableColumn fx:id="tableColumnNCopias" prefWidth="75.0" text="N° copias" />
+                        <TableColumn fx:id="tableColumnAnio" prefWidth="75.0" text="Año" />
                         <TableColumn fx:id="tableColumnConfigurar" minWidth="50.0" prefWidth="99.0" text="Configurar" />
                         <TableColumn fx:id="tableColumnDetalle" minWidth="50.0" prefWidth="97.0" text="Detalle" />
                     </columns>
@@ -64,4 +65,16 @@
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
    </padding>
+   <bottom>
+      <HBox BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="labelTimer" text="La tabla se actualizara en " />
+            <Label text="Label" />
+            <Label text=" segundos" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
 </BorderPane>

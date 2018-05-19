@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controladores;
+package Modelo;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -25,20 +25,20 @@ import javafx.stage.Stage;
  */
 public class Libro 
 {
-    private String ISBN;
+    private String isbn;
     private String titulo;
     private String autor;
     private String edicion;
-    private int nCopias;
+    private String anio;
     private Button buttonDetalle;
     private Button buttonConfigurar;
 
-    public Libro(String ISBN, String titulo, String autor, String edicion, int nCopias) {
-        this.ISBN = ISBN;
+    public Libro(String isbn, String titulo, String autor, String edicion,String anio) {
+        this.isbn = isbn;
         this.titulo = titulo;
         this.autor = autor;
         this.edicion = edicion;
-        this.nCopias = nCopias;
+        this.anio = anio;
         this.buttonDetalle = new Button("Ver detalle");
         this.buttonConfigurar = new Button("Configurar");
         
@@ -98,12 +98,12 @@ public class Libro
         this.buttonConfigurar = buttonConfigurar;
     }
 
-    public String getISBN() {
-        return ISBN;
+    public String getisbn() {
+        return isbn;
     }
 
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
+    public void setISBN(String isbn) {
+        this.isbn = isbn;
     }
 
     public String getTitulo() {
@@ -130,14 +130,7 @@ public class Libro
         this.edicion = edicion;
     }
 
-    public int getNCopias() {
-        return nCopias;
-    }
-
-    public void setNCopias(int nCopias) {
-        this.nCopias = nCopias;
-    }
-
+    
     public Button getButtonDetalle() {
         return buttonDetalle;
     }
@@ -145,6 +138,24 @@ public class Libro
     public void setButtonDetalle(Button buttonDetalle) {
         this.buttonDetalle = buttonDetalle;
     }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public String getAnio() {
+        return anio;
+    }
+
+    public void setAnio(String anio) {
+        this.anio = anio;
+    }
+
+  
     
     
     

@@ -134,7 +134,7 @@ public class CrearLibroCopiaController implements Initializable {
     public void crearLibroEnBaseDeDatos(String isbn,String autor,String anio,String dewey,
                                          String titulo,String edicion) throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
     
-    URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+Valores.ValoresEstaticos.crearLibroPHP);
+    URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.crearLibroPHP);
     Map<String,Object> params = new LinkedHashMap<>();
     params.put("isbn", isbn);
     params.put("autor", autor);
