@@ -69,7 +69,7 @@
       <HBox BorderPane.alignment="CENTER">
          <children>
             <Label fx:id="labelTimer" text="La tabla se actualizara en " />
-            <Label text="Label" />
+            <Label fx:id="labelTimer" text="Label" />
             <Label text=" segundos" />
          </children>
          <BorderPane.margin>

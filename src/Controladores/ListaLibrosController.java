@@ -77,6 +77,7 @@ public class ListaLibrosController implements Initializable {
     private int tiempo;
     @FXML
     private ToggleGroup filtro;
+   
     
 
     /**
