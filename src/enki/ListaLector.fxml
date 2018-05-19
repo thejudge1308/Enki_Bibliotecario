@@ -5,11 +5,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="703.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.ListaLectorController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.ListaLectorController">
    <center>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="526.0" prefWidth="635.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0">
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="118.0" prefWidth="699.0">
                <children>
                   <Button fx:id="buttonNuevoLector" mnemonicParsing="false" onAction="#onClick_buttonNuevoLector" text="Nuevo Lector">
                      <VBox.margin>
@@ -58,31 +58,40 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
                   </HBox>
-                  <TableView fx:id="tableViewLectores" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="444.0" prefWidth="673.0">
-                    <columns>
-                      <TableColumn prefWidth="75.0" text="Rut" />
-                      <TableColumn prefWidth="75.0" text="Nombre" />
-                        <TableColumn prefWidth="75.0" text="A.Paterno" />
-                        <TableColumn prefWidth="75.0" text="A.Materno" />
-                        <TableColumn prefWidth="75.0" text="Configuracion" />
-                        <TableColumn prefWidth="75.0" text="Habilitado" />
-                    </columns>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
                </children>
                <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
             </VBox>
+            <TableView fx:id="tableViewLectores" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="415.0" prefWidth="683.0">
+              <columns>
+                <TableColumn fx:id="tableColumnRut" prefWidth="75.0" text="Rut" />
+                <TableColumn fx:id="tableColumnNombre" prefWidth="75.0" text="Nombre" />
+                  <TableColumn fx:id="tableColumnAPaterno" prefWidth="75.0" text="A.Paterno" />
+                  <TableColumn fx:id="tableColumnAMaterno" prefWidth="75.0" text="A.Materno" />
+                  <TableColumn fx:id="tableColumnConfig" prefWidth="75.0" text="Configuracion" />
+                  <TableColumn fx:id="tableColumnHabilitado" prefWidth="75.0" text="Habilitado" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </TableView>
          </children>
       </VBox>
    </center>
    <bottom>
-      <HBox BorderPane.alignment="CENTER" />
+      <HBox BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Esta tabla se actualizara en: " />
+            <Label fx:id="labelTimer" text="0" />
+            <Label text=" segundos." />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+      </HBox>
    </bottom>
 </BorderPane>

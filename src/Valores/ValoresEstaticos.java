@@ -21,10 +21,15 @@ public class ValoresEstaticos {
    
     /**
      * Archivos Del servidor
+     * Crear 
      */
     public static final String loginPHP="login.php";
     public static final String crearLectorPHP="usuario/crearLector.php";
     public static final String crearBibliotecarioPHP="usuario/crearBibliotecario.php";
     public static final String crearLibroPHP="libro/crearLibro.php";
     
+    /**
+     * Obtener
+     */
+    public static final String obtenerLectorPHP ="usuario/obtenerLectores.php" ;
 }
