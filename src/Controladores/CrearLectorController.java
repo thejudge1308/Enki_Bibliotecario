@@ -51,7 +51,7 @@ public class CrearLectorController implements Initializable {
     private TextField textBoxTelefono;
     @FXML
     private TextField textBoxDIreccion;
-
+    
     /**
      * Initializes the controller class.
      */
