@@ -35,22 +35,22 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Label" GridPane.columnIndex="1" />
+            <Label fx:id="labelIsbn" text="Label" GridPane.columnIndex="1" />
             <Label text="ISBN:" />
             <Label text="Titulo:" GridPane.rowIndex="1" />
             <Label text="Año:" GridPane.rowIndex="2" />
             <Label text="Edición:" GridPane.rowIndex="3" />
             <Label text="Código:" GridPane.rowIndex="4" />
             <Label text="Estado:" GridPane.rowIndex="5" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <ComboBox maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="260.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label fx:id="labelTitulo" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="labelAño" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="labelEdicion" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="labelCodigo" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ComboBox fx:id="comboBoxEstado" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="260.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label text="Estante:" GridPane.rowIndex="6" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nivel:" GridPane.rowIndex="7" />
-            <ComboBox maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <ComboBox maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <ComboBox fx:id="comboBoxEstante" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <ComboBox fx:id="comboBoxNivel" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
          </children>
          <BorderPane.margin>
             <Insets bottom="10.0" left="25.0" right="25.0" top="25.0" />

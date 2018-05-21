@@ -27,12 +27,14 @@ public class ValoresEstaticos {
     public static final String crearLectorPHP="usuario/crearLector.php";
     public static final String crearBibliotecarioPHP="usuario/crearBibliotecario.php";
     public static final String crearLibroPHP="libro/crearLibro.php";
+    public static final String crearCopiaPHP="copia/crearCopia.php";
     
     /**
      * Obtener
      */
     public static final String obtenerLectorPHP ="usuario/obtenerLectores.php" ;
     public static final String obtenerLibroPHP ="libro/obtenerLibros.php" ;
+    public static final String obtenerCopiaPHP ="copia/obtenerCopias.php" ;
     
     /**
      * Modificar

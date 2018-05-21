@@ -6,6 +6,7 @@
 package Modelo;
 
 import Controladores.ConfigurarLibrosController;
+import Controladores.DetalleCopiaController;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,15 +57,14 @@ public class Libro
                     Parent principalParent = fxmlLoader.load();
                     
                     ConfigurarLibrosController controller = fxmlLoader.getController();
-                    controller.setIsbn(isbn);
+                    
                     
                     
                     System.out.println("ISBN; "+isbn);
                     Scene scene = null;
                     scene = new Scene(principalParent);
                     
-                    ConfigurarLibrosController configurarLibros = new ConfigurarLibrosController();
-                    configurarLibros.setIsbn(isbn);
+                    
                     
                     Stage configurarLibro = new Stage();
                     configurarLibro.setMinWidth(650);
@@ -72,6 +72,7 @@ public class Libro
                     configurarLibro.setTitle("Configurar Libro");
                     configurarLibro.setScene(scene);
                     configurarLibro.initModality(Modality.APPLICATION_MODAL);
+                    controller.setIsbn(isbn);
                     configurarLibro.show();
                 } catch (IOException ex) {
                     Logger.getLogger(Libro.class.getName()).log(Level.SEVERE, null, ex);
@@ -83,21 +84,31 @@ public class Libro
         this.buttonDetalle.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                FXMLLoader fxmlLoader2 = new FXMLLoader();
-        fxmlLoader2.setLocation(getClass().getResource("/enki/DetalleCopia.fxml"));
-        Scene scene2 = null;
                 try {
-                    scene2 = new Scene(fxmlLoader2.load(), 600, 400);
+                    FXMLLoader fxmlLoader2 = new FXMLLoader();
+                    fxmlLoader2.setLocation(getClass().getResource("/enki/DetalleCopia.fxml"));
+                    
+                    Parent principalParent = fxmlLoader2.load();
+                    
+                    DetalleCopiaController controller = fxmlLoader2.getController();
+                    System.out.println("ISSBN: "+isbn);
+                    controller.setIsbn(isbn);
+                    controller.setTitulo(titulo);
+                    controller.setAutor(autor);
+                    controller.setAño(anio);
+                    controller.setEdicion(anio);
+                    Scene scene2 = null;
+                    scene2 = new Scene(principalParent);
+                    Stage detalleCopia = new Stage();
+                    detalleCopia.setMinWidth(750);
+                    detalleCopia.setMinHeight(365);
+                    detalleCopia.setTitle("Detalle copia");
+                    detalleCopia.setScene(scene2);
+                    detalleCopia.initModality(Modality.APPLICATION_MODAL);
+                    detalleCopia.show();
                 } catch (IOException ex) {
                     Logger.getLogger(Libro.class.getName()).log(Level.SEVERE, null, ex);
                 }
-        Stage detalleCopia = new Stage();
-        detalleCopia.setMinWidth(750);
-        detalleCopia.setMinHeight(365);
-        detalleCopia.setTitle("Detalle copia");
-        detalleCopia.setScene(scene2);
-        detalleCopia.initModality(Modality.APPLICATION_MODAL);
-        detalleCopia.show();
             }
         });
         
