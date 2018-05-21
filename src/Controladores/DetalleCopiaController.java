@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -74,7 +75,7 @@ public class DetalleCopiaController implements Initializable {
     @FXML
     private Label labelTimer;
     
-    private int tiempoMaximo = 60;
+    private int tiempoMaximo = 2;
     private int tiempo;
 
     private String isbn;
@@ -102,7 +103,7 @@ public class DetalleCopiaController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     if(tiempo==0){
-                        tiempo=15;
+                        tiempo=2;
                         
                         try {
                             refrescarTabla();
@@ -267,6 +268,9 @@ public class DetalleCopiaController implements Initializable {
     {
         this.edicion=edicion;
     }
+      
+      
+        
     
     }
     

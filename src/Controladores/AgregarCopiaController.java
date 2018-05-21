@@ -16,6 +16,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -100,7 +101,7 @@ public class AgregarCopiaController implements Initializable {
      private void crearCopia(){
         String estado = comboBoxEstado.getValue().equals("")?"":comboBoxEstado.getValue();
         isbn=isbn.equals("")?"":isbn;
-        String codigo="codigo".equals("")?"":"codigo";
+        String codigo=getSaltString().equals("")?"":getSaltString();
         String numeroCopia="2".equals("")?"":"2";
         String  ubicacion= " ".equals("")?"":" ";
         
@@ -206,5 +207,18 @@ public class AgregarCopiaController implements Initializable {
     public void setEdicion(String edicion)
     {
         this.edicion=edicion;
+    }
+    
+    protected String getSaltString() {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 18) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+
     }
 }

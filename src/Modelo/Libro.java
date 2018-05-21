@@ -92,11 +92,7 @@ public class Libro
                     
                     DetalleCopiaController controller = fxmlLoader2.getController();
                     System.out.println("ISSBN: "+isbn);
-                    controller.setIsbn(isbn);
-                    controller.setTitulo(titulo);
-                    controller.setAutor(autor);
-                    controller.setAño(anio);
-                    controller.setEdicion(anio);
+                    
                     Scene scene2 = null;
                     scene2 = new Scene(principalParent);
                     Stage detalleCopia = new Stage();
@@ -105,6 +101,11 @@ public class Libro
                     detalleCopia.setTitle("Detalle copia");
                     detalleCopia.setScene(scene2);
                     detalleCopia.initModality(Modality.APPLICATION_MODAL);
+                    controller.setIsbn(isbn);
+                    controller.setTitulo(titulo);
+                    controller.setAutor(autor);
+                    controller.setAño(anio);
+                    controller.setEdicion(anio);
                     detalleCopia.show();
                 } catch (IOException ex) {
                     Logger.getLogger(Libro.class.getName()).log(Level.SEVERE, null, ex);
