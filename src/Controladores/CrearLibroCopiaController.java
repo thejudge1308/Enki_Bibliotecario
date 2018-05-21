@@ -16,6 +16,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -97,6 +98,7 @@ public class CrearLibroCopiaController implements Initializable {
             
             try {
                 this.crearLibroEnBaseDeDatos(isbn, autor, anio,dewey , titulo, edicion);
+                crearCopia(isbn);
             } catch (UnsupportedEncodingException ex) {
                 System.out.println(ex);
                // Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
@@ -134,7 +136,7 @@ public class CrearLibroCopiaController implements Initializable {
     public void crearLibroEnBaseDeDatos(String isbn,String autor,String anio,String dewey,
                                          String titulo,String edicion) throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
     
-    URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+Valores.ValoresEstaticos.crearLibroPHP);
+    URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.crearLibroPHP);
     Map<String,Object> params = new LinkedHashMap<>();
     params.put("isbn", isbn);
     params.put("autor", autor);
@@ -182,4 +184,114 @@ public class CrearLibroCopiaController implements Initializable {
    // System.out.println(response);
 }
     
+    
+    
+    
+    
+    private void crearCopia(String isbn){
+        String estado = "En exhibicion".equals("")?"":"En exhibicion";
+        isbn=isbn.equals("")?"":isbn;
+        String codigo=getSaltString().equals("")?"":getSaltString();
+        String numeroCopia="2".equals("")?"":"2";
+        String ubicacion= " ".equals("")?"":" ";
+        
+        
+        
+       
+            
+            try {
+                this.crearCopiaEnBaseDeDatos(isbn, estado,codigo,numeroCopia , ubicacion);
+                
+            } catch (UnsupportedEncodingException ex) {
+                System.out.println(ex);
+               // Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                System.out.println(ex);
+                //Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (JSONException ex) {
+                Logger.getLogger(AgregarCopiaController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        
+        
+        
+        
+    }
+    
+    
+    //TODO: Decodificar JSON
+    /**
+     * 
+     * @param isbn
+     * @param autor
+     * @param anio
+     * @param dewey
+     * @param titulo
+     * @param edicion
+     */
+    
+    public void crearCopiaEnBaseDeDatos(String isbn,String estado,String codigo,String numeroCopia,String ubicacion) throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
+    
+        System.out.println("datos:"+isbn+estado+codigo+numeroCopia+ubicacion);
+    URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.crearCopiaPHP);
+    Map<String,Object> params = new LinkedHashMap<>();
+    params.put("codigo",codigo);
+    params.put("isbnlibro",isbn);
+    params.put("numerocopia", numeroCopia);
+    params.put("estado",estado);
+    params.put("ubicacion",ubicacion);
+    StringBuilder postData = new StringBuilder();
+    for (Map.Entry<String,Object> param : params.entrySet()) {
+        if (postData.length() != 0) postData.append('&');
+        postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+        postData.append('=');
+        postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+    }
+
+    // Convierte el array, para ser enviendo
+    byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+
+    // Conectar al server
+    HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+    
+    // Configura
+    conn.setRequestMethod("POST");
+    conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+    conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+    conn.setDoOutput(true);
+    conn.getOutputStream().write(postDataBytes);
+
+    // Obtiene la respuesta del servidor
+    Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+    
+    String response="";
+    System.out.println(in);
+    for (int c; (c = in.read()) >= 0;)
+       response=response + (char)c;
+    
+    //Convierte el json enviado (decodigicado)
+    JSONObject obj = new JSONObject(response);
+    String mensaje = obj.getString("mensaje");
+    
+    Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+    alerta.setTitle("Mensaje");
+    alerta.setContentText(mensaje);
+    alerta.showAndWait();
+   // System.out.println(response);
+}
+    
+    
+    //Metodo para generar un string aleatorio
+    protected String getSaltString() {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 18) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+
+    }
 }

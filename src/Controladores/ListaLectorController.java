@@ -140,6 +140,7 @@ public class ListaLectorController implements Initializable {
       fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
       fiveSecondsWonder.play();
 
+      
     }    
 
     @FXML

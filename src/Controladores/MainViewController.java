@@ -41,14 +41,12 @@ public class MainViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        
-        BorderPane bp = null;
+        BorderPane bp=null;
         try {
             bp = FXMLLoader.load(getClass().getResource("/enki/ListaLibros.fxml"));
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //bp.setPrefSize(Double.MAX_VALUE,Double.MAX_VALUE);
-        
         contenido_View.setCenter(bp);
         
     }    
@@ -71,14 +69,8 @@ public class MainViewController implements Initializable {
     @FXML
     private void listaLibros(ActionEvent event)throws IOException
     {
-        BorderPane bp = null;
-        try {
-            bp = FXMLLoader.load(getClass().getResource("/enki/ListaLibros.fxml"));
-        } catch (IOException ex) {
-            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //bp.setPrefSize(Double.MAX_VALUE,Double.MAX_VALUE);
-        contenido_View.setCenter(bp);
+       BorderPane bp2 = FXMLLoader.load(getClass().getResource("/enki/ListaLibros.fxml"));
+        contenido_View.setCenter(bp2);
     }
 
     @FXML

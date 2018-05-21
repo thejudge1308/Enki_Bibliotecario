@@ -1,6 +1,5 @@
 
 package Modelo;
-
 import Controladores.ModificarLectorController;
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -26,6 +26,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -114,6 +116,8 @@ public class CrearBibliotecarioController implements Initializable {
             alerta.showAndWait();
         }
         
+     
+        
         
     }
     
@@ -191,5 +195,7 @@ public class CrearBibliotecarioController implements Initializable {
          
        
      }
+    
+    
 
 }
