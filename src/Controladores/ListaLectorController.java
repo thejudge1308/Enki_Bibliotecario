@@ -53,7 +53,7 @@ import org.json.JSONObject;
 /**
  * FXML Controller class
  *
- * @author patricio
+ * @author Gerardo
  */
 public class ListaLectorController implements Initializable {
 
@@ -114,7 +114,7 @@ public class ListaLectorController implements Initializable {
           @Override
           public void handle(ActionEvent event) {
               if(tiempo==0){
-                  tiempo=15;
+                  tiempo=tiempoMaximo;
                   
                    try {
                         refrescarTabla();
@@ -170,10 +170,10 @@ public class ListaLectorController implements Initializable {
     
     private void refrescarTabla() throws MalformedURLException, UnsupportedEncodingException, ProtocolException, IOException, JSONException{
         
-         URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.obtenerLectorPHP);
-    Map<String,Object> params = new LinkedHashMap<>();
-    StringBuilder postData = new StringBuilder();
-    for (Map.Entry<String,Object> param : params.entrySet()) {
+     URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.obtenerLectorPHP);
+     Map<String,Object> params = new LinkedHashMap<>();
+     StringBuilder postData = new StringBuilder();
+     for (Map.Entry<String,Object> param : params.entrySet()) {
         if (postData.length() != 0) postData.append('&');
         postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
         postData.append('=');
@@ -217,8 +217,9 @@ public class ListaLectorController implements Initializable {
             
             String apaterno=jsonArray.getJSONObject(i).getString("apellidoPaterno")==null?"":jsonArray.getJSONObject(i).getString("apellidoPaterno");
             String amaterno=jsonArray.getJSONObject(i).getString("apellidoMaterno")==null?"":jsonArray.getJSONObject(i).getString("apellidoMaterno");
+            String habilitado=jsonArray.getJSONObject(i).getString("estado")==null?"":jsonArray.getJSONObject(i).getString("estado");
             
-            lector  = new Lector(rut,nombre,apaterno,amaterno,"");
+            lector  = new Lector(rut,nombre,apaterno,amaterno,habilitado);
             //System.out.println(lector.getRut());
             lectores.add(lector);
         }
