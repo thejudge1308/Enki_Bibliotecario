@@ -47,15 +47,11 @@ public class MainViewController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         contenido_View.setCenter(bp);
         
     }    
 
-    @FXML
-    private void crear(ActionEvent event) throws IOException {
-        System.out.println("Hola");
-        
-    }
     
     @FXML
     private void crearCopia(ActionEvent event) throws IOException
@@ -102,6 +98,19 @@ public class MainViewController implements Initializable {
         
         contenido_View.setCenter(bp);
      }
+             
+     @FXML
+     private void onClick_buttonCrearPrestamo(ActionEvent event){
+          BorderPane bp = null;
+        try {
+            bp = FXMLLoader.load(getClass().getResource("/enki/CrearPrestamo.fxml"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        contenido_View.setCenter(bp);
+     }
+
     
      @FXML
      private void onClick_buttonLector(ActionEvent event) throws IOException{
@@ -115,5 +124,17 @@ public class MainViewController implements Initializable {
         BorderPane bp2 = FXMLLoader.load(getClass().getResource("/enki/ListaBibliotecarios.fxml"));
        contenido_View.setCenter(bp2);
     }
+            
+            @FXML
+     private void onClick_buttonListarPrestamo(ActionEvent event){
+          BorderPane bp = null;
+        try {
+            bp = FXMLLoader.load(getClass().getResource("/enki/ListaPrestamos.fxml"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        contenido_View.setCenter(bp);
+     }
      
 }
