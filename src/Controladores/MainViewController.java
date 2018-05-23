@@ -2,6 +2,7 @@
 
 package Controladores;
 
+import Valores.SingletonUsuario;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,7 +16,13 @@ import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import enki.*;
+import java.util.Optional;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.MenuItem;
 
 /**
  * FXML Controller class
@@ -35,12 +42,20 @@ public class MainViewController implements Initializable {
     private Button buttonLector;
     @FXML
     private Button buttonBibliotecario;
+    @FXML
+    private MenuItem menuItemCerrarSesion;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        
+        //Privilegios de bibliotecarios
+        if(SingletonUsuario.usuario.getTipoUsuario().equals("bib")){
+            buttonBibliotecario.setVisible(false);
+            buttonCrearLibroCopia.setVisible(false);
+        }
+        
         BorderPane bp=null;
         try {
             bp = FXMLLoader.load(getClass().getResource("/enki/ListaLibros.fxml"));
@@ -135,6 +150,23 @@ public class MainViewController implements Initializable {
         }
         
         contenido_View.setCenter(bp);
+     }
+     
+     @FXML
+     private void onClick_menuItemCerrarSesion(ActionEvent event){
+         Alert alert = new Alert(AlertType.CONFIRMATION);
+         alert.setTitle("Confirmación");
+         alert.setHeaderText("Estas seguro que deseas salir?");
+         alert.setContentText("Si aceptas, se cerrara la sesion actual.");
+
+         Optional<ButtonType> result = alert.showAndWait();
+         if (result.get() == ButtonType.OK){
+            //((Node)(event.getSource())).getScene().getWindow().hide(); //Cierra la ventana actual
+            System.exit(0);
+         } else {
+             
+         }
+
      }
      
 }

@@ -2,6 +2,7 @@
 package Controladores;
 
 import Modelo.Servidor;
+import Valores.SingletonUsuario;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -228,10 +229,12 @@ alert.showAndWait();
        JSONObject obj = new JSONObject(response);
        String mensaje = obj.getString("mensaje");
        
-       System.out.println("Mensaje: "+obj);
+       //System.out.println("Mensaje: "+obj);
     
      if(mensaje.contains("true")){
-         System.out.println(obj.get("tipo"));
+         String tipo = obj.getString("tipo");
+         SingletonUsuario.setUsuario(this.textBoxCorreo.getText().trim(), tipo);
+         //System.out.println(obj.get("tipo"));
          return true;
      }  
      
