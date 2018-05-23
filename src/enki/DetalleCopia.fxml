@@ -16,21 +16,28 @@
             </HBox>
             <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="283.0" prefWidth="583.0">
                <children>
-                  <TableView fx:id="tableViewListaLibros" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="283.0" prefWidth="618.0" HBox.hgrow="ALWAYS">
+                  <TableView fx:id="tableViewListaCopias" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="283.0" prefWidth="618.0" HBox.hgrow="ALWAYS">
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                      <columns>
-                        <TableColumn fx:id="tableColumnISBN" editable="false" prefWidth="86.0" sortable="false" text="Código" />
+                        <TableColumn fx:id="tableColumnICodigo" editable="false" prefWidth="86.0" sortable="false" text="Código" />
                         <TableColumn fx:id="tableColumnTitulo" editable="false" prefWidth="115.0" sortable="false" text="Título" />
                         <TableColumn fx:id="tableColumnAutor" editable="false" prefWidth="78.0" sortable="false" text="Autor" />
-                        <TableColumn fx:id="tableColumnEdicion" editable="false" minWidth="9.0" prefWidth="110.0" sortable="false" text="Estado" />
-                        <TableColumn fx:id="tableColumnNCopias" prefWidth="75.0" text="Ubicación" />
+                        <TableColumn fx:id="tableColumnEstado" editable="false" minWidth="9.0" prefWidth="110.0" sortable="false" text="Estado" />
+                        <TableColumn fx:id="tableColumnUbicacion" prefWidth="75.0" text="Ubicación" />
                      </columns>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </TableView>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+               <children>
+                  <Label text="Esta tabla se actualizará en" />
+                  <Label fx:id="labelTimer" text="Label" />
+                  <Label text="segundos." />
                </children>
             </HBox>
          </children>
