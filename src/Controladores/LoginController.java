@@ -38,6 +38,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -101,7 +102,22 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    private void onClick_buttonOlvideMiContasena(ActionEvent event) {
+    private void onClick_buttonOlvideMiContasena(ActionEvent event) {        
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/enki/OlvideContrasena.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setMinWidth(400);
+            stage.setMinHeight(150);
+            stage.setTitle(Valores.ValoresEstaticos.enki);
+            stage.setScene(scene);
+            stage.setResizable(false);
+          //  ((Node)(event.getSource())).getScene().getWindow().hide(); //Cierra la ventana actual
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        } catch (IOException ex) {
+            Logger.getLogger(ListaLectorController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 
@@ -240,5 +256,5 @@ alert.showAndWait();
      
        
        return flag;
-   }
+   }  
 }
