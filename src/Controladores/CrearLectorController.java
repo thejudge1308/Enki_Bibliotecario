@@ -13,9 +13,11 @@ import java.net.URLEncoder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -24,6 +26,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter.Change;
+import javafx.scene.input.KeyEvent;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import org.json.JSONException;
@@ -60,7 +64,8 @@ public class CrearLectorController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-      
+            this.textBoxRut.addEventFilter(KeyEvent.KEY_TYPED , ValidacionRut(13));
+            
     }    
 
     @FXML
@@ -202,5 +207,50 @@ alert.showAndWait();
    }
    return result;
 }
-    }
+    
+public EventHandler<KeyEvent> ValidacionRut(final Integer max_Lengh) {
+    return new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(KeyEvent e) {
+            TextField txt_TextField = (TextField) e.getSource();                
+            if (txt_TextField.getText().length() >= max_Lengh) {                    
+                e.consume();
+            }
+            if(e.getCharacter().matches("[0-9]|[k]")){ 
+                if(txt_TextField.getText().contains(".") && e.getCharacter().matches("[.]")){
+                    e.consume();
+                   // txt_TextField.setText(FormatearRUT(txt_TextField.getText()));
+
+                }else if(txt_TextField.getText().length() == 0 && e.getCharacter().matches("[.]")){
+                    e.consume(); 
+                    //txt_TextField.setText(FormatearRUT(txt_TextField.getText()));
+
+                }
+            }else{
+                e.consume();
+            }
+        }
+    };
+}        
+
+public static String FormatearRUT(String rut) {
+
+        int cont = 0;
+        String format;
+        rut = rut.replace(".", "");
+        rut = rut.replace("-", "");
+        format = "-" + rut.substring(rut.length() - 1);
+        for (int i = rut.length() - 2; i >= 0; i--) {
+            format = rut.substring(i, i + 1) + format;
+            cont++;
+            if (cont == 3 && i != 0) {
+                format = "." + format;
+                cont = 0;
+            }
+        }
+        return format;
+}
+
+    
+}
 

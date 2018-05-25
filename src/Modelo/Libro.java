@@ -45,7 +45,7 @@ public class Libro
         this.anio = anio;
         this.ncopias = ncopias;
         this.buttonDetalle = new Button("Ver detalle");
-        this.buttonConfigurar = new Button("Configurar");
+        this.buttonConfigurar = new Button("Modificar");
         
         this.buttonConfigurar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -56,23 +56,21 @@ public class Libro
                     
                     Parent principalParent = fxmlLoader.load();
                     
-                    ConfigurarLibrosController controller = fxmlLoader.getController();
+                    ConfigurarLibrosController controller = fxmlLoader.getController();      
                     
-                    
-                    
-                    System.out.println("ISBN; "+isbn);
+                    //System.out.println("ISBN; "+isbn);
                     Scene scene = null;
                     scene = new Scene(principalParent);
-                    
-                    
-                    
+                  
                     Stage configurarLibro = new Stage();
-                    configurarLibro.setMinWidth(650);
-                    configurarLibro.setMinHeight(413);
-                    configurarLibro.setTitle("Configurar Libro");
+                    configurarLibro.setMinWidth(600);
+                    configurarLibro.setMinHeight(325);
+                    configurarLibro.setTitle("Modificar Libro");
                     configurarLibro.setScene(scene);
                     configurarLibro.initModality(Modality.APPLICATION_MODAL);
                     controller.setIsbn(isbn);
+                    
+                    //controller.
                     configurarLibro.show();
                 } catch (IOException ex) {
                     Logger.getLogger(Libro.class.getName()).log(Level.SEVERE, null, ex);
@@ -91,14 +89,14 @@ public class Libro
                     Parent principalParent = fxmlLoader2.load();
                     
                     DetalleCopiaController controller = fxmlLoader2.getController();
-                    System.out.println("ISSBN: "+isbn);
+                    //System.out.println("ISSBN: "+isbn);
                     
                     Scene scene2 = null;
                     scene2 = new Scene(principalParent);
                     Stage detalleCopia = new Stage();
-                    detalleCopia.setMinWidth(750);
-                    detalleCopia.setMinHeight(365);
-                    detalleCopia.setTitle("Detalle copia");
+                    detalleCopia.setMinWidth(695);
+                    detalleCopia.setMinHeight(500);
+                    detalleCopia.setTitle("Detalle de la copia");
                     detalleCopia.setScene(scene2);
                     detalleCopia.initModality(Modality.APPLICATION_MODAL);
                     controller.setIsbn(isbn);
@@ -106,6 +104,7 @@ public class Libro
                     controller.setAutor(autor);
                     controller.setAño(anio);
                     controller.setEdicion(anio);
+                    controller.showTabla();
                     detalleCopia.show();
                 } catch (IOException ex) {
                     Logger.getLogger(Libro.class.getName()).log(Level.SEVERE, null, ex);
@@ -132,6 +131,7 @@ public class Libro
 
     public void setISBN(String isbn) {
         this.isbn = isbn;
+       
     }
 
     public String getTitulo() {

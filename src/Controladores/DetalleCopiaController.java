@@ -75,7 +75,10 @@ public class DetalleCopiaController implements Initializable {
     @FXML
     private Label labelTimer;
     
-    private int tiempoMaximo = 2;
+    @FXML
+    private Button buttonActaulizarTabla;
+    
+    private int tiempoMaximo = 60;
     private int tiempo;
 
     private String isbn;
@@ -88,14 +91,7 @@ public class DetalleCopiaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
-            // TODO
-
-            System.out.println("ISBN antes de refrescar: "+isbn);
-            
-        
-            
-            
+     
             this.labelTimer.setText(tiempoMaximo+"");
             this.tiempo=tiempoMaximo;
             Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
@@ -103,7 +99,7 @@ public class DetalleCopiaController implements Initializable {
                 @Override
                 public void handle(ActionEvent event) {
                     if(tiempo==0){
-                        tiempo=2;
+                        tiempo=tiempoMaximo;
                         
                         try {
                             refrescarTabla();
@@ -148,19 +144,23 @@ public class DetalleCopiaController implements Initializable {
             controller.setTitulo(titulo);
             controller.setAño(año);
             controller.setEdicion(edicion);
+          
             
             
            
             scene = new Scene(principalParent);
             Stage agregarCopia = new Stage();
-            agregarCopia.setMinWidth(650);
-            agregarCopia.setMinHeight(401);
+            agregarCopia.setMinWidth(600);
+            agregarCopia.setMinHeight(367);
             agregarCopia.setTitle("Agregar Copia");
             agregarCopia.setScene(scene);
             agregarCopia.initModality(Modality.APPLICATION_MODAL);
-            agregarCopia.show();
+            agregarCopia.showAndWait();
+            refrescarTabla();
         } catch (IOException ex) {
         Logger.getLogger(DetalleCopiaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(DetalleCopiaController.class.getName()).log(Level.SEVERE, null, ex);
         }
             }
     
@@ -241,8 +241,35 @@ public class DetalleCopiaController implements Initializable {
         
         this.tableViewListaCopias.setItems(ocopias);
     }
+    @FXML
+    public void onClick_buttonActaulizarTabla(ActionEvent event){
+        try {
+            refrescarTabla();
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(DetalleCopiaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ProtocolException ex) {
+            Logger.getLogger(DetalleCopiaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DetalleCopiaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(DetalleCopiaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
+    }
     
+    public void showTabla(){
+        try {
+            refrescarTabla();
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(DetalleCopiaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ProtocolException ex) {
+            Logger.getLogger(DetalleCopiaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DetalleCopiaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(DetalleCopiaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     public void setIsbn(String isbn)
         {
