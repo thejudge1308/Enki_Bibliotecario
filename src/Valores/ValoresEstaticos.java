@@ -37,6 +37,7 @@ public class ValoresEstaticos {
     public static final String obtenerLibroPHP ="libro/obtenerLibros.php" ;
     public static final String obtenerCopiaPHP ="copia/obtenerCopias.php" ;
     public static final String LectorPHP ="usuario/obtenerLector.php" ;
+    public static final String LibroPHP = "libro/Libro.php";
     
     /**
      * Modificar

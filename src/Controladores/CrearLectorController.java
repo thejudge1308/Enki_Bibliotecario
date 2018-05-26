@@ -1,6 +1,7 @@
 
 package Controladores;
 
+import Valores.Validaciones;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,9 +14,11 @@ import java.net.URLEncoder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -24,6 +27,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter.Change;
+import javafx.scene.input.KeyEvent;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import org.json.JSONException;
@@ -60,7 +65,17 @@ public class CrearLectorController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-      
+     this.textBoxRut.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionRut(9));
+     this.textBoxNombre.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(250));
+     this.textBoxApellidoPaterno.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(50));
+     this.textBoxApellidoMaterno.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(50));
+     this.textBoxDIreccion.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(250));
+     this.textBoxTelefono.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionRut(50));
+     this.textBoxEmail.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(256));
+     
+     
+            
+        
     }    
 
     @FXML
@@ -116,7 +131,7 @@ public class CrearLectorController implements Initializable {
         else
         {
             Alert alert = new Alert(AlertType.NONE, "Ingrese email correctamente", ButtonType.OK);
-alert.showAndWait();
+            alert.showAndWait();
         }
             
         
@@ -202,5 +217,10 @@ alert.showAndWait();
    }
    return result;
 }
-    }
+    
+
+
+
+    
+}
 
