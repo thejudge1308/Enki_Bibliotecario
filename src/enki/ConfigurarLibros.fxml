@@ -46,7 +46,7 @@
             <TextField fx:id="textFieldEdicion" maxWidth="1.7976931348623157E308" GridPane.rowIndex="5" />
             <Label text="Autor" GridPane.rowIndex="6" />
             <TextField fx:id="textFieldAutor" maxWidth="1.7976931348623157E308" GridPane.rowIndex="7" />
-            <Label text="Año" GridPane.rowIndex="8" />
+            <Label text="Año de publicacion" GridPane.rowIndex="8" />
             <TextField fx:id="textFieldAnio" maxWidth="1.7976931348623157E308" GridPane.rowIndex="9" />
             <Label text="ISBN" />
             <TextField fx:id="textFieldIsbn" GridPane.rowIndex="1" />

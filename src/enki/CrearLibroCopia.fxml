@@ -28,7 +28,7 @@
                </VBox.margin>
             </Label>
             <TextField fx:id="textBoxAutor" maxWidth="1.7976931348623157E308" />
-            <Label text="Año">
+            <Label text="Año de publicacion">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
