@@ -61,6 +61,8 @@ public class ListaBibliotecariosController implements Initializable {
     @FXML
     private Button buttonBuscar;
     @FXML
+    private Button buttonActualizarLista;
+    @FXML
     private TextField textBoxBuscar;
     @FXML
     private RadioButton radioButtonTodos;
@@ -68,7 +70,6 @@ public class ListaBibliotecariosController implements Initializable {
     private RadioButton radioButtonRut;
     @FXML
     private RadioButton radioButtonNombre;
-    
     @FXML
     private TableView<Bibliotecario> tableViewBibliotecarios;
     @FXML
@@ -114,7 +115,7 @@ public class ListaBibliotecariosController implements Initializable {
           @Override
           public void handle(ActionEvent event) {
               if(tiempo==0){
-                  tiempo=15;
+                  tiempo=tiempoMaximo;
                   
                    try {
                         refrescarTabla();
@@ -141,7 +142,20 @@ public class ListaBibliotecariosController implements Initializable {
       fiveSecondsWonder.play();
     }    
 
-    
+    @FXML
+    private void onClick_buttonActualizarLista(ActionEvent event){
+         try {
+                        refrescarTabla();
+                    } catch (UnsupportedEncodingException ex) {
+                        Logger.getLogger(ListaBibliotecariosController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ProtocolException ex) {
+                        Logger.getLogger(ListaBibliotecariosController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ListaBibliotecariosController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (JSONException ex) {
+                        Logger.getLogger(ListaBibliotecariosController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+    }
 
     @FXML
     private void onClick_buttonBuscar(ActionEvent event) {
@@ -228,7 +242,10 @@ public class ListaBibliotecariosController implements Initializable {
           //  ((Node)(event.getSource())).getScene().getWindow().hide(); //Cierra la ventana actual
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
+            refrescarTabla();
         } catch (IOException ex) {
+            Logger.getLogger(ListaBibliotecariosController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
             Logger.getLogger(ListaBibliotecariosController.class.getName()).log(Level.SEVERE, null, ex);
         }
         

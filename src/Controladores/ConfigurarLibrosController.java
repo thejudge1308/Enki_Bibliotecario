@@ -5,6 +5,7 @@
  */
 package Controladores;
 
+import Modelo.Lector;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,7 +15,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -26,8 +29,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,6 +50,8 @@ public class ConfigurarLibrosController implements Initializable {
     @FXML
     private BorderPane borderPaneConfigurarLibros;
     @FXML
+    private TextField textFieldIsbn;
+    @FXML
     private TextField textFieldTitulo;
     @FXML
     private TextField textFieldEdicion;
@@ -52,6 +59,8 @@ public class ConfigurarLibrosController implements Initializable {
     private TextField textFieldAutor;
     @FXML
     private TextField textFieldAnio;
+    @FXML
+    private TextField textFieldCodigoDewey;
     
     private String isbn;
 
@@ -61,15 +70,11 @@ public class ConfigurarLibrosController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        
-     //Stage stage = (Stage) borderPaneConfigurarLibros.getScene().getWindow();
-     //stage.initModality(Modality.APPLICATION_MODAL);
+      this.textFieldIsbn.setEditable(false);
     }    
 
     @FXML
     private void guardar(ActionEvent event) {
-        
         
         modificarLibro();
         ((Stage)borderPaneConfigurarLibros.getScene().getWindow()).close();
@@ -81,20 +86,15 @@ public class ConfigurarLibrosController implements Initializable {
         ((Stage)borderPaneConfigurarLibros.getScene().getWindow()).close();
     }
 
-     private void modificarLibro(){
-         
-        
+     private void modificarLibro(){ 
         String autor=textFieldAutor.getText().equals("")?"":textFieldAutor.getText();
         String anio=textFieldAnio.getText().equals("")?"":textFieldAnio.getText();
         String titulo = textFieldTitulo.getText().equals("")?"":textFieldTitulo.getText();
         String edicion= textFieldEdicion.getText().equals("")?"":textFieldEdicion.getText();
-        
-        
-        
-        
+        String dewey = this.textFieldCodigoDewey.getText().equals("")?"":this.textFieldCodigoDewey.getText();
             
             try {
-                this.modificarLibroEnBaseDeDatos(isbn, autor, anio, titulo, edicion);
+                this.modificarLibroEnBaseDeDatos(isbn, autor, anio, titulo, edicion,dewey);
             } catch (UnsupportedEncodingException ex) {
                 System.out.println(ex);
                // Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
@@ -104,17 +104,13 @@ public class ConfigurarLibrosController implements Initializable {
             } catch (JSONException ex) {
                 Logger.getLogger(ConfigurarLibrosController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            
-        
-        
-        
+  
         
     }
      
      
-      public void modificarLibroEnBaseDeDatos(String isbn,String autor,String anio,
-                                         String titulo,String edicion) throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
+     public void modificarLibroEnBaseDeDatos(String isbn,String autor,String anio,
+                                         String titulo,String edicion,String dewey) throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
     
     URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.modificarLibroPHP);
     Map<String,Object> params = new LinkedHashMap<>();
@@ -123,8 +119,70 @@ public class ConfigurarLibrosController implements Initializable {
     params.put("anio", anio);
     params.put("titulo",titulo);
     params.put("edicion", edicion);
+    params.put("dewey", dewey);
     StringBuilder postData = new StringBuilder();
     for (Map.Entry<String,Object> param : params.entrySet()) {
+        if (postData.length() != 0) postData.append('&');
+        postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+        postData.append('=');
+        postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+    }
+
+    // Convierte el array, para ser enviendo
+    byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+
+    // Conectar al server
+    HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+    
+    // Configura
+    conn.setRequestMethod("POST");
+    conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+    conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+    conn.setDoOutput(true);
+    conn.getOutputStream().write(postDataBytes);
+
+    // Obtiene la respuesta del servidor
+    Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
+    
+    String response="";
+    System.out.println(in);
+    for (int c; (c = in.read()) >= 0;)
+       response=response + (char)c;
+    
+    //Convierte el json enviado (decodigicado)
+          System.out.println(response);
+          //System.out.println("ISBN; "+isbn);
+    JSONObject obj = new JSONObject(response);
+    String mensaje = obj.getString("mensaje");
+    
+    Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+    //alerta.setTitle("Mensaje");
+    alerta.setContentText(mensaje);
+    alerta.showAndWait();
+   // System.out.println(response);
+}
+     
+     public void setIsbn(String isbn)
+     {
+            this.isbn=isbn;
+        try {
+            obtenerLibro();
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ConfigurarLibrosController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ConfigurarLibrosController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(ConfigurarLibrosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
+     
+     public void obtenerLibro()throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
+     URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.LibroPHP);
+     Map<String,Object> params = new LinkedHashMap<>();
+     params.put("isbn", isbn.trim()); 
+        
+     StringBuilder postData = new StringBuilder();
+     for (Map.Entry<String,Object> param : params.entrySet()) {
         if (postData.length() != 0) postData.append('&');
         postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
         postData.append('=');
@@ -148,26 +206,37 @@ public class ConfigurarLibrosController implements Initializable {
     Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
     
     String response="";
-    System.out.println(in);
+    //System.out.println(in);
     for (int c; (c = in.read()) >= 0;)
        response=response + (char)c;
     
     //Convierte el json enviado (decodigicado)
-          System.out.println(response);
-          //System.out.println("ISBN; "+isbn);
     JSONObject obj = new JSONObject(response);
     String mensaje = obj.getString("mensaje");
     
-    Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-    alerta.setTitle("Mensaje");
-    alerta.setContentText(mensaje);
-    alerta.showAndWait();
-   // System.out.println(response);
-}
+    if(mensaje.equals("false")){
+        //System.out.println("no hay nada");
+    }else{
+        List<Lector> lectores = new ArrayList<Lector>();
+        Lector lector;
+        JSONArray jsonArray = obj.getJSONArray("datos");
+            String isbn = jsonArray.getJSONObject(0).getString("isbn")==null?"":jsonArray.getJSONObject(0).getString("isbn");
+            String titulo=jsonArray.getJSONObject(0).getString("titulo")==null?"":jsonArray.getJSONObject(0).getString("titulo");
+            String autor=jsonArray.getJSONObject(0).getString("autor")==null?"":jsonArray.getJSONObject(0).getString("autor");
+            String edicion=jsonArray.getJSONObject(0).getString("edicion")==null?"":jsonArray.getJSONObject(0).getString("edicion");
+            String anio = jsonArray.getJSONObject(0).getString("anio")==null?"":jsonArray.getJSONObject(0).getString("anio");
+            String codDewey = jsonArray.getJSONObject(0).getString("dewey")==null?"":jsonArray.getJSONObject(0).getString("dewey");
+            
+            //Editar
+            this.textFieldIsbn.setText(isbn);
+            this.textFieldTitulo.setText(titulo);
+            this.textFieldAutor.setText(autor);
+            this.textFieldEdicion.setText(edicion);
+            this.textFieldAnio.setText(anio);
+            this.textFieldCodigoDewey.setText(codDewey);
+                    
+    }
+        
+    }
      
-     public void setIsbn(String isbn)
-        {
-            this.isbn=isbn;
-        }
-    
 }

@@ -62,6 +62,8 @@ public class ListaLectorController implements Initializable {
     @FXML
     private Button buttonBuscar;
     @FXML
+    private Button buttonActualizar;
+    @FXML
     private TextField textBoxBuscar;
     @FXML
     private RadioButton radioButtonTodos;
@@ -156,7 +158,10 @@ public class ListaLectorController implements Initializable {
           //  ((Node)(event.getSource())).getScene().getWindow().hide(); //Cierra la ventana actual
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
+            refrescarTabla();
         } catch (IOException ex) {
+            Logger.getLogger(ListaLectorController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
             Logger.getLogger(ListaLectorController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -227,14 +232,6 @@ public class ListaLectorController implements Initializable {
         //System.out.println(jsonMainArr.toString());
     }
     
-   /* Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-    alerta.setTitle("Mensaje");
-    alerta.setContentText(mensaje);
-    alerta.showAndWait();*/
-   // System.out.println(response);
-        
-        
-        
     }
     
     private void setTabla(List<Lector> lectores){
@@ -247,6 +244,21 @@ public class ListaLectorController implements Initializable {
         tableColumnHabilitado.setCellValueFactory(new PropertyValueFactory<Lector,CheckBox>("habilitado"));
         
         this.tableViewLectores.setItems(libros);
+    }
+    
+    @FXML
+    private void onClick_buttonActualizar(ActionEvent event){
+         try {
+            refrescarTabla();
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ListaLectorController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ProtocolException ex) {
+            Logger.getLogger(ListaLectorController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ListaLectorController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(ListaLectorController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

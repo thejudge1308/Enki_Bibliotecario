@@ -235,7 +235,7 @@ public class Lector {
     String mensaje = obj.getString("mensaje");
     
     Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-    alerta.setTitle("Mensaje");
+    //alerta.setTitle("Mensaje");
     alerta.setContentText(mensaje);
     alerta.showAndWait();
 
@@ -283,7 +283,7 @@ public class Lector {
     String mensaje = obj.getString("mensaje");
     
     Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-    alerta.setTitle("Mensaje");
+    //alerta.setTitle("Mensaje");
     alerta.setContentText(mensaje);
     alerta.showAndWait();
         

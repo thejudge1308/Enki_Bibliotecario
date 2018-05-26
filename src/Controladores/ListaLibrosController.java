@@ -53,7 +53,8 @@ public class ListaLibrosController implements Initializable {
 
     @FXML
     private BorderPane libro_View;
-    
+    @FXML
+    private Button buttonActualizarTabla;
     @FXML
     private TableView<Libro> tableViewListaLibros;
     @FXML
@@ -148,7 +149,7 @@ public class ListaLibrosController implements Initializable {
       
     }    
     
-     private void refrescarTabla() throws MalformedURLException, UnsupportedEncodingException, ProtocolException, IOException, JSONException{
+    private void refrescarTabla() throws MalformedURLException, UnsupportedEncodingException, ProtocolException, IOException, JSONException{
         
          URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.obtenerLibroPHP);
     Map<String,Object> params = new LinkedHashMap<>();
@@ -212,7 +213,7 @@ public class ListaLibrosController implements Initializable {
    
      }    
      
-        private void setTabla(List<Libro> libros){
+    private void setTabla(List<Libro> libros){
         ObservableList<Libro> olibros=FXCollections.observableArrayList(libros);
         tableColumnISBN.setCellValueFactory(new PropertyValueFactory<Libro,String>("isbn"));
         tableColumnTitulo.setCellValueFactory(new PropertyValueFactory<Libro,String>("titulo"));
@@ -226,7 +227,19 @@ public class ListaLibrosController implements Initializable {
         this.tableViewListaLibros.setItems(olibros);
     }
         
-        
-    
+    @FXML
+    private void onClick_buttonActualizarTabla(ActionEvent event){
+        try {
+            refrescarTabla();
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ListaLibrosController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ProtocolException ex) {
+            Logger.getLogger(ListaLibrosController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ListaLibrosController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(ListaLibrosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
 }
