@@ -1,6 +1,7 @@
 
 package Controladores;
 
+import Valores.Validaciones;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -64,8 +65,17 @@ public class CrearLectorController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-            this.textBoxRut.addEventFilter(KeyEvent.KEY_TYPED , ValidacionRut(13));
+     this.textBoxRut.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionRut(9));
+     this.textBoxNombre.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(250));
+     this.textBoxApellidoPaterno.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(50));
+     this.textBoxApellidoMaterno.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(50));
+     this.textBoxDIreccion.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(250));
+     this.textBoxTelefono.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionRut(50));
+     this.textBoxEmail.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(256));
+     
+     
             
+        
     }    
 
     @FXML
@@ -121,7 +131,7 @@ public class CrearLectorController implements Initializable {
         else
         {
             Alert alert = new Alert(AlertType.NONE, "Ingrese email correctamente", ButtonType.OK);
-alert.showAndWait();
+            alert.showAndWait();
         }
             
         
@@ -208,48 +218,8 @@ alert.showAndWait();
    return result;
 }
     
-public EventHandler<KeyEvent> ValidacionRut(final Integer max_Lengh) {
-    return new EventHandler<KeyEvent>() {
-        @Override
-        public void handle(KeyEvent e) {
-            TextField txt_TextField = (TextField) e.getSource();                
-            if (txt_TextField.getText().length() >= max_Lengh) {                    
-                e.consume();
-            }
-            if(e.getCharacter().matches("[0-9]|[k]")){ 
-                if(txt_TextField.getText().contains(".") && e.getCharacter().matches("[.]")){
-                    e.consume();
-                   // txt_TextField.setText(FormatearRUT(txt_TextField.getText()));
 
-                }else if(txt_TextField.getText().length() == 0 && e.getCharacter().matches("[.]")){
-                    e.consume(); 
-                    //txt_TextField.setText(FormatearRUT(txt_TextField.getText()));
 
-                }
-            }else{
-                e.consume();
-            }
-        }
-    };
-}        
-
-public static String FormatearRUT(String rut) {
-
-        int cont = 0;
-        String format;
-        rut = rut.replace(".", "");
-        rut = rut.replace("-", "");
-        format = "-" + rut.substring(rut.length() - 1);
-        for (int i = rut.length() - 2; i >= 0; i--) {
-            format = rut.substring(i, i + 1) + format;
-            cont++;
-            if (cont == 3 && i != 0) {
-                format = "." + format;
-                cont = 0;
-            }
-        }
-        return format;
-}
 
     
 }

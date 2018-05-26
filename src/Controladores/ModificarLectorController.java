@@ -1,6 +1,7 @@
 package Controladores;
 
 import Modelo.Lector;
+import Valores.Validaciones;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -29,6 +30,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -97,9 +99,16 @@ public class ModificarLectorController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.textBoxRut.setEditable(false);        
+        this.textBoxRut.setEditable(false);
+     this.textBoxRut.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionRut(9));
+     this.textBoxNombre.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(250));
+     this.textBoxApellidoPaterno.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(50));
+     this.textBoxApellidoMaterno.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(50));
+     this.textBoxDIreccion.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(250));
+     this.textBoxTelefono.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionRut(50));
+     this.textBoxEmail.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(256));       
+     this.textBoxComentario.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(256));
     }
-    
     
     /**
      * 
