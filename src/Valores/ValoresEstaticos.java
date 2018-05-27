@@ -28,6 +28,8 @@ public class ValoresEstaticos {
     public static final String crearBibliotecarioPHP="usuario/crearBibliotecario.php";
     public static final String crearLibroPHP="libro/crearLibro.php";
     public static final String crearCopiaPHP="copia/crearCopia.php";
+    public static final String crearEstantePHP="estante/crearEstante.php";
+    public static final String crearNivelPHP="estante/crearNivel.php";
     
     /**
      * Obtener
@@ -38,7 +40,10 @@ public class ValoresEstaticos {
     public static final String obtenerCopiaPHP ="copia/obtenerCopias.php" ;
     public static final String LectorPHP ="usuario/obtenerLector.php" ;
     public static final String LibroPHP = "libro/Libro.php";
+    public static final String obtenerEstantePHP = "estante/obtenerEstante.php";
+    public static final String obtenerEstanteUnicoPHP = "estante/obtenerEstanteUnico.php";
     public static final String BibliotecarioPHP = "usuario/obtenerBibliotecario.php";
+
     
     /**
      * Modificar
@@ -47,6 +52,10 @@ public class ValoresEstaticos {
     public static final String modificarLectorPHP="usuario/modificarLector.php";
     public static final String habilitarLectorPHP="usuario/habilitarLector.php";
     public static final String dehabilitarLectorPHP="usuario/deshabilitarLector.php";
+
+    public static final String modificarEstantePHP="estante/modificarEstante.php";
+
     public static final String modificarBibliotecarioPHP = "usuario/modificarBibliotecario.php";
+
   
 }

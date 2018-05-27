@@ -6,12 +6,15 @@
 package Modelo;
 
 
+import Controladores.DetalleCopiaController;
+import Controladores.ConfigurarEstanteController;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Modality;
@@ -23,78 +26,86 @@ import javafx.stage.Stage;
  */
 public class Estante {
     
-    int codigoEstante;
-    int numeroNiveles;
-    int rangoInferior;
-    int rangoSuperior;
+   String codigo;
+   String cantidadniveles;
+   String intervaloinf;
+   String intervalosup;
     Button buttonConfigurar;
 
-    public Estante(int codigoEstante, int numeroNiveles, int rangoInferior, int rangoSuperior) {
-        this.codigoEstante = codigoEstante;
-        this.numeroNiveles = numeroNiveles;
-        this.rangoInferior = rangoInferior;
-        this.rangoSuperior = rangoSuperior;
+    public Estante(String codigo,String cantidadniveles,String intervaloinf, String intervalosup) {
+        this.codigo = codigo;
+        this.cantidadniveles = cantidadniveles;
+        this.intervaloinf = intervaloinf;
+        this.intervalosup = intervalosup;
         this.buttonConfigurar = new Button("Modificar");
         
         this.buttonConfigurar.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/enki/ConfigurarEstante.fxml"));
-        Scene scene = null;
                 try {
-                    scene = new Scene(fxmlLoader.load(), 600, 400);
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource("/enki/ConfigurarEstante.fxml"));
+                    
+                    Parent principalParent = fxmlLoader.load();
+                    
+                    ConfigurarEstanteController controller = fxmlLoader.getController();
+                    
+                    Scene scene = null;
+                    
+                    scene = new Scene(principalParent);
+                    Stage configurarEstante = new Stage();
+                    configurarEstante.setMinWidth(650);
+                    configurarEstante.setMinHeight(413);
+                    configurarEstante.setTitle("Configurar Estante");
+                    configurarEstante.setScene(scene);
+                    configurarEstante.initModality(Modality.APPLICATION_MODAL);
+                    System.out.println("Niveles: "+cantidadniveles);
+                    System.out.println("codigo: "+codigo);
+                    controller.setCantidadNiveles(cantidadniveles,codigo);
+                    configurarEstante.show();
                 } catch (IOException ex) {
-                    Logger.getLogger(Libro.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Estante.class.getName()).log(Level.SEVERE, null, ex);
                 }
-        Stage configurarLibro = new Stage();
-        configurarLibro.setMinWidth(650);
-        configurarLibro.setMinHeight(413);
-        configurarLibro.setTitle("Configurar Estante");
-        configurarLibro.setScene(scene);
-        configurarLibro.initModality(Modality.APPLICATION_MODAL);
-        configurarLibro.show();
             }
         });
 
     }
 
-    public Estante(String numero, String nivel, String rangoInf, String rangoSup) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String getCodigo() {
+        return codigo;
     }
 
-    public int getCodigoEstante() {
-        return codigoEstante;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
-    public void setCodigoEstante(int codigoEstante) {
-        this.codigoEstante = codigoEstante;
+    public String getCantidadniveles() {
+        return cantidadniveles;
     }
 
-    public int getNumeroNiveles() {
-        return numeroNiveles;
+    public void setCantidadniveles(String cantidadniveles) {
+        this.cantidadniveles = cantidadniveles;
     }
 
-    public void setNumeroNiveles(int numeroNiveles) {
-        this.numeroNiveles = numeroNiveles;
+    public String getIntervaloinf() {
+        return intervaloinf;
     }
 
-    public int getRangoInferior() {
-        return rangoInferior;
+    public void setIntervaloinf(String intervaloinf) {
+        this.intervaloinf = intervaloinf;
     }
 
-    public void setRangoInferior(int rangoInferior) {
-        this.rangoInferior = rangoInferior;
+    public String getIntervalosup() {
+        return intervalosup;
     }
 
-    public int getRangoSuperior() {
-        return rangoSuperior;
+    public void setIntervalosup(String intervalosup) {
+        this.intervalosup = intervalosup;
     }
 
-    public void setRangoSuperior(int rangoSuperior) {
-        this.rangoSuperior = rangoSuperior;
-    }
+   
 
+    
     public Button getButtonConfigurar() {
         return buttonConfigurar;
     }
