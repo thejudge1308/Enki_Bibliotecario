@@ -183,6 +183,14 @@ public class Libro
         this.anio = anio;
     }
 
+    public String getNcopias() {
+        return ncopias;
+    }
+
+    public void setNcopias(String ncopias) {
+        this.ncopias = ncopias;
+    }
+
   
     
     

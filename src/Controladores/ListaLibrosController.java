@@ -186,7 +186,7 @@ public class ListaLibrosController implements Initializable {
     JSONObject obj = new JSONObject(response);
          
     String mensaje = obj.getString("mensaje");
-         System.out.println("mensaje "+mensaje);
+         //System.out.println("mensaje "+mensaje);
     if(mensaje.equals("false")){
         //System.out.println("no hay nada");
     }else{

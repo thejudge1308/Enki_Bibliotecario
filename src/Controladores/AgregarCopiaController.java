@@ -108,8 +108,6 @@ public class AgregarCopiaController implements Initializable {
      private void crearCopia(){
         String estado = comboBoxEstado.getValue().equals("")?"":comboBoxEstado.getValue();
         isbn=isbn.equals("")?"":isbn;
-        String codigo=getSaltString().equals("")?"":getSaltString();
-        String numeroCopia="2".equals("")?"":"2";
         String  ubicacion= " ".equals("")?"":" ";
         
         
@@ -117,7 +115,7 @@ public class AgregarCopiaController implements Initializable {
        
             
             try {
-                this.crearCopiaEnBaseDeDatos(isbn, estado,codigo,numeroCopia , ubicacion);
+                this.crearCopiaEnBaseDeDatos(isbn,estado, ubicacion);
             } catch (UnsupportedEncodingException ex) {
                 System.out.println(ex);
                // Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
@@ -146,14 +144,11 @@ public class AgregarCopiaController implements Initializable {
      * @param edicion
      */
     
-    public void crearCopiaEnBaseDeDatos(String isbn,String estado,String codigo,String numeroCopia,String ubicacion) throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
+    public void crearCopiaEnBaseDeDatos(String isbn,String estado,String ubicacion) throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
     
-        System.out.println("datos:"+isbn+estado+codigo+numeroCopia+ubicacion);
     URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.crearCopiaPHP);
     Map<String,Object> params = new LinkedHashMap<>();
-    params.put("codigo",codigo);
     params.put("isbnlibro",isbn);
-    params.put("numerocopia", numeroCopia);
     params.put("estado",estado);
     params.put("ubicacion",ubicacion);
     StringBuilder postData = new StringBuilder();

@@ -74,7 +74,13 @@ public class ModificarLectorController implements Initializable{
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
             try {
-                guardarDatos();
+                if(Validaciones.isValidEmailAddress(textBoxEmail.getText())){
+                  guardarDatos();
+                  ((Node)(event.getSource())).getScene().getWindow().hide();
+                }else{
+                     alert = new Alert(AlertType.NONE, "Ingrese email correctamente", ButtonType.OK);
+                     alert.showAndWait();
+                }            
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(ModificarLectorController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -82,9 +88,6 @@ public class ModificarLectorController implements Initializable{
             } catch (JSONException ex) {
                 Logger.getLogger(ModificarLectorController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            //Cierra la ventana
-            ((Node)(event.getSource())).getScene().getWindow().hide(); //Cierra la ventana actual
-
         } else {
             ((Node)(event.getSource())).getScene().getWindow().hide(); //Cierra la ventana actual
 
@@ -251,7 +254,6 @@ public class ModificarLectorController implements Initializable{
     for (int c; (c = in.read()) >= 0;)
        response=response + (char)c;
     
-    //Convierte el json enviado (decodigicado)
     JSONObject obj = new JSONObject(response);
     String mensaje = obj.getString("mensaje");
     

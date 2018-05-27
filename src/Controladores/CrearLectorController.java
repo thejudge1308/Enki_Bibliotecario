@@ -79,11 +79,14 @@ public class CrearLectorController implements Initializable {
     }    
 
     @FXML
-    private void onClick_buttonAceptar(ActionEvent event) {
-        crearLector();
+    private void onClick_buttonAceptar(ActionEvent event) {    
         if(isValidEmailAddress(textBoxEmail.getText()))
         {
+           crearLector();
           ((Node)(event.getSource())).getScene().getWindow().hide();   
+        }else{
+            Alert alert = new Alert(AlertType.NONE, "Ingrese email correctamente", ButtonType.OK);
+            alert.showAndWait();
         }
          
     }
@@ -103,36 +106,31 @@ public class CrearLectorController implements Initializable {
         String email = textBoxEmail.getText().equals("")?"":textBoxEmail.getText();
         String telefono = textBoxTelefono.getText().equals("")?"":textBoxTelefono.getText();
         
-        if(!rut.equals("")){
-            if
-                    (isValidEmailAddress(email))
-            {
-                try {
-                this.crearLectorEnBaseDeDatos(rut, nombre, apellidoPat, apellidoMat, direccion, email, telefono);
-            } catch (UnsupportedEncodingException ex) {
-                System.out.println(ex);
-               // Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                System.out.println(ex);
-                //Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (JSONException ex) {
-                Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
+       
+                if(!rut.equals(""))
+                {
+                    try {
+                    this.crearLectorEnBaseDeDatos(rut, nombre, apellidoPat, apellidoMat, direccion, email, telefono);
+                } catch (UnsupportedEncodingException ex) {
+                    System.out.println(ex);
+                   // Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    System.out.println(ex);
+                    //Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (JSONException ex) {
+                    Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+
+            }else{
+                Alert alerta = new Alert(AlertType.WARNING);
+                alerta.setTitle("Advertencia");
+                alerta.setHeaderText("No se puede realizar esta operación.");
+                alerta.setContentText("EL campo rut esta vacio, ingrese un rut valido.");
+                alerta.showAndWait();
             }
             
-            
-        }else{
-            Alert alerta = new Alert(AlertType.WARNING);
-            alerta.setTitle("Advertencia");
-            alerta.setHeaderText("No se puede realizar esta operación.");
-            alerta.setContentText("EL campo rut esta vacio, ingrese un rut valido.");
-            alerta.showAndWait();
-        }
-            }
-        else
-        {
-            Alert alert = new Alert(AlertType.NONE, "Ingrese email correctamente", ButtonType.OK);
-            alert.showAndWait();
-        }
+        
             
         
         
@@ -207,7 +205,7 @@ public class CrearLectorController implements Initializable {
        
      }
     
-    public static boolean isValidEmailAddress(String email) {
+   public static boolean isValidEmailAddress(String email) {
    boolean result = true;
    try {
       InternetAddress emailAddr = new InternetAddress(email);
