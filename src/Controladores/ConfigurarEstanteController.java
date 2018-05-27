@@ -49,6 +49,8 @@ public class ConfigurarEstanteController implements Initializable {
     
     private String cantidadNiveles;
     private String numero;
+    private String codigo;
+    private String codigoEstante;
     @FXML
     private Button buttonAgregar;
     @FXML
@@ -156,6 +158,9 @@ public class ConfigurarEstanteController implements Initializable {
             cantidadNiveles=String.valueOf(niveles);
             modificarEstante(cantidadNiveles, numero);
             obtenerDatosEstante(numero);
+            setCodigo(cantidadNiveles);
+            setCodigoEstante(numero);
+            crearNivel(codigo,codigoEstante);
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(ConfigurarEstanteController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -235,4 +240,103 @@ public class ConfigurarEstanteController implements Initializable {
     alerta.showAndWait();
    // System.out.println(response);
 }
+     
+     
+     
+     private void crearNivel(String codigo, String codigoEstante){
+        try {
+            //String codigo = getSaltString().equals("")?"":getSaltString();
+            int codigoInt = Integer.parseInt(codigo);
+            codigo=String.valueOf(codigoInt);
+            codigo=codigo.equals("")?"":codigo;
+            codigoEstante=codigoEstante.equals("")?"":codigoEstante;
+            
+            this.crearNivelEnBaseDeDatos(codigo,codigoEstante);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(ConfigurarEstanteController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ConfigurarEstanteController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(ConfigurarEstanteController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
+           
+            
+            
+        
+        
+            
+        
+        
+    
+    
+    
+    
+    //TODO: Decodificar JSON
+    /**
+     * 
+     *
+     */
+    
+    public void crearNivelEnBaseDeDatos(String codigo,String codigoEstante) throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
+    
+    URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.crearNivelPHP);
+    Map<String,Object> params = new LinkedHashMap<>();
+   //params.put("codigo",codigo.trim());
+        System.out.println("CODIGO: "+codigo);
+        System.out.println("CODIGO: "+codigoEstante);
+    params.put("codigo", codigo.trim());
+    params.put("codigoEstante", codigoEstante.trim());
+    StringBuilder postData = new StringBuilder();
+    for (Map.Entry<String,Object> param : params.entrySet()) {
+        if (postData.length() != 0) postData.append('&');
+        postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+        postData.append('=');
+        postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+    }
+
+    // Convierte el array, para ser enviendo
+    byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+
+    // Conectar al server
+    HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+    
+    // Configura
+    conn.setRequestMethod("POST");
+    conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+    conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+    conn.setDoOutput(true);
+    conn.getOutputStream().write(postDataBytes);
+
+    // Obtiene la respuesta del servidor
+    Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+    
+    String response="";
+    System.out.println(in);
+    for (int c; (c = in.read()) >= 0;)
+       response=response + (char)c;
+    
+    //Convierte el json enviado (decodigicado)
+    JSONObject obj = new JSONObject(response);
+    String mensaje = obj.getString("mensaje");
+    
+    Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+    alerta.setTitle("Mensaje");
+    alerta.setContentText(mensaje);
+    alerta.showAndWait();
+   // System.out.println(response);
+         
+       
+     }
+    
+    public void setCodigo(String codigo)
+    {
+        this.codigo=codigo;
+    }
+    
+    public void setCodigoEstante(String codigoEstante)
+    {
+        this.codigoEstante=codigoEstante;
+    }
+
 }

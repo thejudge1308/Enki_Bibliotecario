@@ -29,6 +29,7 @@ public class ValoresEstaticos {
     public static final String crearLibroPHP="libro/crearLibro.php";
     public static final String crearCopiaPHP="copia/crearCopia.php";
     public static final String crearEstantePHP="estante/crearEstante.php";
+    public static final String crearNivelPHP="estante/crearNivel.php";
     
     /**
      * Obtener
