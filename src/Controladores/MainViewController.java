@@ -18,11 +18,15 @@ import javafx.scene.layout.Pane;
 import enki.*;
 import java.util.Optional;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -44,16 +48,35 @@ public class MainViewController implements Initializable {
     private Button buttonBibliotecario;
     @FXML
     private MenuItem menuItemCerrarSesion;
+    @FXML
+    private Label labelCerrarSesion;
+    @FXML
+    private Label labelCargo;
+    @FXML
+    private Label labelUsuario;
+    @FXML
+    private Button buttonListarPrestamo;
+    @FXML
+    private Button buttonCrearPrestamo;
+    @FXML
+    private Button buttonCrearEstante;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+       labelUsuario.setStyle("-fx-font-weight: bold;");
        
         //Privilegios de bibliotecarios
         if(SingletonUsuario.usuario.getTipoUsuario().equals("bib")){
             buttonBibliotecario.setVisible(false);
             buttonCrearLibroCopia.setVisible(false);
+            labelUsuario.setText(SingletonUsuario.usuario.getUsuario());
+            labelCargo.setText("Bibliotecario");
+        }
+        else{
+            labelUsuario.setText(SingletonUsuario.usuario.getUsuario());
+            labelCargo.setText("Administrador");
         }
         
         BorderPane bp=null;
@@ -84,7 +107,6 @@ public class MainViewController implements Initializable {
         contenido_View.setCenter(bp2);
     }
 
-    @FXML
     private void cerrar(ActionEvent event) {
         
         System.exit(0);
@@ -168,5 +190,33 @@ public class MainViewController implements Initializable {
          }
 
      }
+
+    @FXML
+    private void onClick_labelCerrarSesion(MouseEvent event) {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+         alert.setTitle("Confirmación");
+         alert.setHeaderText("Estas seguro que deseas cerrar Sesion?");
+         alert.setContentText("Si aceptas, se cerrara la sesion actual.");
+
+         Optional<ButtonType> result = alert.showAndWait();
+         if (result.get() == ButtonType.OK){
+            try {
+                ((Node)(event.getSource())).getScene().getWindow().hide();
+                Parent root = FXMLLoader.load(getClass().getResource("/enki/Login.fxml"));
+                
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setResizable(false);
+                stage.setTitle("Login"); 
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         } else {
+             
+         }
+        
+    }
      
 }

@@ -6,6 +6,7 @@
 package Controladores;
 
 import Modelo.Lector;
+import Valores.Validaciones;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -28,6 +29,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
@@ -71,6 +73,11 @@ public class ConfigurarLibrosController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
       this.textFieldIsbn.setEditable(false);
+      this.textFieldAutor.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(200));
+      this.textFieldAnio.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionRut(4));
+      this.textFieldCodigoDewey.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionRut(3));
+      this.textFieldTitulo.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(200));
+      this.textFieldEdicion.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(200));
     }    
 
     @FXML

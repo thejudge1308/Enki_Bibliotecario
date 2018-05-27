@@ -10,7 +10,7 @@
       <HBox alignment="BOTTOM_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="580.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="buttonGuardar" mnemonicParsing="false" onAction="#guardar" text="Guardar" />
-            <Button fx:id="buttonCancelar" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
+            <Button fx:id="buttonCancelar" mnemonicParsing="false" onAction="#onClick_buttonCancelar" text="Limpiar" />
          </children>
          <BorderPane.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
