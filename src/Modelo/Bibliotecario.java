@@ -6,6 +6,7 @@
 package Modelo;
 
 import Controladores.LoginController;
+import Controladores.ModificarBibliotecarioController;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,19 +44,33 @@ public class Bibliotecario
         this.buttonConfiguraciones.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Parent root;
-                try {
-                    root = FXMLLoader.load(getClass().getResource("/enki/ModificarBibliotecario.fxml"));
+                try {     
+                    
+                    //Permite pasarle la informacion a la otra ventana
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("/enki/ModificarBibliotecario.fxml"));
+                    Parent root = loader.load();
+                    ModificarBibliotecarioController m = loader.getController();
+                    System.out.println(Bibliotecario.this.rut);
+                    m.setRut(Bibliotecario.this.rut);
+                    System.out.println();
+                    
                     Scene scene = new Scene(root);
+                    
                     Stage stage = new Stage();
-                    stage.setResizable(false);
-                    stage.setTitle("Config. de conexion de servidor"); 
+                    stage.setMinWidth(600);
+                    stage.setMinHeight(449);
+                    stage.setTitle("Modificar Bibliotecario");
                     stage.setScene(scene);
-                    stage.setAlwaysOnTop(true);
-                    stage.showAndWait();
-
+                    //((Node)(event.getSource())).getScene().getWindow().hide(); //Cierra la ventana actual
+                    stage.show();
+                    
+                    root=null;
+                    loader=null;
+                    scene=null;
+                    stage=null;
                 } catch (IOException ex) {
-                    Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Bibliotecario.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
