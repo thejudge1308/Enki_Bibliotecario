@@ -277,11 +277,12 @@ public class CrearLibroCopiaController implements Initializable {
            response=response + (char)c;
 
         //Convierte el json enviado (decodigicado)
-        JSONObject obj = new JSONObject(response);
-        String mensaje = obj.getString("mensaje");
+//        JSONObject obj = new JSONObject(response);
+        //String mensaje = obj.getString("mensaje");
+       // System.out.println("Response: "+response);
 
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setContentText(mensaje);
+        alerta.setContentText("Se ha creado copia exitosamente");
         alerta.showAndWait();
 }
     
