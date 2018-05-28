@@ -61,9 +61,9 @@ public class Lector {
                     loader.setLocation(getClass().getResource("/enki/ModificarLector.fxml"));
                     Parent root = loader.load();
                     ModificarLectorController m = loader.getController();
-                    System.out.println(Lector.this.rut);
+                   
                     m.setRut(Lector.this.rut);
-                    System.out.println();
+                    
                     
                     Scene scene = new Scene(root);
                     

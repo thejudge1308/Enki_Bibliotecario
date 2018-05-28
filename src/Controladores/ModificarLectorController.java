@@ -64,7 +64,7 @@ public class ModificarLectorController implements Initializable{
     private TextField textBoxDIreccion;
     @FXML
     private TextArea textBoxComentario;
-
+    
     @FXML
     private void onClick_buttonAceptar(ActionEvent event) {
         Alert alert = new Alert(AlertType.CONFIRMATION);

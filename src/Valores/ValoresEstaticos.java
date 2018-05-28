@@ -56,6 +56,10 @@ public class ValoresEstaticos {
     public static final String modificarEstantePHP="estante/modificarEstante.php";
 
     public static final String modificarBibliotecarioPHP = "usuario/modificarBibliotecario.php";
-
+    
+    /**
+     * Eliminar niveles
+     */
+    public static final String eliminarNivelPHP = "estante/eliminarNivel.php";
   
 }
