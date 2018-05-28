@@ -46,15 +46,15 @@ public class ConfigurarEstanteController implements Initializable {
     private Button buttonCancelar;
     @FXML
     private Label labelCantidad;
+    @FXML
+    private Button buttonAgregar;
+    @FXML
+    private Button buttonQuitar;
     
     private String cantidadNiveles;
     private String numero;
     private String codigo;
     private String codigoEstante;
-    @FXML
-    private Button buttonAgregar;
-    @FXML
-    private Button buttonQuitar;
 
     /**
      * Initializes the controller class.
@@ -62,7 +62,7 @@ public class ConfigurarEstanteController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        System.out.println("Cantidad niveles: "+cantidadNiveles);
+        //System.out.println("Cantidad niveles: "+cantidadNiveles);
         labelCantidad.setText(cantidadNiveles);
     }    
 
@@ -148,19 +148,10 @@ public class ConfigurarEstanteController implements Initializable {
     }
 
     @FXML
-    private void agregar(ActionEvent event) {
-        
+    private void onClick_buttonAgregar(ActionEvent event) {
+        System.out.println(codigo);
         try {
-            System.out.println("Hola");
-            int niveles=Integer.parseInt(cantidadNiveles);
-            System.out.println("Cantidad de niveles al agregar: "+cantidadNiveles);
-            niveles=niveles+1;
-            cantidadNiveles=String.valueOf(niveles);
-            modificarEstante(cantidadNiveles, numero);
-            obtenerDatosEstante(numero);
-            setCodigo(cantidadNiveles);
-            setCodigoEstante(numero);
-            crearNivel(codigo,codigoEstante);
+            agregarNivelEnEstante(codigo);
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(ConfigurarEstanteController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -170,35 +161,13 @@ public class ConfigurarEstanteController implements Initializable {
         }
     }
 
-    @FXML
-    private void quitar(ActionEvent event) {
-    }
+     //Listo
+    public void agregarNivelEnEstante(String codigo) throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
     
-      private void modificarEstante(String cantidadNiveles,String numero){ 
-        cantidadNiveles=cantidadNiveles.equals("")?"":cantidadNiveles;
-            System.out.println("Cantidad niveles en modificar: "+cantidadNiveles);
-            try {
-                this.modificarEstanteEnBaseDeDatos(cantidadNiveles,numero);
-            } catch (UnsupportedEncodingException ex) {
-                System.out.println(ex);
-               // Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                System.out.println(ex);
-                //Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (JSONException ex) {
-                Logger.getLogger(ConfigurarEstanteController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-  
-        
-    }
-     
-     
-     public void modificarEstanteEnBaseDeDatos(String cantidadNiveles,String numero) throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
-    
-    URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.modificarEstantePHP);
+    URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.crearNivelPHP);
     Map<String,Object> params = new LinkedHashMap<>();
-    params.put("numero", numero.trim());
-    params.put("cantidadniveles", cantidadNiveles.trim());
+    params.put("codigo", codigo.trim());
+    
     StringBuilder postData = new StringBuilder();
     for (Map.Entry<String,Object> param : params.entrySet()) {
         if (postData.length() != 0) postData.append('&');
@@ -233,60 +202,25 @@ public class ConfigurarEstanteController implements Initializable {
           //System.out.println("ISBN; "+isbn);
     JSONObject obj = new JSONObject(response);
     String mensaje = obj.getString("mensaje");
+    String accion = obj.getString("accion");
+    if(accion.equals("true")){
+        int n = (Integer.parseInt(labelCantidad.getText().trim())+1);
+        this.labelCantidad.setText(n+"");
+    }
     
     Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-    //alerta.setTitle("Mensaje");
+    alerta.setTitle("Informacion");
     alerta.setContentText(mensaje);
     alerta.showAndWait();
    // System.out.println(response);
 }
-     
-     
-     
-     private void crearNivel(String codigo, String codigoEstante){
-        try {
-            //String codigo = getSaltString().equals("")?"":getSaltString();
-            int codigoInt = Integer.parseInt(codigo);
-            codigo=String.valueOf(codigoInt);
-            codigo=codigo.equals("")?"":codigo;
-            codigoEstante=codigoEstante.equals("")?"":codigoEstante;
-            
-            this.crearNivelEnBaseDeDatos(codigo,codigoEstante);
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(ConfigurarEstanteController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ConfigurarEstanteController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JSONException ex) {
-            Logger.getLogger(ConfigurarEstanteController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-     }
-           
-            
-            
-        
-        
-            
-        
-        
+         
+    public void quitarNivelesEnLaBd()throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
     
-    
-    
-    
-    //TODO: Decodificar JSON
-    /**
-     * 
-     *
-     */
-    
-    public void crearNivelEnBaseDeDatos(String codigo,String codigoEstante) throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
-    
-    URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.crearNivelPHP);
+    URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.eliminarNivelPHP);
     Map<String,Object> params = new LinkedHashMap<>();
-   //params.put("codigo",codigo.trim());
-        System.out.println("CODIGO: "+codigo);
-        System.out.println("CODIGO: "+codigoEstante);
     params.put("codigo", codigo.trim());
-    params.put("codigoEstante", codigoEstante.trim());
+    
     StringBuilder postData = new StringBuilder();
     for (Map.Entry<String,Object> param : params.entrySet()) {
         if (postData.length() != 0) postData.append('&');
@@ -309,7 +243,7 @@ public class ConfigurarEstanteController implements Initializable {
     conn.getOutputStream().write(postDataBytes);
 
     // Obtiene la respuesta del servidor
-    Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+    Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
     
     String response="";
     System.out.println(in);
@@ -317,18 +251,23 @@ public class ConfigurarEstanteController implements Initializable {
        response=response + (char)c;
     
     //Convierte el json enviado (decodigicado)
+          System.out.println(response);
+          //System.out.println("ISBN; "+isbn);
     JSONObject obj = new JSONObject(response);
     String mensaje = obj.getString("mensaje");
+    String accion = obj.getString("accion");
+    if(accion.equals("true")){
+        int n = (Integer.parseInt(labelCantidad.getText().trim())-1);
+        this.labelCantidad.setText(n+"");
+    }
     
     Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-    alerta.setTitle("Mensaje");
+    alerta.setTitle("Informacion");
     alerta.setContentText(mensaje);
     alerta.showAndWait();
    // System.out.println(response);
-         
-       
-     }
-    
+}
+   
     public void setCodigo(String codigo)
     {
         this.codigo=codigo;
@@ -337,6 +276,27 @@ public class ConfigurarEstanteController implements Initializable {
     public void setCodigoEstante(String codigoEstante)
     {
         this.codigoEstante=codigoEstante;
+    }
+
+    @FXML
+    private void onClick_buttonQuitar(ActionEvent event) {
+        if(this.labelCantidad.getText().equals("1")){
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Alerta");
+            alerta.setContentText("Un estante debe tener minimo un nivel");
+            alerta.showAndWait();
+        }else{
+            
+            try {
+                quitarNivelesEnLaBd();
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(ConfigurarEstanteController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ConfigurarEstanteController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (JSONException ex) {
+                Logger.getLogger(ConfigurarEstanteController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
 }

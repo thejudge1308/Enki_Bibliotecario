@@ -108,14 +108,14 @@ public class AgregarCopiaController implements Initializable {
      private void crearCopia(){
         String estado = comboBoxEstado.getValue().equals("")?"":comboBoxEstado.getValue();
         isbn=isbn.equals("")?"":isbn;
-        String  ubicacion= " ".equals("")?"":" ";
+        //String  ubicacion= " ".equals("")?"":" ";
         
         
         
        
             
             try {
-                this.crearCopiaEnBaseDeDatos(isbn,estado, ubicacion);
+                this.crearCopiaEnBaseDeDatos(isbn,estado);
             } catch (UnsupportedEncodingException ex) {
                 System.out.println(ex);
                // Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
@@ -144,13 +144,12 @@ public class AgregarCopiaController implements Initializable {
      * @param edicion
      */
     
-    public void crearCopiaEnBaseDeDatos(String isbn,String estado,String ubicacion) throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
+    public void crearCopiaEnBaseDeDatos(String isbn,String estado) throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
     
     URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.crearCopiaPHP);
     Map<String,Object> params = new LinkedHashMap<>();
     params.put("isbnlibro",isbn);
     params.put("estado",estado);
-    params.put("ubicacion",ubicacion);
     StringBuilder postData = new StringBuilder();
     for (Map.Entry<String,Object> param : params.entrySet()) {
         if (postData.length() != 0) postData.append('&');

@@ -6,6 +6,7 @@
 package Controladores;
 
 import static Controladores.CrearLectorController.isValidEmailAddress;
+import Valores.Validaciones;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -28,6 +29,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -56,7 +58,11 @@ public class CrearEstanteController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+            textFieldNumeroEstante.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionRut(3));
+            textFieldCantidadEstantes.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionRut(3));
+            textFieldDeweySup.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionRut(3));
+            textFieldDeweyInf.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionRut(3));
+
     }    
     
     
@@ -65,28 +71,33 @@ public class CrearEstanteController implements Initializable {
         String numero=textFieldNumeroEstante.getText().equals("")?"":textFieldNumeroEstante.getText();
         String intervaloInf=textFieldDeweyInf.getText().equals("")?"":textFieldDeweyInf.getText();
         String intervaloSup=textFieldDeweySup.getText().equals("")?"":textFieldDeweySup.getText();
-        String cantidadNiveles = textFieldCantidadEstantes.getText().equals("")?"":textFieldCantidadEstantes.getText();
+        String cantidadNiveles = textFieldCantidadEstantes.getText().equals("")?"1":textFieldCantidadEstantes.getText();
         if(!numero.equals("")){
-            
-                try {
-                this.crearEstanteEnBaseDeDatos(numero, intervaloInf, intervaloSup, cantidadNiveles);
-            } catch (UnsupportedEncodingException ex) {
-                System.out.println(ex);
-               // Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                System.out.println(ex);
-                //Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (JSONException ex) {
-                Logger.getLogger(CrearEstanteController.class.getName()).log(Level.SEVERE, null, ex);
+            if(!intervaloInf.equals("") && !intervaloSup.equals("")){
+                if(Integer.parseInt(intervaloInf) < Integer.parseInt(intervaloSup)){
+                    try {
+                        this.crearEstanteEnBaseDeDatos(numero, intervaloInf, intervaloSup, cantidadNiveles);
+                    } catch (UnsupportedEncodingException ex) {
+                        System.out.println(ex);
+                       // Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        System.out.println(ex);
+                        //Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (JSONException ex) {
+                        //Logger.getLogger(CrearEstanteController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }else{
+                    Alert alert = new Alert(Alert.AlertType.NONE, "Los rangos de los estantes no son validos\nEl rango superior debe ser mayor al inferior", ButtonType.OK);
+                    alert.showAndWait();
+                }
+                
+            }else{
+                Alert alert = new Alert(Alert.AlertType.NONE, "Ingrese los rangos de los codigo dewey.", ButtonType.OK);
+                alert.showAndWait(); 
             }
-            
-            
-        
-            }
-        else
-        {
-            Alert alert = new Alert(Alert.AlertType.NONE, "Ingrese email correctamente", ButtonType.OK);
-alert.showAndWait();
+        }else{
+            Alert alert = new Alert(Alert.AlertType.NONE, "Ingrese un numero.", ButtonType.OK);
+            alert.showAndWait();
         }
             
         
@@ -146,17 +157,14 @@ alert.showAndWait();
     for (int c; (c = in.read()) >= 0;)
        response=response + (char)c;
     
-    //Convierte el json enviado (decodigicado)
-    JSONObject obj = new JSONObject(response);
-    String mensaje = obj.getString("mensaje");
+        //Convierte el json enviado (decodigicado)
+        JSONObject obj = new JSONObject(response);
+        String mensaje = obj.getString("mensaje");
     
-    Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-    alerta.setTitle("Mensaje");
-    alerta.setContentText(mensaje);
-    alerta.showAndWait();
-   // System.out.println(response);
-         
-       
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        alerta.setTitle("Mensaje");
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();         
      }
 
     @FXML
@@ -166,19 +174,6 @@ alert.showAndWait();
 
     @FXML
     private void cancelar(ActionEvent event) {
-    }
-    
-     protected String getSaltString() {
-        String SALTCHARS = "1234567890";
-        StringBuilder salt = new StringBuilder();
-        Random rnd = new Random();
-        while (salt.length() < 10) { // length of the random string.
-            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
-            salt.append(SALTCHARS.charAt(index));
-        }
-        String saltStr = salt.toString();
-        return saltStr;
-
     }
     
 }

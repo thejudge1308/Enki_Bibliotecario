@@ -49,18 +49,21 @@ public class Estante {
                     Parent principalParent = fxmlLoader.load();
                     
                     ConfigurarEstanteController controller = fxmlLoader.getController();
+                    controller.setCodigo(codigo);
+                    //controller.setCantidadNiveles(cantidadniveles, codigo);
                     
                     Scene scene = null;
                     
                     scene = new Scene(principalParent);
                     Stage configurarEstante = new Stage();
-                    configurarEstante.setMinWidth(650);
-                    configurarEstante.setMinHeight(413);
+                    configurarEstante.setMinWidth(400);
+                    configurarEstante.setMinHeight(150);
+                    configurarEstante.setMaxWidth(600);
+                    configurarEstante.setMaxHeight(300);
+                    
                     configurarEstante.setTitle("Configurar Estante");
                     configurarEstante.setScene(scene);
                     configurarEstante.initModality(Modality.APPLICATION_MODAL);
-                    System.out.println("Niveles: "+cantidadniveles);
-                    System.out.println("codigo: "+codigo);
                     controller.setCantidadNiveles(cantidadniveles,codigo);
                     configurarEstante.show();
                 } catch (IOException ex) {
@@ -102,10 +105,7 @@ public class Estante {
     public void setIntervalosup(String intervalosup) {
         this.intervalosup = intervalosup;
     }
-
-   
-
-    
+ 
     public Button getButtonConfigurar() {
         return buttonConfigurar;
     }
