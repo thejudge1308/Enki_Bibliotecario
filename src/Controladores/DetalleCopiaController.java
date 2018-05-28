@@ -37,6 +37,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -69,7 +70,7 @@ public class DetalleCopiaController implements Initializable {
     @FXML
     private TableColumn<Copia,String> tableColumnICodigo;
     @FXML
-    private TableColumn<Copia,String> tableColumnEstado;
+    private TableColumn<Copia,ComboBox> tableColumnEstado;
     @FXML
     private TableColumn<Copia,String> tableColumnUbicacion;
     @FXML
@@ -218,7 +219,7 @@ public class DetalleCopiaController implements Initializable {
             
             String ubicacion=jsonArray.getJSONObject(i).getString("ubicacion")==null?"":jsonArray.getJSONObject(i).getString("ubicacion");
             String estado=jsonArray.getJSONObject(i).getString("estado")==null?"":jsonArray.getJSONObject(i).getString("estado");
-            
+            System.out.println("Estado de copia: "+estado);
             
             
             copia  = new Copia(codigo,titulo,estado,ubicacion,autor,isbn);
@@ -236,7 +237,7 @@ public class DetalleCopiaController implements Initializable {
         tableColumnICodigo.setCellValueFactory(new PropertyValueFactory<Copia,String>("codigo"));
         tableColumnTitulo.setCellValueFactory(new PropertyValueFactory<Copia,String>("titulo"));
         tableColumnAutor.setCellValueFactory(new PropertyValueFactory<Copia,String>("autor"));
-        tableColumnEstado.setCellValueFactory(new PropertyValueFactory<Copia,String>("estado"));
+        tableColumnEstado.setCellValueFactory(new PropertyValueFactory<Copia,ComboBox>("estadoCopia"));
         tableColumnUbicacion.setCellValueFactory(new PropertyValueFactory<Copia,String>("ubicacion"));
         
         this.tableViewListaCopias.setItems(ocopias);
