@@ -53,8 +53,8 @@
             <ComboBox fx:id="comboBoxEstado" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="260.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Label text="Estante:" GridPane.rowIndex="7" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nivel:" GridPane.rowIndex="8" />
-            <ComboBox fx:id="comboBoxEstante" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <ComboBox fx:id="comboBoxNivel" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <ComboBox fx:id="comboBoxEstante" maxWidth="1.7976931348623157E308" onAction="#seleccionarEstante" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <ComboBox fx:id="comboBoxNivel" maxWidth="1.7976931348623157E308" onAction="#seleccionarNivel" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <Label text="Autor" GridPane.rowIndex="2" />
             <Label fx:id="labelAutor" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>

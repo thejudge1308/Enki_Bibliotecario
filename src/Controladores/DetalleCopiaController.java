@@ -217,11 +217,14 @@ public class DetalleCopiaController implements Initializable {
             String isbnlibro = jsonArray.getJSONObject(i).getString("isbnlibro")==null?"":jsonArray.getJSONObject(i).getString("isbnlibro");
             String codigo=jsonArray.getJSONObject(i).getString("codigo")==null?"":jsonArray.getJSONObject(i).getString("codigo");
             
-            String ubicacion=jsonArray.getJSONObject(i).getString("ubicacion")==null?"":jsonArray.getJSONObject(i).getString("ubicacion");
+//            String ubicacion=jsonArray.getJSONObject(i).getString("ubicacion")==null?"":jsonArray.getJSONObject(i).getString("ubicacion");
             String estado=jsonArray.getJSONObject(i).getString("estado")==null?"":jsonArray.getJSONObject(i).getString("estado");
+            String estante=jsonArray.getJSONObject(i).getString("refEstante")==null?"":jsonArray.getJSONObject(i).getString("refEstante");
+            String nivel=jsonArray.getJSONObject(i).getString("refNivel")==null?"":jsonArray.getJSONObject(i).getString("refNivel");
+            
             System.out.println("Estado de copia: "+estado);
             
-            
+            String ubicacion="Estane: "+estante+" Nivel: "+nivel;
             copia  = new Copia(codigo,titulo,estado,ubicacion,autor,isbn);
             //System.out.println(lector.getRut());
             copias.add(copia);

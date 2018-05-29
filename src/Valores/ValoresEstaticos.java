@@ -30,6 +30,7 @@ public class ValoresEstaticos {
     public static final String crearCopiaPHP="copia/crearCopia.php";
     public static final String crearEstantePHP="estante/crearEstante.php";
     public static final String crearNivelPHP="estante/crearNivel.php";
+    public static final String crearPrimerCopiaPHP="copia/crearPrimerCopia.php";
     
     /**
      * Obtener
@@ -43,6 +44,7 @@ public class ValoresEstaticos {
     public static final String obtenerEstantePHP = "estante/obtenerEstante.php";
     public static final String obtenerEstanteUnicoPHP = "estante/obtenerEstanteUnico.php";
     public static final String BibliotecarioPHP = "usuario/obtenerBibliotecario.php";
+    public static final String obtenerNivelPHP = "estante/obtenerNiveles.php";
 
     
     /**
@@ -55,6 +57,7 @@ public class ValoresEstaticos {
     public static final String modificarEstantePHP="estante/modificarEstante.php";
     public static final String modificarEstadoCopiaPHP = "copia/modificarEstadoCopia.php";
     public static final String modificarBibliotecarioPHP = "usuario/modificarBibliotecario.php";
+    public static final String modificarEstanteCopiaPHP = "usuario/modificarEstanteCopia.php";
     
     /**
      * Eliminar niveles
