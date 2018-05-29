@@ -37,9 +37,7 @@ public class Copia {
             this.ubicacion = ubicacion;
             this.autor = autor;
             this.isbn = isbn;
-            
-         
-        
+
     }
 
     public String getCodigo() {

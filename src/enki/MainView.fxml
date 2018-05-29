@@ -49,9 +49,9 @@
       <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
    </padding>
    <left>
-      <VBox prefHeight="565.0" prefWidth="194.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="565.0" prefWidth="194.0" style="-fx-background-insets: 20px;" BorderPane.alignment="CENTER">
          <children>
-            <GridPane>
+            <GridPane style="-fx-border-color: #000000; -fx-border-radius: 5px; -fx-background-insets: 80px;">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -87,6 +87,7 @@
                            <children>
                               <Button fx:id="buttonListarPrestamo" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClick_buttonListarPrestamo" text="Lista de préstamos" />
                               <Button fx:id="buttonCrearPrestamo" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClick_buttonCrearPrestamo" text="Crear préstamo" />
+                              <Button fx:id="buttonDevolucionLibro" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClick_buttonDevolucionLibro" text="Devolución de Libro" />
                            </children>
                         </VBox>
                      </content>

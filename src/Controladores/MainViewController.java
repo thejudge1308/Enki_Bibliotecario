@@ -2,6 +2,7 @@
 
 package Controladores;
 
+import Modelo.Lector;
 import Valores.SingletonUsuario;
 import java.io.IOException;
 import java.net.URL;
@@ -25,6 +26,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -38,6 +40,8 @@ public class MainViewController implements Initializable {
     private BorderPane contenido_View;
     @FXML
     private Button buttonCrearLibroCopia;
+    @FXML
+    private Button buttonDevolucionLibro;
     @FXML
     private Button buttonListaLibros;
     @FXML
@@ -106,6 +110,8 @@ public class MainViewController implements Initializable {
        BorderPane bp2 = FXMLLoader.load(getClass().getResource("/enki/ListaLibros.fxml"));
         contenido_View.setCenter(bp2);
     }
+    
+    
 
     private void cerrar(ActionEvent event) {
         
@@ -148,7 +154,30 @@ public class MainViewController implements Initializable {
         contenido_View.setCenter(bp);
      }
 
-    
+    @FXML
+     private void onClick_buttonDevolucionLibro(ActionEvent event) throws IOException{
+        TextInputDialog dialog = new TextInputDialog("xxxxxxx2");
+        dialog.setTitle("Devolución de Material");
+        dialog.setHeaderText("Devolución de Material Biblioteca");
+        dialog.setContentText("Ingrese Codigo Copia:");
+
+        // Traditional way to get the response value.
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            
+             //Permite pasarle la informacion a la otra ventana
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/enki/DevolverPrestamo.fxml"));
+            Parent root = loader.load();
+            DevolverPrestamoController m = loader.getController();
+            m.setCodigo(result.get());
+            m.setPadre(contenido_View);
+            System.out.println();
+            contenido_View.setCenter(root);
+        }
+
+     }
+
      @FXML
      private void onClick_buttonLector(ActionEvent event) throws IOException{
           BorderPane bp2 = FXMLLoader.load(getClass().getResource("/enki/ListaLector.fxml"));
@@ -161,6 +190,8 @@ public class MainViewController implements Initializable {
         BorderPane bp2 = FXMLLoader.load(getClass().getResource("/enki/ListaBibliotecarios.fxml"));
        contenido_View.setCenter(bp2);
     }
+    
+    
             
             @FXML
      private void onClick_buttonListarPrestamo(ActionEvent event){
