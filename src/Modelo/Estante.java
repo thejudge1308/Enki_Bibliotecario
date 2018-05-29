@@ -38,6 +38,11 @@ public class Estante {
         this.intervaloinf = intervaloinf;
         this.intervalosup = intervalosup;
         this.buttonConfigurar = new Button("Modificar");
+        if(codigo.equals("-1"))
+        {
+            System.out.println("Codigo: "+codigo);
+            this.buttonConfigurar.setDisable(true);
+        }
         
         this.buttonConfigurar.setOnAction(new EventHandler<ActionEvent>() {
             @Override

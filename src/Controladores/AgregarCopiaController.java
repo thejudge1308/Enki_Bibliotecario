@@ -5,6 +5,7 @@
  */
 package Controladores;
 
+import Modelo.Estante;
 import Modelo.Lector;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -74,21 +76,37 @@ public class AgregarCopiaController implements Initializable {
     private String edicion;
     private String codigo;
     
+    private List<Estante> estantes ;
+    private String codigoEstante;
+    private String codigoNivel;
+    private String codigoCopia;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        comboBoxEstado.getItems().addAll("Habilitado", "Deshabilitado", "Prestado","En exhibicion");
-        comboBoxEstado.getSelectionModel().select(0);
-        System.out.println("Datos: isbn "+isbn+" titulo: "+titulo+" año: "+año);
-        labelIsbn.setText(isbn);
-        labelTitulo.setText(titulo);
-        labelAño.setText(año);
-        labelEdicion.setText(edicion);
-        labelCodigo.setText(codigo);
-        // TODO
+        try {
+            comboBoxEstado.getItems().addAll("Habilitado", "Deshabilitado", "Prestado","En exhibicion");
+            comboBoxEstado.getSelectionModel().select(0);
+            System.out.println("Datos: isbn "+isbn+" titulo: "+titulo+" año: "+año);
+            labelIsbn.setText(isbn);
+            labelTitulo.setText(titulo);
+            labelAño.setText(año);
+            labelEdicion.setText(edicion);
+            labelCodigo.setText(codigo);
+            refrescarTabla();
+            // TODO
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(AgregarCopiaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ProtocolException ex) {
+            Logger.getLogger(AgregarCopiaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(AgregarCopiaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(AgregarCopiaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
 
     @FXML
@@ -146,10 +164,14 @@ public class AgregarCopiaController implements Initializable {
     
     public void crearCopiaEnBaseDeDatos(String isbn,String estado) throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
     
-    URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.crearCopiaPHP);
+    URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.crearPrimerCopiaPHP);
     Map<String,Object> params = new LinkedHashMap<>();
     params.put("isbnlibro",isbn);
     params.put("estado",estado);
+    
+    params.put("codigoEstante",codigoEstante);
+    params.put("codigoNivel",codigoNivel);
+    
     StringBuilder postData = new StringBuilder();
     for (Map.Entry<String,Object> param : params.entrySet()) {
         if (postData.length() != 0) postData.append('&');
@@ -180,8 +202,9 @@ public class AgregarCopiaController implements Initializable {
        response=response + (char)c;
     
     //Convierte el json enviado (decodigicado)
-    JSONObject obj = new JSONObject(response);
-    String mensaje = obj.getString("mensaje");
+    /*
+   JSONObject obj = new JSONObject(response);
+   String mensaje = obj.getString("mensaje");
     
     if(mensaje.equals("true")){
           Alert alerta = new Alert(Alert.AlertType.INFORMATION);
@@ -195,7 +218,7 @@ public class AgregarCopiaController implements Initializable {
         alerta.setContentText("La copia no ha podido añadirse exitosamente");
         alerta.showAndWait();
    // System.out.println(response);
-    }
+    }*/
     
   
 }
@@ -302,6 +325,182 @@ public class AgregarCopiaController implements Initializable {
             this.labelAutor.setText(autor);                    
     }
         
+    }
+    
+    
+     private void refrescarTabla() throws MalformedURLException, UnsupportedEncodingException, ProtocolException, IOException, JSONException{
+        
+         URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.obtenerEstantePHP);
+    Map<String,Object> params = new LinkedHashMap<>();
+    StringBuilder postData = new StringBuilder();
+    for (Map.Entry<String,Object> param : params.entrySet()) {
+        if (postData.length() != 0) postData.append('&');
+        postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+        postData.append('=');
+        postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+    }
+
+    // Convierte el array, para ser enviendo
+    byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+
+    // Conectar al server
+    HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+    
+    // Configura
+    conn.setRequestMethod("POST");
+    conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+    conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+    conn.setDoOutput(true);
+    conn.getOutputStream().write(postDataBytes);
+
+    // Obtiene la respuesta del servidor
+    Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+    
+    String response="";
+    System.out.println(in);
+    for (int c; (c = in.read()) >= 0;)
+       response=response + (char)c;
+    
+    //Convierte el json enviado (decodigicado)
+    JSONObject obj = new JSONObject(response);
+         
+    String mensaje = obj.getString("mensaje");
+         System.out.println("mensaje "+mensaje);
+    if(mensaje.equals("false")){
+        //System.out.println("no hay nada");
+    }else{
+        estantes = new ArrayList<Estante>();
+        Estante estante;
+        JSONArray jsonArray = obj.getJSONArray("datos");
+        for(int i = 0; i < jsonArray.length(); i++){
+            String numero = jsonArray.getJSONObject(i).getString("numero")==null?"":jsonArray.getJSONObject(i).getString("numero");
+            String niveles=jsonArray.getJSONObject(i).getString("cantidadniveles")==null?"":jsonArray.getJSONObject(i).getString("cantidadniveles");
+            String codigo=jsonArray.getJSONObject(i).getString("codigo")==null?"":jsonArray.getJSONObject(i).getString("codigo");
+            
+            String intervaloInf=jsonArray.getJSONObject(i).getString("intervaloInf")==null?"":jsonArray.getJSONObject(i).getString("intervaloInf");
+            String intervaloSup=jsonArray.getJSONObject(i).getString("intervaloSup")==null?"":jsonArray.getJSONObject(i).getString("intervaloSup");
+           
+              estante= new Estante(numero,niveles,intervaloInf,intervaloSup);
+            //System.out.println(lector.getRut());
+            estantes.add(estante);
+         
+            comboBoxEstante.getItems().addAll(numero);
+            System.out.println("Codigo EStante: "+codigo);
+            System.out.println("Numero EStante: "+numero);
+            
+            
+        }
+        
+        
+        
+        
+        
+}
+     }
+    
+    public void obtenerNivelesEstante(String codigo,List<Estante> estantes)
+    {
+        
+        try {
+            URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.obtenerNivelPHP);
+            Map<String,Object> params = new LinkedHashMap<>();
+            params.put("codigoEstante",codigo);
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String,Object> param : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+            }
+            
+            // Convierte el array, para ser enviendo
+            byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+            
+            // Conectar al server
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            
+            // Configura
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+            conn.setDoOutput(true);
+            conn.getOutputStream().write(postDataBytes);
+            
+            // Obtiene la respuesta del servidor
+            Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+            
+            String response="";
+            System.out.println(in);
+            for (int c; (c = in.read()) >= 0;)
+                response=response + (char)c;
+            
+            //Convierte el json enviado (decodigicado)
+            JSONObject obj = new JSONObject(response);
+            
+            String mensaje = obj.getString("mensaje");
+            System.out.println("mensaje "+mensaje);
+            if(mensaje.equals("false")){
+                //System.out.println("no hay nada");
+            }else{
+                
+                
+                JSONArray jsonArray = obj.getJSONArray("datos");
+                String numero;
+                for(int i = 0; i < jsonArray.length(); i++){
+                    numero = jsonArray.getJSONObject(i).getString("codigo")==null?"":jsonArray.getJSONObject(i).getString("codigo");
+                    comboBoxNivel.getItems().addAll(numero);
+                    
+                }
+                
+                
+            }       } catch (MalformedURLException ex) {
+            Logger.getLogger(CrearLibroCopiaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(CrearLibroCopiaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ProtocolException ex) {
+            Logger.getLogger(CrearLibroCopiaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(CrearLibroCopiaController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
+            Logger.getLogger(CrearLibroCopiaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void seleccionarEstante(ActionEvent event) {
+        
+         for(int i=0;i<estantes.size();i++)
+        {
+            if(comboBoxEstante.getSelectionModel().getSelectedItem().equals(estantes.get(i).getCodigo()))
+                
+            {
+                codigoEstante=estantes.get(i).getCodigo();
+               
+            }
+        }
+        obtenerNivelesEstante(codigoEstante,estantes);
+        setCodigoEstante(codigoEstante);
+    }
+    
+    public void setCodigoEstante(String codigoEstante)
+    {
+        this.codigoEstante=codigoEstante;
+    }
+    
+    public void setCodigoNivel(String codigoNivel)
+    {
+        this.codigoNivel=codigoNivel;
+    }
+    
+    public void setCodigoCopia(String codigoCopia)
+    {
+        this.codigoCopia=codigoCopia;
+    }
+
+    @FXML
+    private void seleccionarNivel(ActionEvent event) {
+        
+           setCodigoNivel(comboBoxNivel.getSelectionModel().getSelectedItem());
     }
     
 }
