@@ -267,6 +267,8 @@ alert.showAndWait();
             root = FXMLLoader.load(getClass().getResource("/enki/CambiarContraseña.fxml"));
             Scene scene = new Scene(root);
             Stage stage = new Stage();
+            stage.setMinWidth(400);
+            stage.setMinHeight(150);
             stage.setResizable(false);
             stage.setTitle("Cambiar contraseña"); 
             stage.setScene(scene);
