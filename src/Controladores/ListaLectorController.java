@@ -90,6 +90,8 @@ public class ListaLectorController implements Initializable {
     
     private int tiempoMaximo = 60;
     private int tiempo;
+    @FXML
+    private TableColumn<Lector,Button> tableColumnPrestamos;
 
     
     /**
@@ -242,6 +244,7 @@ public class ListaLectorController implements Initializable {
         tableColumnAMaterno.setCellValueFactory(new PropertyValueFactory<Lector,String>("apellidoM"));
         tableColumnConfig.setCellValueFactory(new PropertyValueFactory<Lector,Button>("buttonConfiguraciones"));    
         tableColumnHabilitado.setCellValueFactory(new PropertyValueFactory<Lector,CheckBox>("habilitado"));
+        tableColumnPrestamos.setCellValueFactory(new PropertyValueFactory<Lector,Button>("buttonVerHistorial"));
         
         this.tableViewLectores.setItems(libros);
     }
