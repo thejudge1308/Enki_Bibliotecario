@@ -108,6 +108,7 @@ public class CambiarContraseñaController implements Initializable {
 
     @FXML
     private void cancelar(ActionEvent event) {
+        ((Node)(event.getSource())).getScene().getWindow().hide();        
     }
     
     public void guardarDatos() throws MalformedURLException, UnsupportedEncodingException, ProtocolException, IOException, JSONException

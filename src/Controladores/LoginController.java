@@ -122,7 +122,28 @@ public class LoginController implements Initializable {
         }
         
     }
-
+    
+    
+    @FXML
+    private void onClick_menuItemAcercaDe (ActionEvent event) {   
+        Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/enki/AcercaDe.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setResizable(false);
+            stage.setTitle("Acerca de"); 
+            stage.setMinWidth(250);
+            stage.setMinHeight(250);
+            stage.setScene(scene);
+            stage.setAlwaysOnTop(true);
+            stage.showAndWait();
+            
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+    }
+    
     //TODO: Valirdar ingreso
     @FXML
     private void onClick_buttonIngresar(ActionEvent event) {

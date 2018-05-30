@@ -26,6 +26,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -72,6 +73,7 @@ public class ConfigurarEstanteController implements Initializable {
 
     @FXML
     private void cancelar(ActionEvent event) {
+        ((Node)(event.getSource())).getScene().getWindow().hide(); 
     }
     
     public void setCantidadNiveles(String cantidadNiveles,String numero)
