@@ -66,5 +66,11 @@ public class ValoresEstaticos {
      * Eliminar niveles
      */
     public static final String eliminarNivelPHP = "estante/eliminarNivel.php";
-  
+    
+    
+    /**
+     * Correo
+     */
+    public static final String recuperarCorrePHP = "email/recuperar.php";
+    
 }
