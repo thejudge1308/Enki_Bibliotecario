@@ -9,7 +9,7 @@ public class ValoresEstaticos {
     /**
      * Nombre del programa
      */
-    public static final String enki ="Enki ~ Version 0.1";
+    public static final String enki ="Enki ~ Version 0.666";
     /**
      * Carpetas 
      */
@@ -31,6 +31,7 @@ public class ValoresEstaticos {
     public static final String crearEstantePHP="estante/crearEstante.php";
     public static final String crearNivelPHP="estante/crearNivel.php";
     public static final String crearPrimerCopiaPHP="copia/crearPrimerCopia.php";
+    public static final String crearPrestamo="prestamos/crearPrestamo.php";
     
     /**
      * Obtener
@@ -46,6 +47,14 @@ public class ValoresEstaticos {
     public static final String BibliotecarioPHP = "usuario/obtenerBibliotecario.php";
     public static final String obtenerNivelPHP = "estante/obtenerNiveles.php";
     public static final String obtenerPrestamoLectorPHP = "prestamos/prestamo.php";
+    
+    public static final String obtenerCopia ="copia/obtenerCopia.php" ;
+    public static final String obtenerCopiaSinRestricciones ="copia/obtenerCopiaSinRestricciones.php" ;
+    public static final String validarCopia ="copia/validarCopia.php" ;
+    public static final String obtenerCopiasPendientes ="copia/obtenerCopiasPendientes.php" ;
+    public static final String getLectorPHP ="usuario/obtenerLector.php" ;
+    public static final String obtenerPrestamos ="prestamos/obtenerPrestamos.php" ;
+    public static final String prestamosPorRut = "prestamos/prestamosPorRut.php";
 
     
     /**
@@ -62,6 +71,14 @@ public class ValoresEstaticos {
     public static final String modificarBibliotecarioPHP = "usuario/modificarBibliotecario.php";
     public static final String modificarEstanteCopiaPHP = "usuario/modificarEstanteCopia.php";
     public static final String modificarContraseñaPHP = "usuario/modificarContraseña.php";
+    
+    
+    public static final String modificarEstadoCopia="copia/modificarEstadoCopia.php";
+    public static final String modificarEstadoPrestamo="copia/modificarEstadoPrestamo.php";
+    public static final String modificarEstadoPrestamoCopia="copia/modificarEstadoPrestamoCopia.php";
+
+    public static String obtenerCopiasDevueltas ="copia/obtenerCopiasDevueltas.php" ;
+    public static String crearPrestamoCopia = "prestamos/crearPrestamoCopia.php";
     
     /**
      * Eliminar niveles
