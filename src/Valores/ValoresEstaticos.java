@@ -60,7 +60,7 @@ public class ValoresEstaticos {
     public static final String modificarEstantePHP="estante/modificarEstante.php";
     public static final String modificarEstadoCopiaPHP = "copia/modificarEstadoCopia.php";
     public static final String modificarBibliotecarioPHP = "usuario/modificarBibliotecario.php";
-    public static final String modificarEstanteCopiaPHP = "usuario/modificarEstanteCopia.php";
+    public static final String modificarEstanteCopiaPHP = "copia/modificarEstanteCopia.php";
     public static final String modificarContraseñaPHP = "usuario/modificarContraseña.php";
     
     /**
