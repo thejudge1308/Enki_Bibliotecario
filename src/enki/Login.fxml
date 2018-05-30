@@ -13,6 +13,7 @@
           <Menu mnemonicParsing="false" text="Configuracion">
             <items>
               <MenuItem fx:id="menuItemServidor" mnemonicParsing="false" onAction="#onClick_menuItemServidor" text="Servidor" />
+                  <MenuItem fx:id="menuItemCambiarContraseña" mnemonicParsing="false" onAction="#cambiarContraseña" text="Cambiar contraseña" />
                   <MenuItem fx:id="menuItemSalir" mnemonicParsing="false" onAction="#onClick_menuItemSalir" text="Salir" />
             </items>
           </Menu>

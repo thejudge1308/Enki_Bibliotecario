@@ -26,6 +26,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -60,6 +61,8 @@ public class MainViewController implements Initializable {
     private Button buttonCrearPrestamo;
     @FXML
     private Button buttonCrearEstante;
+    @FXML
+    private Label labelCambiarContraseña;
     /**
      * Initializes the controller class.
      */
@@ -218,5 +221,24 @@ public class MainViewController implements Initializable {
          }
         
     }
+
+    @FXML
+    private void cambiarContraseña(MouseEvent event) {
+        
+        try {
+            Parent root;
+            root = FXMLLoader.load(getClass().getResource("/enki/CambiarContraseña.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setResizable(false);
+            stage.setTitle("Cambiar contraseña"); 
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    }
      
-}
+
