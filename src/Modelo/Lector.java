@@ -1,5 +1,6 @@
 
 package Modelo;
+import Controladores.ListaHistorialLectorController;
 import Controladores.ModificarLectorController;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,6 +27,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,6 +42,7 @@ public class Lector {
     String apellidoP;
     String apellidoM;
     Button buttonConfiguraciones;
+    Button buttonVerHistorial;
     CheckBox habilitado;
       
     public Lector(String rut, String nombre, String apellidoP, String apellidoM,String habilitado) {
@@ -48,6 +51,7 @@ public class Lector {
         this.apellidoP = apellidoP;
         this.apellidoM = apellidoM;
         this.buttonConfiguraciones = new Button("Modificar");
+        this.buttonVerHistorial = new Button("Ver historial");
         this.habilitado = new CheckBox();
         
         //Accion del botor modificar
@@ -72,6 +76,7 @@ public class Lector {
                     stage.setMinHeight(449);
                     stage.setTitle("Modificar Lector");
                     stage.setScene(scene);
+                    stage.initModality(Modality.APPLICATION_MODAL);
                     //((Node)(event.getSource())).getScene().getWindow().hide(); //Cierra la ventana actual
                     stage.show();
                     
@@ -84,6 +89,41 @@ public class Lector {
                 }
                 
                     
+            }
+        });
+        
+        this.buttonVerHistorial.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                
+                try {     
+                    
+                    //Permite pasarle la informacion a la otra ventana
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("/enki/ListaHistorialLector.fxml"));
+                    Parent root = loader.load();
+                    ListaHistorialLectorController m = loader.getController();
+                    System.out.println("Rut:"+rut);
+                    m.setRut(rut);
+                    
+                    
+                    Scene scene = new Scene(root);
+                    
+                    Stage stage = new Stage();
+                    stage.setMinWidth(600);
+                    stage.setMinHeight(449);
+                    stage.setTitle("Historial Lector");
+                    stage.setScene(scene);
+                    //((Node)(event.getSource())).getScene().getWindow().hide(); //Cierra la ventana actual
+                    stage.show();
+                    
+                    root=null;
+                    loader=null;
+                    scene=null;
+                    stage=null;
+                } catch (IOException ex) {
+                    Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         
@@ -288,4 +328,13 @@ public class Lector {
     alerta.showAndWait();
         
     }
+
+    public Button getButtonVerHistorial() {
+        return buttonVerHistorial;
+    }
+
+    public void setButtonVerHistorial(Button buttonVerHistorial) {
+        this.buttonVerHistorial = buttonVerHistorial;
+    }
+    
 }

@@ -75,6 +75,7 @@
                   <TableColumn fx:id="tableColumnAMaterno" prefWidth="75.0" text="A.Materno" />
                   <TableColumn fx:id="tableColumnConfig" prefWidth="75.0" text="Configuracion" />
                   <TableColumn fx:id="tableColumnHabilitado" prefWidth="75.0" text="Habilitado" />
+                  <TableColumn fx:id="tableColumnPrestamos" prefWidth="75.0" text="Prestamos" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

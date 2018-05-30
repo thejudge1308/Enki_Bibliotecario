@@ -45,6 +45,7 @@ public class ValoresEstaticos {
     public static final String obtenerEstanteUnicoPHP = "estante/obtenerEstanteUnico.php";
     public static final String BibliotecarioPHP = "usuario/obtenerBibliotecario.php";
     public static final String obtenerNivelPHP = "estante/obtenerNiveles.php";
+    public static final String obtenerPrestamoLectorPHP = "prestamos/prestamo.php";
 
     
     /**
