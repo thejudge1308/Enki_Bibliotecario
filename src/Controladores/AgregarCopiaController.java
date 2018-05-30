@@ -28,6 +28,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -349,10 +350,10 @@ public class AgregarCopiaController implements Initializable {
             String intervaloInf=jsonArray.getJSONObject(i).getString("intervaloInf")==null?"":jsonArray.getJSONObject(i).getString("intervaloInf");
             String intervaloSup=jsonArray.getJSONObject(i).getString("intervaloSup")==null?"":jsonArray.getJSONObject(i).getString("intervaloSup");
            
-              estante= new Estante(id,numero,niveles,intervaloInf,intervaloSup);
+            estante= new Estante(id,numero,niveles,intervaloInf,intervaloSup);
             //System.out.println(lector.getRut());
             estantes.add(estante);
-         
+            
             comboBoxEstante.getItems().addAll(numero);
             System.out.println("Codigo EStante: "+codigo);
             System.out.println("Numero EStante: "+numero);
@@ -438,6 +439,10 @@ public class AgregarCopiaController implements Initializable {
     @FXML
     private void seleccionarEstante(ActionEvent event) {
         
+        
+         comboBoxNivel.getSelectionModel().clearSelection();
+         comboBoxNivel.getItems().clear();
+         
          for(int i=0;i<estantes.size();i++)
         {
             if(comboBoxEstante.getSelectionModel().getSelectedItem().equals(estantes.get(i).getCodigo()))
@@ -447,6 +452,8 @@ public class AgregarCopiaController implements Initializable {
                
             }
         }
+        
+         
         obtenerNivelesEstante(codigoEstante,estantes);
         setCodigoEstante(codigoEstante);
     }

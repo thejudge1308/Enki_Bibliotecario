@@ -435,7 +435,7 @@ public class CrearLibroCopiaController implements Initializable {
             //System.out.println(lector.getRut());
             estantes.add(estante);
          
-            comboBoxEstante.getItems().addAll(numero);
+            comboBoxEstante.getItems().addAll(id);
             System.out.println("Codigo EStante: "+codigo);
             System.out.println("Numero EStante: "+numero);
             
@@ -520,6 +520,9 @@ public class CrearLibroCopiaController implements Initializable {
     @FXML
     private void seleccionarEstante(ActionEvent event) {
         
+        comboBoxNivel.getSelectionModel().clearSelection();
+         comboBoxNivel.getItems().clear();
+         
         for(int i=0;i<estantes.size();i++)
         {
             if(comboBoxEstante.getSelectionModel().getSelectedItem().equals(estantes.get(i).getCodigo()))
