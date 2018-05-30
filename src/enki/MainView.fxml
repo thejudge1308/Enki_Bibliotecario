@@ -93,6 +93,7 @@
                            <children>
                               <Button fx:id="buttonListarPrestamo" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClick_buttonListarPrestamo" text="Lista de préstamos" />
                               <Button fx:id="buttonCrearPrestamo" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClick_buttonCrearPrestamo" text="Crear préstamo" />
+                              <Button fx:id="buttonDevolucionLibro" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClick_buttonDevolucionLibro" text="Devolución de Libro" />
                            </children>
                         </VBox>
                      </content>

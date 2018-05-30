@@ -77,8 +77,6 @@ public class ListaLibrosController implements Initializable {
     private int tiempoMaximo = 60;
     private int tiempo;
     @FXML
-    private ToggleGroup filtro;
-    @FXML
     private TableColumn<Libro,String> tableColumnNCopias;
    
     
