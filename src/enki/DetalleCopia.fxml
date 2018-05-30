@@ -31,6 +31,7 @@
                   <TableColumn fx:id="tableColumnAutor" editable="false" prefWidth="78.0" sortable="false" text="Autor" />
                   <TableColumn fx:id="tableColumnEstado" editable="false" minWidth="9.0" prefWidth="110.0" sortable="false" text="Estado" />
                   <TableColumn fx:id="tableColumnUbicacion" prefWidth="75.0" text="Ubicación" />
+                  <TableColumn fx:id="tableColumnModificar" prefWidth="75.0" text="Modificar" />
                </columns>
                <VBox.margin>
                   <Insets bottom="5.0" />

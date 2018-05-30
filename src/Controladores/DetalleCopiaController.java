@@ -74,6 +74,8 @@ public class DetalleCopiaController implements Initializable {
     @FXML
     private TableColumn<Copia,String> tableColumnUbicacion;
     @FXML
+    private TableColumn<Copia,Button> tableColumnModificar;
+    @FXML
     private Label labelTimer;
     
     @FXML
@@ -87,6 +89,7 @@ public class DetalleCopiaController implements Initializable {
     private String titulo;
     private String año;
     private String edicion;
+    
     /**
      * Initializes the controller class.
      */
@@ -242,6 +245,7 @@ public class DetalleCopiaController implements Initializable {
         tableColumnAutor.setCellValueFactory(new PropertyValueFactory<Copia,String>("autor"));
         tableColumnEstado.setCellValueFactory(new PropertyValueFactory<Copia,ComboBox>("estadoCopia"));
         tableColumnUbicacion.setCellValueFactory(new PropertyValueFactory<Copia,String>("ubicacion"));
+        tableColumnModificar.setCellValueFactory(new PropertyValueFactory<Copia,Button>("configurarUbicacionButton"));
         
         this.tableViewListaCopias.setItems(ocopias);
     }
@@ -276,9 +280,9 @@ public class DetalleCopiaController implements Initializable {
     }
     
     public void setIsbn(String isbn)
-        {
-            this.isbn=isbn;
-        }
+    {
+        this.isbn=isbn;
+    }
     
     public void setTitulo(String titulo)
     {

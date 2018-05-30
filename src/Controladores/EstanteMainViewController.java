@@ -65,22 +65,6 @@ public class EstanteMainViewController implements Initializable {
     @FXML
     private TableView<Estante> tableViewEstantes;
     
-    
-
-   /* @FXML
-    private TableView<Estante> tableViewListaEstantes;
-    @FXML
-    private TableColumn<Estante,Integer> tableColumnNumero;
-    @FXML
-    private TableColumn<Estante,Integer> tableColumnNiveles;
-    @FXML
-    private TableColumn<Estante,Integer> tableColumnRangoInferior;
-    @FXML
-    private TableColumn<Estante,Integer> tableColumnRangoSuperior;
-    @FXML
-    private TableColumn<Estante,String> tableColumnConfigurar;
-
-    private Button buttonConfigurar;*/
 
     /**
      * Initializes the controller class.
@@ -193,13 +177,13 @@ public class EstanteMainViewController implements Initializable {
         Estante estante;
         JSONArray jsonArray = obj.getJSONArray("datos");
         for(int i = 0; i < jsonArray.length(); i++){
+            String codigo = jsonArray.getJSONObject(i).getString("codigo")==null?"":jsonArray.getJSONObject(i).getString("codigo");
             String numero = jsonArray.getJSONObject(i).getString("numero")==null?"":jsonArray.getJSONObject(i).getString("numero");
-            String niveles=jsonArray.getJSONObject(i).getString("cantidadniveles")==null?"":jsonArray.getJSONObject(i).getString("cantidadniveles");
-            
+            String niveles=jsonArray.getJSONObject(i).getString("cantidadniveles")==null?"":jsonArray.getJSONObject(i).getString("cantidadniveles");           
             String intervaloInf=jsonArray.getJSONObject(i).getString("intervaloInf")==null?"":jsonArray.getJSONObject(i).getString("intervaloInf");
             String intervaloSup=jsonArray.getJSONObject(i).getString("intervaloSup")==null?"":jsonArray.getJSONObject(i).getString("intervaloSup");
            
-              estante= new Estante(numero,niveles,intervaloInf,intervaloSup);
+              estante= new Estante(codigo,numero,niveles,intervaloInf,intervaloSup);
             //System.out.println(lector.getRut());
             estantes.add(estante);
         }

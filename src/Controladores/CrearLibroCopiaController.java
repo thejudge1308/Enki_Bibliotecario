@@ -117,7 +117,7 @@ public class CrearLibroCopiaController implements Initializable {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-//guardarDatos();
+                //guardarDatos();
                         //Cierra la ventana
             //((Node)(event.getSource())).getScene().getWindow().hide(); //Cierra la ventana actual
 
@@ -171,17 +171,6 @@ public class CrearLibroCopiaController implements Initializable {
         
     }
     
-    
-    //TODO: Decodificar JSON
-    /**
-     * 
-     * @param isbn
-     * @param autor
-     * @param anio
-     * @param dewey
-     * @param titulo
-     * @param edicion
-     */
     
     public void crearLibroEnBaseDeDatos(String isbn,String autor,String anio,String dewey,
                                          String titulo,String edicion) throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
@@ -434,6 +423,7 @@ public class CrearLibroCopiaController implements Initializable {
         Estante estante;
         JSONArray jsonArray = obj.getJSONArray("datos");
         for(int i = 0; i < jsonArray.length(); i++){
+                        String id = jsonArray.getJSONObject(i).getString("codigo")==null?"":jsonArray.getJSONObject(i).getString("codigo");
             String numero = jsonArray.getJSONObject(i).getString("numero")==null?"":jsonArray.getJSONObject(i).getString("numero");
             String niveles=jsonArray.getJSONObject(i).getString("cantidadniveles")==null?"":jsonArray.getJSONObject(i).getString("cantidadniveles");
             String codigo=jsonArray.getJSONObject(i).getString("codigo")==null?"":jsonArray.getJSONObject(i).getString("codigo");
@@ -441,7 +431,7 @@ public class CrearLibroCopiaController implements Initializable {
             String intervaloInf=jsonArray.getJSONObject(i).getString("intervaloInf")==null?"":jsonArray.getJSONObject(i).getString("intervaloInf");
             String intervaloSup=jsonArray.getJSONObject(i).getString("intervaloSup")==null?"":jsonArray.getJSONObject(i).getString("intervaloSup");
            
-              estante= new Estante(numero,niveles,intervaloInf,intervaloSup);
+              estante= new Estante(id,numero,niveles,intervaloInf,intervaloSup);
             //System.out.println(lector.getRut());
             estantes.add(estante);
          

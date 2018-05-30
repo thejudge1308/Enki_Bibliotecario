@@ -5,7 +5,9 @@
  */
 package Modelo;
 
+import Controladores.ConfigurarEstanteController;
 import Controladores.ConfigurarLibrosController;
+import Controladores.ConfigurarNivelController;
 import Controladores.DetalleCopiaController;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,12 +22,14 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -45,6 +49,7 @@ public class Copia {
     private String autor;
     private String isbn;
     private ComboBox estadoCopia;
+    private Button configurarUbicacionButton;
 
     public Copia(String codigo, String titulo, String estado, String ubicacion, String autor,String isbn) {
       
@@ -84,15 +89,49 @@ public class Copia {
                 @Override
                 public void handle(Event event)
                 {
-                    
-                    
+                                       
                     modificarEstadoCopia(estadoCopia.getSelectionModel().getSelectedItem().toString(),codigo);
                 }
 
                
             });
             
-            
+            this.configurarUbicacionButton = new Button("Click aquí");
+            this.configurarUbicacionButton.setMaxWidth(Double.MAX_VALUE);
+            this.configurarUbicacionButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    
+                     try {
+                    FXMLLoader fxmlLoader = new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource("/enki/configurarNivel.fxml"));
+                    
+                    Parent principalParent = fxmlLoader.load();
+                    
+                    ConfigurarNivelController controller = fxmlLoader.getController();
+                    controller.setCodigo(codigo);
+                    //controller.setCodigo(codigo);
+                    //controller.setCantidadNiveles(cantidadniveles, codigo);
+                    
+                    Scene scene = null;
+                    
+                    scene = new Scene(principalParent);
+                    Stage configurarEstante = new Stage();
+                    configurarEstante.setMinWidth(436);
+                    configurarEstante.setMinHeight(207);
+                    configurarEstante.setMaxWidth(600);
+                    configurarEstante.setMaxHeight(300);
+                    
+                    configurarEstante.setTitle("Modificar Ubicacion");
+                    configurarEstante.setScene(scene);
+                    configurarEstante.initModality(Modality.APPLICATION_MODAL);
+                    configurarEstante.showAndWait();
+                } catch (IOException ex) {
+                    Logger.getLogger(Estante.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                    
+                }
+            });
          
         
     }
@@ -213,6 +252,15 @@ public class Copia {
     public void setEstadoCopia(ComboBox estadoCopia) {
         this.estadoCopia = estadoCopia;
     }
+
+    public Button getConfigurarUbicacionButton() {
+        return configurarUbicacionButton;
+    }
+
+    public void setConfigurarUbicacionButton(Button configurarUbicacionButton) {
+        this.configurarUbicacionButton = configurarUbicacionButton;
+    }
+    
     
     
 }
