@@ -227,7 +227,7 @@ public class DetalleCopiaController implements Initializable {
             
             System.out.println("Estado de copia: "+estado);
             
-            String ubicacion="Estane: "+estante+" Nivel: "+nivel;
+            String ubicacion="Estante: "+estante+" Nivel: "+nivel;
             copia  = new Copia(codigo,titulo,estado,ubicacion,autor,isbn);
             //System.out.println(lector.getRut());
             copias.add(copia);

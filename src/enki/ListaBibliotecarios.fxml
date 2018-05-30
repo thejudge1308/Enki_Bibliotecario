@@ -74,23 +74,6 @@
                </VBox.margin>
             </GridPane>
             <HBox>
-               <children>
-                  <RadioButton fx:id="radioButtonTodos" mnemonicParsing="false" text="Todos">
-                     <HBox.margin>
-                        <Insets right="5.0" />
-                     </HBox.margin>
-                  </RadioButton>
-                  <RadioButton fx:id="radioButtonRut" mnemonicParsing="false" text="Rut">
-                     <HBox.margin>
-                        <Insets right="5.0" />
-                     </HBox.margin>
-                  </RadioButton>
-                  <RadioButton fx:id="radioButtonNombre" mnemonicParsing="false" text="Nombre">
-                     <HBox.margin>
-                        <Insets right="5.0" />
-                     </HBox.margin>
-                  </RadioButton>
-               </children>
                <VBox.margin>
                   <Insets bottom="5.0" />
                </VBox.margin>

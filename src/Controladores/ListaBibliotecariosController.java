@@ -65,12 +65,6 @@ public class ListaBibliotecariosController implements Initializable {
     @FXML
     private TextField textBoxBuscar;
     @FXML
-    private RadioButton radioButtonTodos;
-    @FXML
-    private RadioButton radioButtonRut;
-    @FXML
-    private RadioButton radioButtonNombre;
-    @FXML
     private TableView<Bibliotecario> tableViewBibliotecarios;
     @FXML
     private TableColumn<Bibliotecario,String> tableColumnRut;

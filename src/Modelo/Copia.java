@@ -109,7 +109,7 @@ public class Copia {
                     Parent principalParent = fxmlLoader.load();
                     
                     ConfigurarNivelController controller = fxmlLoader.getController();
-                    controller.setCodigo(codigo);
+                    controller.setCodigoCopia(codigo);
                     //controller.setCodigo(codigo);
                     //controller.setCantidadNiveles(cantidadniveles, codigo);
                     

@@ -34,17 +34,6 @@
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
-               <children>
-                  <RadioButton mnemonicParsing="false" text="Título">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="filtro" />
-                     </toggleGroup>
-                  </RadioButton>
-                  <RadioButton mnemonicParsing="false" text="Autor" toggleGroup="$filtro" />
-                  <RadioButton mnemonicParsing="false" text="Edición" toggleGroup="$filtro" />
-                  <RadioButton mnemonicParsing="false" text="Año" />
-                  <RadioButton mnemonicParsing="false" text="ISBN" toggleGroup="$filtro" />
-               </children>
             </HBox>
             <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="283.0" prefWidth="583.0">
                <children>
