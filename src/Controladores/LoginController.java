@@ -69,6 +69,8 @@ public class LoginController implements Initializable {
     private Button buttonIngresar;
     @FXML
     private Button buttonSalir;
+    @FXML
+    private MenuItem menuItemCambiarContraseña;
 
     /**
      * Initializes the controller class.
@@ -257,4 +259,21 @@ alert.showAndWait();
        
        return flag;
    }  
+
+    @FXML
+    private void cambiarContraseña(ActionEvent event) {
+        try {
+            Parent root;
+            root = FXMLLoader.load(getClass().getResource("/enki/CambiarContraseña.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setResizable(false);
+            stage.setTitle("Cambiar contraseña"); 
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        } catch (IOException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

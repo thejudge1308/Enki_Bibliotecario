@@ -59,9 +59,10 @@
                 <RowConstraints vgrow="SOMETIMES" />
                 <RowConstraints vgrow="SOMETIMES" />
                 <RowConstraints vgrow="SOMETIMES" />
+                  <RowConstraints vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label fx:id="labelCerrarSesion" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#onClick_labelCerrarSesion" text="Cerrar sesion" textFill="#1702ff" underline="true" GridPane.rowIndex="2">
+                  <Label fx:id="labelCerrarSesion" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#onClick_labelCerrarSesion" text="Cerrar sesion" textFill="#1702ff" underline="true" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </GridPane.margin></Label>
@@ -75,6 +76,11 @@
                      </font>
                      <GridPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="labelCambiarContraseña" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#cambiarContraseña" text="Cambiar contraseña" textFill="#1702ff" underline="true" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="50.0" right="5.0" top="5.0" />
                      </GridPane.margin>
                   </Label>
                </children>
