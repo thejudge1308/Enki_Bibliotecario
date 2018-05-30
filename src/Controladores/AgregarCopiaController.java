@@ -168,7 +168,6 @@ public class AgregarCopiaController implements Initializable {
     Map<String,Object> params = new LinkedHashMap<>();
     params.put("isbnlibro",isbn);
     params.put("estado",estado);
-    
     params.put("codigoEstante",codigoEstante);
     params.put("codigoNivel",codigoNivel);
     
@@ -201,24 +200,6 @@ public class AgregarCopiaController implements Initializable {
     for (int c; (c = in.read()) >= 0;)
        response=response + (char)c;
     
-    //Convierte el json enviado (decodigicado)
-    /*
-   JSONObject obj = new JSONObject(response);
-   String mensaje = obj.getString("mensaje");
-    
-    if(mensaje.equals("true")){
-          Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setTitle("Información");
-            alerta.setContentText("La copia ha sido añadida exitosamente");
-            alerta.showAndWait();
-   // System.out.println(response);
-    }else{
-          Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setTitle("Información");
-        alerta.setContentText("La copia no ha podido añadirse exitosamente");
-        alerta.showAndWait();
-   // System.out.println(response);
-    }*/
     
   
 }
@@ -250,19 +231,6 @@ public class AgregarCopiaController implements Initializable {
     public void setEdicion(String edicion)
     {
         this.edicion=edicion;
-    }
-    
-    protected String getSaltString() {
-        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-        StringBuilder salt = new StringBuilder();
-        Random rnd = new Random();
-        while (salt.length() < 18) { // length of the random string.
-            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
-            salt.append(SALTCHARS.charAt(index));
-        }
-        String saltStr = salt.toString();
-        return saltStr;
-
     }
     
     public void obtenerDatosLibro()throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
@@ -373,6 +341,7 @@ public class AgregarCopiaController implements Initializable {
         Estante estante;
         JSONArray jsonArray = obj.getJSONArray("datos");
         for(int i = 0; i < jsonArray.length(); i++){
+            String id = jsonArray.getJSONObject(i).getString("codigo")==null?"":jsonArray.getJSONObject(i).getString("codigo");
             String numero = jsonArray.getJSONObject(i).getString("numero")==null?"":jsonArray.getJSONObject(i).getString("numero");
             String niveles=jsonArray.getJSONObject(i).getString("cantidadniveles")==null?"":jsonArray.getJSONObject(i).getString("cantidadniveles");
             String codigo=jsonArray.getJSONObject(i).getString("codigo")==null?"":jsonArray.getJSONObject(i).getString("codigo");
@@ -380,7 +349,7 @@ public class AgregarCopiaController implements Initializable {
             String intervaloInf=jsonArray.getJSONObject(i).getString("intervaloInf")==null?"":jsonArray.getJSONObject(i).getString("intervaloInf");
             String intervaloSup=jsonArray.getJSONObject(i).getString("intervaloSup")==null?"":jsonArray.getJSONObject(i).getString("intervaloSup");
            
-              estante= new Estante(numero,niveles,intervaloInf,intervaloSup);
+              estante= new Estante(id,numero,niveles,intervaloInf,intervaloSup);
             //System.out.println(lector.getRut());
             estantes.add(estante);
          

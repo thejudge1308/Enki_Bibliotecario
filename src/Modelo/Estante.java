@@ -26,22 +26,25 @@ import javafx.stage.Stage;
  */
 public class Estante {
     
+    
+   String id; 
    String codigo;
    String cantidadniveles;
    String intervaloinf;
    String intervalosup;
     Button buttonConfigurar;
 
-    public Estante(String codigo,String cantidadniveles,String intervaloinf, String intervalosup) {
+    public Estante(String id, String codigo,String cantidadniveles,String intervaloinf, String intervalosup) {
         this.codigo = codigo;
         this.cantidadniveles = cantidadniveles;
         this.intervaloinf = intervaloinf;
         this.intervalosup = intervalosup;
         this.buttonConfigurar = new Button("Modificar");
-        if(codigo.equals("-1"))
+        if(id.equals("-1"))
         {
-            System.out.println("Codigo: "+codigo);
-            this.buttonConfigurar.setDisable(true);
+            //System.out.println("Codigo: "+codigo);
+            this.codigo = "Generado por sistema";
+            this.buttonConfigurar.setVisible(false);
         }
         
         this.buttonConfigurar.setOnAction(new EventHandler<ActionEvent>() {
