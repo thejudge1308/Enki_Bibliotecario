@@ -18,6 +18,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -25,6 +26,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -174,6 +176,26 @@ public class CrearEstanteController implements Initializable {
 
     @FXML
     private void cancelar(ActionEvent event) {
+
     }
     
+    
+    @FXML
+    private void onClick_buttonCancelar(ActionEvent event) {
+         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+         alert.setTitle("Confirmación");
+         alert.setHeaderText("Estas seguro que cancelar la operación");
+         alert.setContentText("Si aceptas, se eliminarán los datos actuales.");
+
+         Optional<ButtonType> result = alert.showAndWait();
+         if (result.get() == ButtonType.OK){
+            this.textFieldCantidadEstantes.setText("");
+            this.textFieldDeweyInf.setText("");
+            this.textFieldDeweySup.setText("");
+            this.textFieldNumeroEstante.setText("");
+           
+         } else {
+             
+         }
+    }    
 }
