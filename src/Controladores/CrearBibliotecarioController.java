@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -61,6 +62,8 @@ public class CrearBibliotecarioController implements Initializable {
     private TextField textBoxNombreContactoEmergencia;
     @FXML
     private TextField textBoxTelefonoContactoEmergencia;
+    private boolean isRutCorrecto = true;
+    private boolean isCorreoCorrecto = true;
      @Override
     public void initialize(URL url, ResourceBundle rb) {
      this.textBoxRut.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(12));
@@ -70,14 +73,21 @@ public class CrearBibliotecarioController implements Initializable {
      this.textBoxDIreccion.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(250));
      this.textBoxTelefono.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionRut(50));
      this.textBoxEmail.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(256));
+     this.textBoxTelefonoContactoEmergencia.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionRut(50));
         
         
     }    
 
     @FXML
-    private void onClick_buttonAceptar(ActionEvent event) {
+    private void onClick_buttonAceptar(ActionEvent event) {        
         crearBibliotecario();
-        ((Node)(event.getSource())).getScene().getWindow().hide(); 
+        if(this.isCorreoCorrecto && this.isRutCorrecto){
+            ((Node)(event.getSource())).getScene().getWindow().hide();
+        }
+        else{
+            this.isCorreoCorrecto = true;
+            this.isRutCorrecto = true;
+        }
     }
 
     @FXML
@@ -114,25 +124,25 @@ public class CrearBibliotecarioController implements Initializable {
                    Logger.getLogger(CrearBibliotecarioController.class.getName()).log(Level.SEVERE, null, ex);
                }
              }
-            {
+            else{
                 Alert alerta = new Alert(Alert.AlertType.WARNING);
                 alerta.setTitle("Advertencia");
                 alerta.setHeaderText("No se ha podido realizar la operación.");
-                alerta.setContentText("El correo electrónico no es valido.");
+                alerta.setContentText("El correo electrónico no es válido.");
                 alerta.showAndWait();
+                this.isCorreoCorrecto = false;
+                this.textBoxEmail.setText("");                
             }          
             
         }else{
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Advertencia");
             alerta.setHeaderText("El RUT no es valido para realizar la operación.");
-            alerta.setContentText("EL campo rut esta vacio, ingrese un rut valido.");
+            alerta.setContentText("EL campo rut esta vacío, ingrese un rut válido.");
             alerta.showAndWait();
-        }
-        
-     
-        
-        
+            this.isRutCorrecto = false;
+            this.textBoxRut.setText("");
+        }  
     }
     
     /**
@@ -208,14 +218,14 @@ public class CrearBibliotecarioController implements Initializable {
      }
     
    public static boolean isValidEmailAddress(String email) {
-   boolean result = true;
-   try {
-      InternetAddress emailAddr = new InternetAddress(email);
-      emailAddr.validate();
-   } catch (AddressException ex) {
-      result = false;
-   }
-   return result;
-}
+        boolean result = true;
+        try {
+           InternetAddress emailAddr = new InternetAddress(email);
+           emailAddr.validate();
+        } catch (AddressException ex) {
+           result = false;
+        }
+        return result;
+     }
 
 }

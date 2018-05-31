@@ -5,6 +5,7 @@
  */
 package Controladores;
 
+import static Controladores.CrearBibliotecarioController.isValidEmailAddress;
 import Modelo.Bibliotecario;
 import Valores.Validaciones;
 import java.io.BufferedReader;
@@ -34,6 +35,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,22 +76,31 @@ public class ModificarBibliotecarioController implements Initializable{
     private void onClick_buttonAceptar(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmación");
-        alert.setContentText("Estas seguro que quieres modificar?");
+        alert.setContentText("Estás seguro que quieres modificar?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            try {
-                guardarDatos();
-            } catch (UnsupportedEncodingException ex) {
-                Logger.getLogger(ModificarBibliotecarioController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(ModificarBibliotecarioController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (JSONException ex) {
-                Logger.getLogger(ModificarBibliotecarioController.class.getName()).log(Level.SEVERE, null, ex);
+            if(isValidEmailAddress(textBoxEmail.getText().equals("")?"":textBoxEmail.getText())){
+                try {
+                    guardarDatos();
+                } catch (UnsupportedEncodingException ex) {
+                    Logger.getLogger(ModificarBibliotecarioController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(ModificarBibliotecarioController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (JSONException ex) {
+                    Logger.getLogger(ModificarBibliotecarioController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                //Cierra la ventana
+                ((Node)(event.getSource())).getScene().getWindow().hide(); //Cierra la ventana actual
             }
-            //Cierra la ventana
-            ((Node)(event.getSource())).getScene().getWindow().hide(); //Cierra la ventana actual
-
+            else{
+                Alert alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setTitle("Advertencia");
+                alerta.setHeaderText("No se ha podido realizar la operación.");
+                alerta.setContentText("El correo electrónico no es válido.");
+                alerta.showAndWait();
+                this.textBoxEmail.setText(""); 
+            }            
         } else {
             ((Node)(event.getSource())).getScene().getWindow().hide(); //Cierra la ventana actual
 
@@ -178,7 +190,7 @@ public class ModificarBibliotecarioController implements Initializable{
             String nombreEmergencia = jsonArray.getJSONObject(0).getString("contactoEmergenciaNombre")==null?"":jsonArray.getJSONObject(0).getString("contactoEmergenciaNombre");
             String telefonoEmergencia = jsonArray.getJSONObject(0).getString("contactoEmergenciaTelefono")==null?"":jsonArray.getJSONObject(0).getString("contactoEmergenciaTelefono");
             String contrasena = jsonArray.getJSONObject(0).getString("contrasena")==null?"":jsonArray.getJSONObject(0).getString("contrasena");
-            
+                                         
             //Edita
             
             this.textBoxRut.setText(rut);
@@ -279,9 +291,19 @@ public class ModificarBibliotecarioController implements Initializable{
     else{
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
         alerta.setTitle("Mensaje");
-        alerta.setContentText("Modificado con exito");
+        alerta.setContentText("Modificado con éxito");
         alerta.showAndWait();
         }
 
-    }   
+    }
+    public static boolean isValidEmailAddress(String email) {
+        boolean result = true;
+        try {
+           InternetAddress emailAddr = new InternetAddress(email);
+           emailAddr.validate();
+        } catch (AddressException ex) {
+           result = false;
+        }
+        return result;
+     }
 }
