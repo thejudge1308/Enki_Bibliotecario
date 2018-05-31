@@ -32,6 +32,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -69,7 +71,7 @@ public class ModificarLectorController implements Initializable{
     private void onClick_buttonAceptar(ActionEvent event) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Confirmación");
-        alert.setContentText("Estas seguro que quieres modificar?");
+        alert.setContentText("Estás seguro que quieres modificar?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
@@ -109,8 +111,8 @@ public class ModificarLectorController implements Initializable{
      this.textBoxApellidoMaterno.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(50));
      this.textBoxDIreccion.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(250));
      this.textBoxTelefono.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionRut(50));
-     this.textBoxEmail.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(256));       
-     this.textBoxComentario.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(256));
+     this.textBoxEmail.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(200));       
+     
     }
     
     /**
@@ -122,7 +124,7 @@ public class ModificarLectorController implements Initializable{
      * @throws JSONException 
      */
     private void obtenerLector(String Rrut) throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
-     URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.LectorPHP);
+     URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.datosLectorPHP);
      Map<String,Object> params = new LinkedHashMap<>();
      params.put("rut", Rrut.trim()); // All parameters, also easy
         
@@ -175,6 +177,7 @@ public class ModificarLectorController implements Initializable{
             String telefono = jsonArray.getJSONObject(0).getString("telefono")==null?"":jsonArray.getJSONObject(0).getString("telefono");
             String estado = jsonArray.getJSONObject(0).getString("estado")==null?"":jsonArray.getJSONObject(0).getString("estado");
             
+            System.out.println(rut);
             //Editar
             this.textBoxRut.setText(rut);
             this.textBoxNombre.setText(nombre);
@@ -265,12 +268,10 @@ public class ModificarLectorController implements Initializable{
     }else{
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
     alerta.setTitle("Mensaje");
-    alerta.setContentText("Modificado con exito");
+    alerta.setContentText("Modificado con éxito");
     alerta.showAndWait();
     }
 
     }
-    
-   
     
 }

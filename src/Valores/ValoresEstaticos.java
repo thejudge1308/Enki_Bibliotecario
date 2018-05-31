@@ -55,7 +55,11 @@ public class ValoresEstaticos {
     public static final String getLectorPHP ="usuario/obtenerLector.php" ;
     public static final String obtenerPrestamos ="prestamos/obtenerPrestamos.php" ;
     public static final String prestamosPorRut = "prestamos/prestamosPorRut.php";
+
+    public static final String datosLectorPHP = "usuario/datosLector.php";
+
     public static final String obtenerLectorPorRut = "usuario/obtenerLectorPorRut.php";
+
 
     
     /**
