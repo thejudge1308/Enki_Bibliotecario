@@ -13,7 +13,7 @@
    <center>
       <VBox prefHeight="400.0" prefWidth="314.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Correo">
+            <Label text="Email">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
@@ -23,7 +23,7 @@
                   <Insets left="5.0" right="5.0" />
                </VBox.margin>
             </TextField>
-            <Label text="Contaseña actual">
+            <Label text="Contraseña actual">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>

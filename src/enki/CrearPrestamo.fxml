@@ -48,7 +48,7 @@
                         <Insets />
                      </HBox.margin>
                   </Label>
-                  <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="125.0" text="Rut:">
+                  <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="125.0" text="RUT:">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -75,7 +75,7 @@
                         <Insets />
                      </HBox.margin>
                   </Label>
-                  <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="125.0" text="Correo Electronico:">
+                  <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="125.0" text="Correo Electrónico:">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
