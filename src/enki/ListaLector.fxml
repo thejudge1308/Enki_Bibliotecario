@@ -15,8 +15,14 @@
 
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="719.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.ListaLectorController">
    <center>
-      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="526.0" prefWidth="635.0" BorderPane.alignment="CENTER">
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="526.0" prefWidth="635.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
+            <HBox prefHeight="43.0" prefWidth="699.0" spacing="10.0">
+               <children>
+                  <TextField fx:id="textFieldBusquedaLector" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="630.0" promptText="Rut lector" />
+                  <Button fx:id="buttonBuscar" mnemonicParsing="false" onAction="#buscarLector" text="Buscar" />
+               </children>
+            </HBox>
             <HBox>
                <children>
                   <Button fx:id="buttonNuevoLector" mnemonicParsing="false" onAction="#onClick_buttonNuevoLector" text="Nuevo Lector" />
