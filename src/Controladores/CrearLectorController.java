@@ -65,7 +65,7 @@ public class CrearLectorController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-     this.textBoxRut.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionRut(9));
+     this.textBoxRut.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(12));
      this.textBoxNombre.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(250));
      this.textBoxApellidoPaterno.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(50));
      this.textBoxApellidoMaterno.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(50));

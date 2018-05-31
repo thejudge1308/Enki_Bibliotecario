@@ -1,14 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Modelo;
 
-import Controladores.ConfigurarEstanteController;
-import Controladores.ConfigurarLibrosController;
+
 import Controladores.ConfigurarNivelController;
-import Controladores.DetalleCopiaController;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -59,8 +54,8 @@ public class Copia {
             this.ubicacion = ubicacion;
             this.autor = autor;
             this.isbn = isbn;
-            System.out.println("Estado de copia en copia: "+estado);
-            System.out.println("codigo copia: "+codigo);
+            //System.out.println("Estado de copia en copia: "+estado);
+            //System.out.println("codigo copia: "+codigo);
             estadoCopia = new ComboBox<String>();
             estadoCopia.getItems().addAll("En exhibicion","Habilitado","Deshabilitado","Prestado");
             if(estado.equals("En exhibicion"))
@@ -159,8 +154,8 @@ public class Copia {
     
     URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.modificarEstadoCopiaPHP);
     Map<String,Object> params = new LinkedHashMap<>();
-         System.out.println("Codigo antes de mandar:"+codigo);
-         System.out.println("Estado antes de mandar:"+estado);
+         //System.out.println("Codigo antes de mandar:"+codigo);
+         //System.out.println("Estado antes de mandar:"+estado);
     params.put("codigo", codigo);
     params.put("estado", estado);
     StringBuilder postData = new StringBuilder();
@@ -188,20 +183,22 @@ public class Copia {
     Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
     
     String response="";
-    System.out.println(in);
+    //System.out.println(in);
     for (int c; (c = in.read()) >= 0;)
        response=response + (char)c;
     
     //Convierte el json enviado (decodigicado)
-          System.out.println(response);
-          //System.out.println("ISBN; "+isbn);
+    //System.out.println(response);
+    //System.out.println("ISBN; "+isbn);
     JSONObject obj = new JSONObject(response);
     String mensaje = obj.getString("mensaje");
     
-    Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-    //alerta.setTitle("Mensaje");
-    alerta.setContentText(mensaje);
-    alerta.showAndWait();
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("Información de la solicitud");
+    alert.setHeaderText(null);
+    alert.setContentText(mensaje);
+    alert.showAndWait();
+
    // System.out.println(response);
 }
 
