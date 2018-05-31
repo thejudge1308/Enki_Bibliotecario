@@ -1,5 +1,7 @@
 package Valores;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -47,7 +49,7 @@ public class Validaciones {
     };
 }        
     
-    public static boolean isValidEmailAddress(String email) {
+   public static boolean isValidEmailAddress(String email) {
    boolean result = true;
    try {
       InternetAddress emailAddr = new InternetAddress(email);
@@ -57,5 +59,21 @@ public class Validaciones {
    }
    return result;
 }
+    
+    public static Boolean validaRut ( String rut ) {
+       Pattern pattern = Pattern.compile("([0-9]{2}|[0-9]{1})+.[0-9]{3}+.[0-9]{3}+-[0-9kK]{1}$");                
+       Matcher matcher = pattern.matcher(rut);
+       if ( matcher.matches() == false ) 
+           return false;
+       String[] stringRut = rut.split("-");
+       System.out.println(stringRut[0].replace(".", ""));
+       return stringRut[1].toLowerCase().equals(dv(stringRut[0].replace(".", "")));
+   }
+        public static String dv ( String rut ) {
+            Integer M=0,S=1,T=Integer.parseInt(rut);
+            for (;T!=0;T=(int) Math.floor(T/=10))
+            S=(S+T%10*(9-M++%6))%11;
+            return ( S > 0 ) ? String.valueOf(S-1) : "k";		
+    }
     
 }

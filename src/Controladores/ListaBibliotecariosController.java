@@ -204,8 +204,9 @@ public class ListaBibliotecariosController implements Initializable {
             
             String apaterno=jsonArray.getJSONObject(i).getString("apellidoPaterno")==null?"":jsonArray.getJSONObject(i).getString("apellidoPaterno");
             String amaterno=jsonArray.getJSONObject(i).getString("apellidoMaterno")==null?"":jsonArray.getJSONObject(i).getString("apellidoMaterno");
-            
-            bibliotecario  = new Bibliotecario(rut,nombre,apaterno,amaterno,"");
+            String habilitado=jsonArray.getJSONObject(i).getString("estado")==null?"":jsonArray.getJSONObject(i).getString("estado");
+
+            bibliotecario  = new Bibliotecario(rut,nombre,apaterno,amaterno,habilitado);
             //System.out.println(lector.getRut());
             bibliotecarios.add(bibliotecario);
         }

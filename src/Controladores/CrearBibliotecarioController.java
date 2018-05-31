@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Controladores;
 
+import Valores.Validaciones;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,6 +23,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import org.json.JSONException;
@@ -63,9 +61,17 @@ public class CrearBibliotecarioController implements Initializable {
     private TextField textBoxNombreContactoEmergencia;
     @FXML
     private TextField textBoxTelefonoContactoEmergencia;
- @Override
+     @Override
     public void initialize(URL url, ResourceBundle rb) {
-      
+     this.textBoxRut.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(12));
+     this.textBoxNombre.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(250));
+     this.textBoxApellidoPaterno.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(50));
+     this.textBoxApellidoMaterno.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(50));
+     this.textBoxDIreccion.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(250));
+     this.textBoxTelefono.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionRut(50));
+     this.textBoxEmail.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(256));
+        
+        
     }    
 
     @FXML
@@ -93,25 +99,33 @@ public class CrearBibliotecarioController implements Initializable {
         String contactoEmergenciaTelefono = textBoxTelefonoContactoEmergencia.getText().equals("")?"":textBoxTelefonoContactoEmergencia.getText();
         String contrasena = textBoxContraseña.getText().equals("")?"":textBoxContraseña.getText();
         
-        if(!rut.equals("")){
+        if(Validaciones.validaRut(rut)){
             
-            try {
-                this.crearBibliotecarioEnBaseDeDatos(rut, nombre, apellidoPat, apellidoMat, direccion, email, telefono,contactoEmergenciaNombre,contactoEmergenciaTelefono,contrasena);
-            } catch (UnsupportedEncodingException ex) {
-                System.out.println(ex);
-               // Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                System.out.println(ex);
-                //Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (JSONException ex) {
-                Logger.getLogger(CrearBibliotecarioController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
+            if(isValidEmailAddress(email)){
+                try {
+                   this.crearBibliotecarioEnBaseDeDatos(rut, nombre, apellidoPat, apellidoMat, direccion, email, telefono,contactoEmergenciaNombre,contactoEmergenciaTelefono,contrasena);
+               } catch (UnsupportedEncodingException ex) {
+                   System.out.println(ex);
+                  // Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
+               } catch (IOException ex) {
+                   System.out.println(ex);
+                   //Logger.getLogger(CrearLectorController.class.getName()).log(Level.SEVERE, null, ex);
+               } catch (JSONException ex) {
+                   Logger.getLogger(CrearBibliotecarioController.class.getName()).log(Level.SEVERE, null, ex);
+               }
+             }
+            {
+                Alert alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setTitle("Advertencia");
+                alerta.setHeaderText("No se ha podido realizar la operación.");
+                alerta.setContentText("El correo electrónico no es valido.");
+                alerta.showAndWait();
+            }          
             
         }else{
             Alert alerta = new Alert(Alert.AlertType.WARNING);
             alerta.setTitle("Advertencia");
-            alerta.setHeaderText("No se puede realizar esta operación.");
+            alerta.setHeaderText("El RUT no es valido para realizar la operación.");
             alerta.setContentText("EL campo rut esta vacio, ingrese un rut valido.");
             alerta.showAndWait();
         }
@@ -121,9 +135,6 @@ public class CrearBibliotecarioController implements Initializable {
         
     }
     
-    
-    
-    //TODO: Decodificar JSON
     /**
      * 
      * @param rut
@@ -179,7 +190,7 @@ public class CrearBibliotecarioController implements Initializable {
     Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
     
     String response="";
-    System.out.println(in);
+    //System.out.println(in);
     for (int c; (c = in.read()) >= 0;)
        response=response + (char)c;
     
@@ -196,6 +207,15 @@ public class CrearBibliotecarioController implements Initializable {
        
      }
     
-    
+   public static boolean isValidEmailAddress(String email) {
+   boolean result = true;
+   try {
+      InternetAddress emailAddr = new InternetAddress(email);
+      emailAddr.validate();
+   } catch (AddressException ex) {
+      result = false;
+   }
+   return result;
+}
 
 }

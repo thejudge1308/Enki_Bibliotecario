@@ -140,7 +140,7 @@ public class CrearPrestamoController implements Initializable {
         
         boolean flag=false;
         URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.getLectorPHP); // URL to your application
-        System.out.println(url);
+        //System.out.println(url);
         Map<String,Object> params = new LinkedHashMap<>();
         params.put("rut", this.textFieldRut.getText().trim()); // All parameters, also easy
         this.rutLector = this.textFieldRut.getText().trim();
@@ -168,11 +168,11 @@ public class CrearPrestamoController implements Initializable {
         // This gets the output from your server
         Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
         String response="";
-        System.out.println(in.toString());
+        //System.out.println(in.toString());
         for (int c; (c = in.read()) >= 0;){
             response=response + (char)c;
         }
-           System.out.println(response);
+           //System.out.println(response);
            JSONObject obj = new JSONObject(response);
            String mensaje = obj.getString("mensaje");
 
@@ -270,7 +270,7 @@ public class CrearPrestamoController implements Initializable {
                     solicitarCopia(codigo1);
                     solicitarCopia(codigo2);
                     String codigoPrestamo = crearPrestamo();
-                    crearPrestamo();
+                    //crearPrestamo();
                     crearPrestamoCopia(codigoPrestamo, codigo1);
                     crearPrestamoCopia(codigoPrestamo, codigo2);
                 }
@@ -463,6 +463,7 @@ public class CrearPrestamoController implements Initializable {
         }
         
         JSONObject obj = new JSONObject(response);
+        
         String mensaje = obj.getString("mensaje");
 
 
@@ -516,7 +517,10 @@ public class CrearPrestamoController implements Initializable {
         params.put("refTrabajador", SingletonUsuario.usuario.getUsuario()); // All parameters, also easy
         params.put("fechaDevolucion", fechaFinal2); // All parameters, also easy
         params.put("fechaPrestamo", fechaFinal1); // All parameters, also easy
-
+        
+        //System.out.println("Datos: "+this.rutLector+" "+SingletonUsuario.usuario.getUsuario()+" ");
+        
+        
         StringBuilder postData = new StringBuilder();
         for (Map.Entry<String,Object> param : params.entrySet()) {
             if (postData.length() != 0) postData.append('&');
@@ -547,9 +551,12 @@ public class CrearPrestamoController implements Initializable {
         
         JSONObject obj = new JSONObject(response);
         String mensaje = obj.getString("mensaje");
+        String codigo = obj.getString("codigo");
+        //System.out.println("Codigo"+codigo);
+        //System.out.println("Codigo"+codigo);
+       
 
-
-         if(mensaje.contains("true")){
+         if(mensaje.equals("true")){
             try {
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("/enki/ListaPrestamos.fxml"));
@@ -562,8 +569,8 @@ public class CrearPrestamoController implements Initializable {
             } catch (IOException ex) {
                 Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-            return String.valueOf(obj.getInt("codigo"));
+            //System.out.println("Codigo devuelto: "+obj.getInt("codigo"));  
+            return codigo;
          }  
          else {
         }
@@ -586,7 +593,7 @@ public class CrearPrestamoController implements Initializable {
         params.put("codigoPrestamo", codigoPrestamo); // All parameters, also easy
         params.put("codigoCopia", codigoCopia); // All parameters, also easy
         params.put("estado", "Pendiente"); // All parameters, also easy
-
+        //System.out.println(codigoPrestamo+" "+codigoCopia);
         StringBuilder postData = new StringBuilder();
         for (Map.Entry<String,Object> param : params.entrySet()) {
             if (postData.length() != 0) postData.append('&');
@@ -617,7 +624,7 @@ public class CrearPrestamoController implements Initializable {
         
         JSONObject obj = new JSONObject(response);
         String mensaje = obj.getString("mensaje");
-
+       // String ma = obj.getString("mensaje");
 
          if(mensaje.contains("true")){
             try {
@@ -635,6 +642,10 @@ public class CrearPrestamoController implements Initializable {
             
          }  
          else {
+            /* Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+            alerta.setTitle("Mensaje");
+            alerta.setContentText(ma);
+            alerta.showAndWait();*/
         }
 
         //return flag;
@@ -687,4 +698,9 @@ public class CrearPrestamoController implements Initializable {
         }
     }
     
+    private String getRut(){
+        String aux="";
+        
+        return aux;
+    }
 }
