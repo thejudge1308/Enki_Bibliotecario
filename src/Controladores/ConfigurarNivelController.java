@@ -63,7 +63,10 @@ public class ConfigurarNivelController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            refrescarTabla();
+            obtenerEstantes();
+            this.comboBoxEstante.getSelectionModel().selectFirst();
+            this.codigoEstante = comboBoxEstante.getSelectionModel().getSelectedItem().toString();
+            setComboBoxs();
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(ConfigurarNivelController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ProtocolException ex) {
@@ -100,16 +103,16 @@ public class ConfigurarNivelController implements Initializable {
             
             for(int i=0;i<estantes.size();i++)
             {
-            if(comboBoxEstante.getSelectionModel().getSelectedItem().equals(estantes.get(i).getCodigo()))
-                
-            {
-                codigoEstante=estantes.get(i).getCodigo();
-               
-            }
+                if(comboBoxEstante.getSelectionModel().getSelectedItem().equals(estantes.get(i).getCodigo()))
+
+                {
+                    codigoEstante=estantes.get(i).getCodigo();
+
+                }
             }
             
             
-            obtenerNiveles(codigoEstante, estantes);
+            obtenerNiveles(codigoEstante);
             
             this.comboBoxNivel.getSelectionModel().select(0);
         } catch (UnsupportedEncodingException ex) {
@@ -123,7 +126,15 @@ public class ConfigurarNivelController implements Initializable {
         }
     }
     
-    
+     public void setComboBoxs(){
+        comboBoxNivel.getSelectionModel().clearSelection();
+        comboBoxNivel.getItems().clear();
+        obtenerNiveles(comboBoxEstante.getSelectionModel().getSelectedItem());    
+        setCodigoEstante(this.codigoEstante = comboBoxEstante.getSelectionModel().getSelectedItem().toString());
+        this.comboBoxNivel.getSelectionModel().selectFirst();
+        this.codigoNivel = this.comboBoxNivel.getSelectionModel().getSelectedItem().toString();
+        
+    }
     
     private void getEstantes() throws MalformedURLException, UnsupportedEncodingException, ProtocolException, IOException, JSONException{
         
@@ -196,7 +207,7 @@ public class ConfigurarNivelController implements Initializable {
     }
 }
     
-    public void obtenerNiveles(String codigo,List<Estante> estantes)
+    public void obtenerNiveles(String codigo)
     {
         
         try {
@@ -266,23 +277,11 @@ public class ConfigurarNivelController implements Initializable {
 
     private void onClick_comboBoxEstante(ActionEvent event) {
         
-         for(int i=0;i<estantes.size();i++)
-        {
-            if(comboBoxEstante.getSelectionModel().getSelectedItem().equals(estantes.get(i).getCodigo()))
-                
-            {
-                codigoEstante=estantes.get(i).getCodigo();
-               
-            }
-        }
-        this.comboBoxNivel.getSelectionModel().clearSelection();
-        obtenerNiveles(codigoEstante,estantes);
-        codigoEstante = codigoEstante;
+       setComboBoxs();
     }
     
-      private void refrescarTabla() throws MalformedURLException, UnsupportedEncodingException, ProtocolException, IOException, JSONException{
-        
-         URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.obtenerEstantePHP);
+      private void obtenerEstantes() throws MalformedURLException, UnsupportedEncodingException, ProtocolException, IOException, JSONException{
+          URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.obtenerEstantePHP);
     Map<String,Object> params = new LinkedHashMap<>();
     StringBuilder postData = new StringBuilder();
     for (Map.Entry<String,Object> param : params.entrySet()) {
@@ -325,7 +324,7 @@ public class ConfigurarNivelController implements Initializable {
         Estante estante;
         JSONArray jsonArray = obj.getJSONArray("datos");
         for(int i = 0; i < jsonArray.length(); i++){
-            String id = jsonArray.getJSONObject(i).getString("codigo")==null?"":jsonArray.getJSONObject(i).getString("codigo");
+                        String id = jsonArray.getJSONObject(i).getString("codigo")==null?"":jsonArray.getJSONObject(i).getString("codigo");
             String numero = jsonArray.getJSONObject(i).getString("numero")==null?"":jsonArray.getJSONObject(i).getString("numero");
             String niveles=jsonArray.getJSONObject(i).getString("cantidadniveles")==null?"":jsonArray.getJSONObject(i).getString("cantidadniveles");
             String codigo=jsonArray.getJSONObject(i).getString("codigo")==null?"":jsonArray.getJSONObject(i).getString("codigo");
@@ -333,18 +332,16 @@ public class ConfigurarNivelController implements Initializable {
             String intervaloInf=jsonArray.getJSONObject(i).getString("intervaloInf")==null?"":jsonArray.getJSONObject(i).getString("intervaloInf");
             String intervaloSup=jsonArray.getJSONObject(i).getString("intervaloSup")==null?"":jsonArray.getJSONObject(i).getString("intervaloSup");
            
-            estante= new Estante(id,numero,niveles,intervaloInf,intervaloSup);
+              estante= new Estante(id,numero,niveles,intervaloInf,intervaloSup);
             //System.out.println(lector.getRut());
             estantes.add(estante);
-            
-            comboBoxEstante.getItems().addAll(numero);
-            System.out.println("Codigo EStante: "+codigo);
-            System.out.println("Numero EStante: "+numero);
+         
+            comboBoxEstante.getItems().addAll(id);
+            //System.out.println("Codigo EStante: "+codigo);
+            //System.out.println("Numero EStante: "+numero);
             
             
         }
-        
-        
         
         
         

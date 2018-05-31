@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Controladores;
 
 import Modelo.Estante;
@@ -21,15 +17,12 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -97,7 +90,10 @@ public class AgregarCopiaController implements Initializable {
             labelAño.setText(año);
             labelEdicion.setText(edicion);
             labelCodigo.setText(codigo);
-            refrescarTabla();
+            obtenerEstantes();
+            this.comboBoxEstante.getSelectionModel().selectFirst();
+            this.codigoEstante = comboBoxEstante.getSelectionModel().getSelectedItem().toString();
+            setComboBoxs();
             // TODO
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(AgregarCopiaController.class.getName()).log(Level.SEVERE, null, ex);
@@ -123,6 +119,15 @@ public class AgregarCopiaController implements Initializable {
         ((Stage)borderPaneAgregarCopia.getScene().getWindow()).close();
     }
     
+     public void setComboBoxs(){
+        comboBoxNivel.getSelectionModel().clearSelection();
+        comboBoxNivel.getItems().clear();
+        obtenerNivelesEstante(comboBoxEstante.getSelectionModel().getSelectedItem());    
+        setCodigoEstante(this.codigoEstante = comboBoxEstante.getSelectionModel().getSelectedItem().toString());
+        this.comboBoxNivel.getSelectionModel().selectFirst();
+        this.codigoNivel = this.comboBoxNivel.getSelectionModel().getSelectedItem().toString();
+        
+    }
     
      private void crearCopia(){
         String estado = comboBoxEstado.getValue().equals("")?"":comboBoxEstado.getValue();
@@ -165,7 +170,7 @@ public class AgregarCopiaController implements Initializable {
     
     public void crearCopiaEnBaseDeDatos(String isbn,String estado) throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
     
-    URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.crearPrimerCopiaPHP);
+    URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.crearCopiaPHP);
     Map<String,Object> params = new LinkedHashMap<>();
     params.put("isbnlibro",isbn);
     params.put("estado",estado);
@@ -297,9 +302,9 @@ public class AgregarCopiaController implements Initializable {
     }
     
     
-     private void refrescarTabla() throws MalformedURLException, UnsupportedEncodingException, ProtocolException, IOException, JSONException{
+     private void obtenerEstantes() throws MalformedURLException, UnsupportedEncodingException, ProtocolException, IOException, JSONException{
         
-         URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.obtenerEstantePHP);
+        URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.obtenerEstantePHP);
     Map<String,Object> params = new LinkedHashMap<>();
     StringBuilder postData = new StringBuilder();
     for (Map.Entry<String,Object> param : params.entrySet()) {
@@ -342,7 +347,7 @@ public class AgregarCopiaController implements Initializable {
         Estante estante;
         JSONArray jsonArray = obj.getJSONArray("datos");
         for(int i = 0; i < jsonArray.length(); i++){
-            String id = jsonArray.getJSONObject(i).getString("codigo")==null?"":jsonArray.getJSONObject(i).getString("codigo");
+                        String id = jsonArray.getJSONObject(i).getString("codigo")==null?"":jsonArray.getJSONObject(i).getString("codigo");
             String numero = jsonArray.getJSONObject(i).getString("numero")==null?"":jsonArray.getJSONObject(i).getString("numero");
             String niveles=jsonArray.getJSONObject(i).getString("cantidadniveles")==null?"":jsonArray.getJSONObject(i).getString("cantidadniveles");
             String codigo=jsonArray.getJSONObject(i).getString("codigo")==null?"":jsonArray.getJSONObject(i).getString("codigo");
@@ -350,25 +355,23 @@ public class AgregarCopiaController implements Initializable {
             String intervaloInf=jsonArray.getJSONObject(i).getString("intervaloInf")==null?"":jsonArray.getJSONObject(i).getString("intervaloInf");
             String intervaloSup=jsonArray.getJSONObject(i).getString("intervaloSup")==null?"":jsonArray.getJSONObject(i).getString("intervaloSup");
            
-            estante= new Estante(id,numero,niveles,intervaloInf,intervaloSup);
+              estante= new Estante(id,numero,niveles,intervaloInf,intervaloSup);
             //System.out.println(lector.getRut());
             estantes.add(estante);
-            
-            comboBoxEstante.getItems().addAll(numero);
-            System.out.println("Codigo EStante: "+codigo);
-            System.out.println("Numero EStante: "+numero);
+         
+            comboBoxEstante.getItems().addAll(id);
+            //System.out.println("Codigo EStante: "+codigo);
+            //System.out.println("Numero EStante: "+numero);
             
             
         }
         
         
         
-        
-        
 }
      }
     
-    public void obtenerNivelesEstante(String codigo,List<Estante> estantes)
+    public void obtenerNivelesEstante(String codigo)
     {
         
         try {
@@ -438,24 +441,7 @@ public class AgregarCopiaController implements Initializable {
 
     @FXML
     private void seleccionarEstante(ActionEvent event) {
-        
-        
-         comboBoxNivel.getSelectionModel().clearSelection();
-         comboBoxNivel.getItems().clear();
-         
-         for(int i=0;i<estantes.size();i++)
-        {
-            if(comboBoxEstante.getSelectionModel().getSelectedItem().equals(estantes.get(i).getCodigo()))
-                
-            {
-                codigoEstante=estantes.get(i).getCodigo();
-               
-            }
-        }
-        
-         
-        obtenerNivelesEstante(codigoEstante,estantes);
-        setCodigoEstante(codigoEstante);
+        setComboBoxs();
     }
     
     public void setCodigoEstante(String codigoEstante)

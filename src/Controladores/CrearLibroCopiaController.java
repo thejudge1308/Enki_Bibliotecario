@@ -22,7 +22,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,7 +38,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.json.JSONArray;
@@ -91,7 +89,10 @@ public class CrearLibroCopiaController implements Initializable {
             this.textBoxDewey.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionRut(3));
             this.textBoxTitulo.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(200));
             this.textBoxEdicion.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(200));
-            refrescarTabla();
+            obtenerEstante();
+            this.comboBoxEstante.getSelectionModel().selectFirst();
+            this.codigoEstante = comboBoxEstante.getSelectionModel().getSelectedItem().toString();
+            setComboBoxs();
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(CrearLibroCopiaController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ProtocolException ex) {
@@ -113,10 +114,14 @@ public class CrearLibroCopiaController implements Initializable {
         
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmación");
-        alert.setContentText("Estas seguro que quieres modificar?");
+        alert.setContentText("Estas seguro que quieres guardar los cambios?");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
+            if(Validaciones.validaISBN(textBoxISBN.getText().toString())){
+                  crearLibro();
+            }
+          
                 //guardarDatos();
                         //Cierra la ventana
             //((Node)(event.getSource())).getScene().getWindow().hide(); //Cierra la ventana actual
@@ -125,13 +130,25 @@ public class CrearLibroCopiaController implements Initializable {
             //((Node)(event.getSource())).getScene().getWindow().hide(); //Cierra la ventana actual
 
        }
-        crearLibro();
+        //crearLibro();
          //((Node)(event.getSource())).getScene().getWindow().hide(); 
     }
 
     private void cancelar(ActionEvent event) {
-        
-        ((Node)(event.getSource())).getScene().getWindow().hide(); 
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación");
+        alert.setContentText("Estas seguro que quieres limpiar todos los campos de textos?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            textBoxEdicion.setText("");
+            textBoxAutor.setText("");
+            textBoxTitulo.setText("");
+            textBoxAño.setText("");
+            textBoxISBN.setText("");
+            textBoxDewey.setText("");
+        }
+        //((Node)(event.getSource())).getScene().getWindow().hide(); 
     }
  
      private void crearLibro(){
@@ -266,17 +283,6 @@ public class CrearLibroCopiaController implements Initializable {
     }
     
     
-    //TODO: Decodificar JSON
-    /**
-     * 
-     * @param isbn
-     * @param autor
-     * @param anio
-     * @param dewey
-     * @param titulo
-     * @param edicion
-     */
-    
     public void crearCopiaEnBaseDeDatos(String isbn,String estado) throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
         URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.crearPrimerCopiaPHP);
         Map<String,Object> params = new LinkedHashMap<>();
@@ -284,6 +290,7 @@ public class CrearLibroCopiaController implements Initializable {
         params.put("estado",estado);
         params.put("codigoEstante",codigoEstante);
         params.put("codigoNivel",codigoNivel);
+        params.put("numcopia", "1");
         StringBuilder postData = new StringBuilder();
         for (Map.Entry<String,Object> param : params.entrySet()) {
             if (postData.length() != 0) postData.append('&');
@@ -378,7 +385,7 @@ public class CrearLibroCopiaController implements Initializable {
     
     
     
-    private void refrescarTabla() throws MalformedURLException, UnsupportedEncodingException, ProtocolException, IOException, JSONException{
+    private void obtenerEstante() throws MalformedURLException, UnsupportedEncodingException, ProtocolException, IOException, JSONException{
         
          URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.obtenerEstantePHP);
     Map<String,Object> params = new LinkedHashMap<>();
@@ -436,8 +443,8 @@ public class CrearLibroCopiaController implements Initializable {
             estantes.add(estante);
          
             comboBoxEstante.getItems().addAll(id);
-            System.out.println("Codigo EStante: "+codigo);
-            System.out.println("Numero EStante: "+numero);
+            //System.out.println("Codigo EStante: "+codigo);
+            //System.out.println("Numero EStante: "+numero);
             
             
         }
@@ -449,7 +456,7 @@ public class CrearLibroCopiaController implements Initializable {
 }
      }
     
-    public void obtenerNivelesEstante(String codigo,List<Estante> estantes)
+    public void obtenerNivelesEstante(String codigo)
     {
         
         try {
@@ -491,13 +498,14 @@ public class CrearLibroCopiaController implements Initializable {
             String mensaje = obj.getString("mensaje");
             System.out.println("mensaje "+mensaje);
             if(mensaje.equals("false")){
-                //System.out.println("no hay nada");
+                System.out.println("no hay nada");
             }else{
                 
                 
                 JSONArray jsonArray = obj.getJSONArray("datos");
                 String numero;
                 for(int i = 0; i < jsonArray.length(); i++){
+                    System.out.println("nivel "+i);
                     numero = jsonArray.getJSONObject(i).getString("codigo")==null?"":jsonArray.getJSONObject(i).getString("codigo");
                     comboBoxNivel.getItems().addAll(numero);
                     
@@ -515,25 +523,22 @@ public class CrearLibroCopiaController implements Initializable {
         } catch (JSONException ex) {
             Logger.getLogger(CrearLibroCopiaController.class.getName()).log(Level.SEVERE, null, ex);
         }
+       
     }
 
     @FXML
     private void seleccionarEstante(ActionEvent event) {
-        
+        setComboBoxs();  
+    }
+    
+    public void setComboBoxs(){
         comboBoxNivel.getSelectionModel().clearSelection();
-         comboBoxNivel.getItems().clear();
-         
-        for(int i=0;i<estantes.size();i++)
-        {
-            if(comboBoxEstante.getSelectionModel().getSelectedItem().equals(estantes.get(i).getCodigo()))
-                
-            {
-                codigoEstante=estantes.get(i).getCodigo();
-               
-            }
-        }
-        obtenerNivelesEstante(codigoEstante,estantes);
-        setCodigoEstante(codigoEstante);
+        comboBoxNivel.getItems().clear();
+        obtenerNivelesEstante(comboBoxEstante.getSelectionModel().getSelectedItem());    
+        setCodigoEstante(this.codigoEstante = comboBoxEstante.getSelectionModel().getSelectedItem().toString());
+        this.comboBoxNivel.getSelectionModel().selectFirst();
+        this.codigoNivel = this.comboBoxNivel.getSelectionModel().getSelectedItem().toString();
+        
     }
     
     
@@ -592,9 +597,7 @@ public class CrearLibroCopiaController implements Initializable {
         alerta.showAndWait();
         }
 
-    }  
-    
-    
+    }   
     
     public void setCodigoEstante(String codigoEstante)
     {
@@ -614,7 +617,7 @@ public class CrearLibroCopiaController implements Initializable {
     @FXML
     private void seleccionarNivel(ActionEvent event) {
         
-        setCodigoNivel(comboBoxNivel.getSelectionModel().getSelectedItem());
+        setCodigoNivel(comboBoxNivel.getSelectionModel().getSelectedItem().toString());
     }
     
     
