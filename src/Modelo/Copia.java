@@ -199,8 +199,9 @@ public class Copia {
     String mensaje = obj.getString("mensaje");
     
     Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-    //alerta.setTitle("Mensaje");
-    alerta.setContentText(mensaje);
+    alerta.setTitle("Modificar estado");
+    alerta.setHeaderText(null);
+    alerta.setContentText("Se ha modificado el estado");
     alerta.showAndWait();
    // System.out.println(response);
 }

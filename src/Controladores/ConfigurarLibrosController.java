@@ -163,8 +163,9 @@ public class ConfigurarLibrosController implements Initializable {
     String mensaje = obj.getString("mensaje");
     
     Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-    //alerta.setTitle("Mensaje");
-    alerta.setContentText(mensaje);
+    alerta.setTitle("Modificar Libro");
+    alerta.setHeaderText(null);
+    alerta.setContentText("El libro se ha modificado exitosamente");
     alerta.showAndWait();
    // System.out.println(response);
 }

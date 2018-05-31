@@ -25,6 +25,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -38,6 +39,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.mail.internet.AddressException;
@@ -64,14 +67,14 @@ public class LoginController implements Initializable {
     @FXML
     private TextField textBoxCorreo;
     @FXML
-   private PasswordField passwordFieldContrasena;
+    private PasswordField passwordFieldContrasena;
     @FXML
     private Button buttonIngresar;
     @FXML
     private Button buttonSalir;
     @FXML
     private MenuItem menuItemCambiarContraseña;
-
+    
     /**
      * Initializes the controller class.
      */
@@ -298,5 +301,5 @@ alert.showAndWait();
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    } 
 }

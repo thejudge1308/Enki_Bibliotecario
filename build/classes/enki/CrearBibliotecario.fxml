@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.CrearBibliotecarioController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="476.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.CrearBibliotecarioController">
    <bottom>
       <HBox alignment="CENTER_RIGHT" minHeight="-Infinity" minWidth="-Infinity" BorderPane.alignment="CENTER">
          <children>
@@ -27,7 +27,7 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Rut">
+            <Label text="RUT">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
@@ -80,7 +80,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" />
                </VBox.margin>
             </TextField>
-            <Label text="Telefono">
+            <Label text="Teléfono">
                <padding>
                   <Insets bottom="5.0" />
                </padding>
@@ -93,7 +93,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" />
                </VBox.margin>
             </TextField>
-            <Label text="Direccion">
+            <Label text="Dirección">
                <padding>
                   <Insets bottom="5.0" />
                </padding>
@@ -106,12 +106,22 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" />
                </VBox.margin>
             </TextField>
-            <Label text="Contacto de emergencia">
+            <Label text="Nombre Contacto de emergencia">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" />
                </VBox.margin>
             </Label>
-            <TextField fx:id="textBoxContactoEmergencia">
+            <TextField fx:id="textBoxNombreContactoEmergencia">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Teléfono Contacto de Emergencia">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="textBoxTelefonoContactoEmergencia">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" />
                </VBox.margin>

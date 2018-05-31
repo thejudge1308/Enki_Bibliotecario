@@ -549,8 +549,9 @@ public class ConfigurarNivelController implements Initializable {
     String mensaje = obj.getString("mensaje");
     
     Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-    //alerta.setTitle("Mensaje");
-    alerta.setContentText(mensaje);
+    alerta.setTitle("Modificar ubicación");
+    alerta.setHeaderText(null);
+    alerta.setContentText("Ubicación modificada exitosamente");
     alerta.showAndWait();
     
   
