@@ -75,5 +75,16 @@ public class Validaciones {
             S=(S+T%10*(9-M++%6))%11;
             return ( S > 0 ) ? String.valueOf(S-1) : "k";		
     }
+        
+        public static Boolean validaISBN ( String isbn ) {
+       Pattern pattern = Pattern.compile("[0-9]{3}+-[0-9]{3}+-[0-9]{3}+-[0-9]{3}+-[0-9]{1}$");                
+       Matcher matcher = pattern.matcher(isbn);
+       if ( matcher.matches() == false ) {
+           return false;
+       }
+       else{
+           return true;
+       }
+   }
     
 }

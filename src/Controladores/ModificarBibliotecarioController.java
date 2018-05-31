@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Controladores;
 
 import static Controladores.CrearBibliotecarioController.isValidEmailAddress;
@@ -34,9 +30,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+
 import javafx.scene.paint.Color;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
