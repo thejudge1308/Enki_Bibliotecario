@@ -8,8 +8,8 @@
    <center>
       <TableView fx:id="tableViewPrestamos" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="tableColumnCodigoPrestamo" prefWidth="75.0" text="Código prestamo" />
-          <TableColumn fx:id="tableColumnRut" prefWidth="75.0" text="Rut" />
+          <TableColumn fx:id="tableColumnCodigoPrestamo" prefWidth="75.0" text="Código préstamo" />
+          <TableColumn fx:id="tableColumnRut" prefWidth="75.0" text="RUT" />
             <TableColumn fx:id="tableColumnFechaPrestamo" prefWidth="75.0" text="Fecha Préstamo" />
             <TableColumn fx:id="tableColumnFechaDevolucion" prefWidth="75.0" text="Fecha devolución " />
         </columns>

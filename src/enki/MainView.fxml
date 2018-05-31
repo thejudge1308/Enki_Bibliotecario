@@ -22,12 +22,12 @@
         <menus>
           <Menu mnemonicParsing="false" text="Archivo">
             <items>
-              <MenuItem fx:id="menuItemCerrarSesion" mnemonicParsing="false" onAction="#onClick_menuItemCerrarSesion" text="Cerrar Sesion" />
+              <MenuItem fx:id="menuItemCerrarSesion" mnemonicParsing="false" onAction="#onClick_menuItemCerrarSesion" text="Cerrar Sesión" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Configuracion">
+          <Menu mnemonicParsing="false" text="Configuración">
             <items>
-              <MenuItem mnemonicParsing="false" text="Configuracion de servidor" />
+              <MenuItem mnemonicParsing="false" text="Configuración del servidor" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Ayuda">
@@ -62,7 +62,7 @@
                   <RowConstraints vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label fx:id="labelCerrarSesion" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#onClick_labelCerrarSesion" text="Cerrar sesion" textFill="#1702ff" underline="true" GridPane.rowIndex="3">
+                  <Label fx:id="labelCerrarSesion" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#onClick_labelCerrarSesion" text="Cerrar sesión" textFill="#1702ff" underline="true" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </GridPane.margin></Label>
@@ -91,7 +91,7 @@
                      <content>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Button fx:id="buttonListarPrestamo" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClick_buttonListarPrestamo" text="Lista de préstamos" />
+                              <Button fx:id="buttonListarPrestamo" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClick_buttonListarPrestamo" text="Historial de préstamos" />
                               <Button fx:id="buttonCrearPrestamo" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClick_buttonCrearPrestamo" text="Crear préstamo" />
                               <Button fx:id="buttonDevolucionLibro" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClick_buttonDevolucionLibro" text="Devolución de Libro" />
                            </children>
@@ -112,7 +112,7 @@
                      <content>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Button fx:id="buttonListarEstantes" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClick_buttonListarEstantes" text="Listar estantes" />
+                              <Button fx:id="buttonListarEstantes" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClick_buttonListarEstantes" text="Lista de estantes" />
                               <Button fx:id="buttonCrearEstante" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClick_buttonCrearEstante" text="Crear estante" />
                            </children>
                         </VBox>

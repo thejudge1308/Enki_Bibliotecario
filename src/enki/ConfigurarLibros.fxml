@@ -40,17 +40,17 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Titulo" GridPane.rowIndex="2" />
+            <Label text="Título" GridPane.rowIndex="2" />
             <TextField fx:id="textFieldTitulo" maxWidth="1.7976931348623157E308" GridPane.rowIndex="3" />
             <Label text="Edición" GridPane.rowIndex="4" />
             <TextField fx:id="textFieldEdicion" maxWidth="1.7976931348623157E308" GridPane.rowIndex="5" />
             <Label text="Autor" GridPane.rowIndex="6" />
             <TextField fx:id="textFieldAutor" maxWidth="1.7976931348623157E308" GridPane.rowIndex="7" />
-            <Label text="Año de publicacion" GridPane.rowIndex="8" />
+            <Label text="Año de publicación" GridPane.rowIndex="8" />
             <TextField fx:id="textFieldAnio" maxWidth="1.7976931348623157E308" GridPane.rowIndex="9" />
             <Label text="ISBN" />
             <TextField fx:id="textFieldIsbn" GridPane.rowIndex="1" />
-            <Label text="Codigo DEWEY" GridPane.rowIndex="10" />
+            <Label text="Código DEWEY" GridPane.rowIndex="10" />
             <TextField fx:id="textFieldCodigoDewey" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.rowIndex="11" />
          </children>
          <BorderPane.margin>

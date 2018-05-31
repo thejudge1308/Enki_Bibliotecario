@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -14,11 +19,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0" prefWidth="314.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.LoginController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0" prefWidth="314.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.LoginController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="Configuracion">
+          <Menu mnemonicParsing="false" text="Configuración">
             <items>
               <MenuItem fx:id="menuItemServidor" mnemonicParsing="false" onAction="#onClick_menuItemServidor" text="Servidor" />
                   <MenuItem fx:id="menuItemCambiarContraseña" mnemonicParsing="false" onAction="#cambiarContraseña" text="Cambiar contraseña" />
@@ -44,7 +49,7 @@
                   <Image url="@../Img/Logo.png" />
                </image>
             </ImageView>
-            <Label text="Correo">
+            <Label text="Email">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
@@ -54,7 +59,7 @@
                   <Insets left="5.0" right="5.0" />
                </VBox.margin>
             </TextField>
-            <Label text="Contaseña">
+            <Label text="Contraseña">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
@@ -87,7 +92,7 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="buttonOlvideMiContasena" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClick_buttonOlvideMiContasena" text="Olvide mi contraseña">
+            <Button fx:id="buttonOlvideMiContasena" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onClick_buttonOlvideMiContasena" text="Olvidé mi contraseña">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </HBox.margin>

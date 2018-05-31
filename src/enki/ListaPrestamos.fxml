@@ -21,7 +21,7 @@
                   <TableView fx:id="table" HBox.hgrow="ALWAYS">
                     <columns>
                       <TableColumn fx:id="codigo" prefWidth="75.0" text="Código" />
-                      <TableColumn fx:id="rutLector" text="Rut lector" />
+                      <TableColumn fx:id="rutLector" text="RUT" />
                         <TableColumn fx:id="fechaPrestamo" prefWidth="116.0" text="Fecha préstamo" />
                         <TableColumn fx:id="fechaDevolucion" prefWidth="127.0" text="Fecha devolución" />
                         <TableColumn fx:id="estado" prefWidth="69.0" text="Estado" />

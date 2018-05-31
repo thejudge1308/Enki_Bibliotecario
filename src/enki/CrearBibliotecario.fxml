@@ -27,7 +27,7 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Rut">
+            <Label text="RUT">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
@@ -80,7 +80,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" />
                </VBox.margin>
             </TextField>
-            <Label text="Telefono">
+            <Label text="Teléfono">
                <padding>
                   <Insets bottom="5.0" />
                </padding>
@@ -93,7 +93,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" />
                </VBox.margin>
             </TextField>
-            <Label text="Direccion">
+            <Label text="Dirección">
                <padding>
                   <Insets bottom="5.0" />
                </padding>
@@ -116,7 +116,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" />
                </VBox.margin>
             </TextField>
-            <Label text="Telefono Contacto de Emergencia">
+            <Label text="Teléfono Contacto de Emergencia">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" />
                </VBox.margin>

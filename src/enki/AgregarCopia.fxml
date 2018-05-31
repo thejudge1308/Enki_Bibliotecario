@@ -41,8 +41,8 @@
          <children>
             <Label fx:id="labelIsbn" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="ISBN:" GridPane.rowIndex="1" />
-            <Label text="Titulo:" />
-            <Label text="Año de publicacion:" GridPane.rowIndex="3" />
+            <Label text="Título:" />
+            <Label text="Año de publicación:" GridPane.rowIndex="3" />
             <Label text="Edición:" GridPane.rowIndex="4" />
             <Label text="Código Dewey:" GridPane.rowIndex="5" />
             <Label text="Estado:" GridPane.rowIndex="6" />
