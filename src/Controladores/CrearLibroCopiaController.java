@@ -33,6 +33,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -83,7 +84,7 @@ public class CrearLibroCopiaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            this.textBoxISBN.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(13));
+            this.textBoxISBN.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(17));
             this.textBoxAutor.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionMaxString(200));
             this.textBoxAño.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionRut(4));
             this.textBoxDewey.addEventFilter(KeyEvent.KEY_TYPED , Validaciones.ValidacionRut(3));
@@ -109,29 +110,27 @@ public class CrearLibroCopiaController implements Initializable {
     private void guardar(ActionEvent event) {
       
         //System.out.println("Datos: "+textBoxAutor.getText()+" "+textBoxAño.getText()+" "+textBoxDewey.getText()+" "+textBoxEdicion.getText()+" "+textBoxISBN.getText()+" "+textBoxTitulo.getText());
-      
-        
-        
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmación");
-        alert.setContentText("Estas seguro que quieres guardar los cambios?");
+          Alert alert = new Alert(AlertType.CONFIRMATION);
+          alert.setTitle("Confirmacion");
+          alert.setHeaderText(null);
+          alert.setContentText("Desea guardar los datos?");
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
-            if(Validaciones.validaISBN(textBoxISBN.getText().toString())){
+          Optional<ButtonType> result = alert.showAndWait();
+          if (result.get() == ButtonType.OK){
+              if(Validaciones.validaISBN(this.textBoxISBN.getText())){
                   crearLibro();
-            }
-          
-                //guardarDatos();
-                        //Cierra la ventana
-            //((Node)(event.getSource())).getScene().getWindow().hide(); //Cierra la ventana actual
+              }else{
+              alert = new Alert(AlertType.INFORMATION);
+              alert.setTitle("Problemas al crear el libro");
+              alert.setHeaderText(null);
+              alert.setContentText("Asegúrese que el formato sea\n"+"aaa-bbb-ccc-ddd-e");
 
-        } else {
-            //((Node)(event.getSource())).getScene().getWindow().hide(); //Cierra la ventana actual
-
-       }
-        //crearLibro();
-         //((Node)(event.getSource())).getScene().getWindow().hide(); 
+              alert.showAndWait();
+              }
+          } else {
+              
+          }
+ 
     }
 
     private void cancelar(ActionEvent event) {
@@ -618,6 +617,7 @@ public class CrearLibroCopiaController implements Initializable {
     private void seleccionarNivel(ActionEvent event) {
         
         setCodigoNivel(comboBoxNivel.getSelectionModel().getSelectedItem().toString());
+        System.out.println("Estante: "+this.codigoEstante + "Nivel: "+this.codigoNivel);
     }
     
     
