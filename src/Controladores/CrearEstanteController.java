@@ -172,6 +172,10 @@ public class CrearEstanteController implements Initializable {
     @FXML
     private void guardar(ActionEvent event) {
         crearEstante();
+        this.textFieldCantidadEstantes.setText("");
+        this.textFieldDeweyInf.setText("");
+        this.textFieldDeweySup.setText("");
+        this.textFieldNumeroEstante.setText("");
     }
 
     @FXML
