@@ -78,82 +78,23 @@ public class ConfigurarEstanteController implements Initializable {
     
     public void setCantidadNiveles(String cantidadNiveles,String numero)
     {
-        try {
+ 
             System.out.println("Niveles: "+cantidadNiveles);
             System.out.println("Numero: "+numero);
+            System.out.println("id: "+codigoEstante);
             this.cantidadNiveles=cantidadNiveles;
-            obtenerDatosEstante(numero);
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(ConfigurarEstanteController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ConfigurarEstanteController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JSONException ex) {
-            Logger.getLogger(ConfigurarEstanteController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-    }
-    
-     public void obtenerDatosEstante(String numero)throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
-     URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.obtenerEstanteUnicoPHP);
-     Map<String,Object> params = new LinkedHashMap<>();
-     params.put("numero", numero.trim()); 
-        
-     StringBuilder postData = new StringBuilder();
-     for (Map.Entry<String,Object> param : params.entrySet()) {
-        if (postData.length() != 0) postData.append('&');
-        postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
-        postData.append('=');
-        postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
-    }
-
-    // Convierte el array, para ser enviendo
-    byte[] postDataBytes = postData.toString().getBytes("UTF-8");
-
-    // Conectar al server
-    HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-    
-    // Configura
-    conn.setRequestMethod("POST");
-    conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-    conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
-    conn.setDoOutput(true);
-    conn.getOutputStream().write(postDataBytes);
-
-    // Obtiene la respuesta del servidor
-    Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-    
-    String response="";
-    //System.out.println(in);
-    for (int c; (c = in.read()) >= 0;)
-       response=response + (char)c;
-    
-    //Convierte el json enviado (decodigicado)
-    JSONObject obj = new JSONObject(response);
-    String mensaje = obj.getString("mensaje");
-    
-    if(mensaje.equals("false")){
-        //System.out.println("no hay nada");
-    }else{
-        List<Estante> estantes = new ArrayList<Estante>();
-        Estante estante;
-        JSONArray jsonArray = obj.getJSONArray("datos");
-            numero = jsonArray.getJSONObject(0).getString("numero")==null?"":jsonArray.getJSONObject(0).getString("numero");
-            //String cantidadNiveles=jsonArray.getJSONObject(0).getString("cantidadniveles")==null?"":jsonArray.getJSONObject(0).getString("cantidadniveles");
-          
-            //Editar
             this.labelCantidad.setText(cantidadNiveles);
-            this.cantidadNiveles=cantidadNiveles;
-            this.numero=numero;
-    }
+            //obtenerDatosEstante(codigoEstante);
+        
         
     }
+    
 
     @FXML
     private void onClick_buttonAgregar(ActionEvent event) {
         System.out.println(codigo);
         try {
-            agregarNivelEnEstante(codigo);
+            agregarNivelEnEstante(codigoEstante);
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(ConfigurarEstanteController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -221,7 +162,7 @@ public class ConfigurarEstanteController implements Initializable {
     
     URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.eliminarNivelPHP);
     Map<String,Object> params = new LinkedHashMap<>();
-    params.put("codigo", codigo.trim());
+    params.put("codigo", codigoEstante.trim());
     
     StringBuilder postData = new StringBuilder();
     for (Map.Entry<String,Object> param : params.entrySet()) {
