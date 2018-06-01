@@ -57,7 +57,7 @@ public class Estante {
                     Parent principalParent = fxmlLoader.load();
                     
                     ConfigurarEstanteController controller = fxmlLoader.getController();
-                    controller.setCodigo(codigo);
+                    controller.setCodigoEstante(id);
                     //controller.setCantidadNiveles(cantidadniveles, codigo);
                     
                     Scene scene = null;
