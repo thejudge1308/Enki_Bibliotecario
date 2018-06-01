@@ -102,6 +102,16 @@ public class CopiaP {
         this.nombreLibro = nombreLibro;
     }
 
+    public void setAll(CopiaP get) {
+        this.codigo = get.codigo;
+        this.estado = get.estado;
+        this.isbn = get.isbn;
+        this.nombreLibro = get.nombreLibro;
+        this.numeroCopia = get.numeroCopia;
+        this.refEstante = get.refEstante;
+        this.refNivel = get.refEstante;
+    }
+
     
 
     

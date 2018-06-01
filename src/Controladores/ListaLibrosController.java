@@ -180,6 +180,7 @@ public class ListaLibrosController implements Initializable {
     for (int c; (c = in.read()) >= 0;)
        response=response + (char)c;
     
+        System.out.println("response: " + response);
     //Convierte el json enviado (decodigicado)
     JSONObject obj = new JSONObject(response);
          
@@ -199,8 +200,10 @@ public class ListaLibrosController implements Initializable {
             String edicion=jsonArray.getJSONObject(i).getString("edicion")==null?"":jsonArray.getJSONObject(i).getString("edicion");
             String anio=jsonArray.getJSONObject(i).getString("anio")==null?"":jsonArray.getJSONObject(i).getString("anio");
             String ncopias=jsonArray.getJSONObject(i).getString("ncopias")==null?"":jsonArray.getJSONObject(i).getString("ncopias");
+            String estado=jsonArray.getJSONObject(i).getString("estado")==null?"":jsonArray.getJSONObject(i).getString("estado");
+
             
-            libro  = new Libro(isbn,titulo,autor,edicion,anio,ncopias);
+            libro  = new Libro(isbn,titulo,autor,edicion,anio,ncopias,estado);
             //System.out.println(lector.getRut());
             libros.add(libro);
         }
@@ -216,7 +219,7 @@ public class ListaLibrosController implements Initializable {
         tableColumnISBN.setCellValueFactory(new PropertyValueFactory<Libro,String>("isbn"));
         tableColumnTitulo.setCellValueFactory(new PropertyValueFactory<Libro,String>("titulo"));
         tableColumnAutor.setCellValueFactory(new PropertyValueFactory<Libro,String>("autor"));
-        tableColumnEdicion.setCellValueFactory(new PropertyValueFactory<Libro,String>("edicion"));
+        tableColumnEdicion.setCellValueFactory(new PropertyValueFactory<Libro,String>("habilitado"));
         tableColumnAnio.setCellValueFactory(new PropertyValueFactory<Libro,String>("anio"));
         tableColumnNCopias.setCellValueFactory(new PropertyValueFactory<Libro,String>("ncopias"));
         tableColumnConfigurar.setCellValueFactory(new PropertyValueFactory<Libro,Button>("buttonConfigurar"));    

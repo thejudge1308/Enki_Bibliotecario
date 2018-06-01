@@ -69,8 +69,12 @@ public class ValoresEstaticos {
     public static final String modificarLectorPHP="usuario/modificarLector.php";
     public static final String habilitarLectorPHP="usuario/habilitarLector.php";
     public static final String dehabilitarLectorPHP="usuario/deshabilitarLector.php";
+    
+    public static final String habilitarLibroPHP="usuario/habilitarLibro.php";
+    public static final String dehabilitarLibroPHP="usuario/deshabilitarLibro.php";
+    
     public static final String habilitarBibliotecarioPHP="usuario/habilitarBibliotecario.php";
-    public static final String dehabilitarBibliotecarioPHP="usuario/deshabilitarBibliotecario.php";
+    public static final String dehabilitarBibliotecarioPHP="usuarios/deshabilitarBibliotecario.php";
     public static final String modificarEstantePHP="estante/modificarEstante.php";
     public static final String modificarEstadoCopiaPHP = "copia/modificarEstadoCopia.php";
     public static final String modificarBibliotecarioPHP = "usuario/modificarBibliotecario.php";
