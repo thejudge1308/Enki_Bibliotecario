@@ -95,6 +95,7 @@ public class Bibliotecario
         }else{
             this.habilitado.setSelected(false);
         }
+        
         //evento del checkbox
         this.habilitado.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -102,13 +103,15 @@ public class Bibliotecario
               if(Bibliotecario.this.habilitado.isSelected()){
                   //Para habilitar
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Confirmacion");
+                    alert.setTitle("Confirmación");
+                    alert.setHeaderText(null);
                     //alert.setHeaderText("Look, a Confirmation Dialog");
-                    alert.setContentText("Deseas habilitar este bibliotecario?");
+                    alert.setContentText("¿Desea habilitar este bibliotecario?");
 
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.get() == ButtonType.OK){
                         try {
+                            Bibliotecario.this.habilitado.setSelected(true);
                             HabilitarBibliotecario();
                         } catch (UnsupportedEncodingException ex) {
                             Logger.getLogger(Bibliotecario.class.getName()).log(Level.SEVERE, null, ex);
@@ -117,20 +120,36 @@ public class Bibliotecario
                         } catch (JSONException ex) {
                             Logger.getLogger(Bibliotecario.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                    } else {
-                        
+                    } else if(result.get() == ButtonType.CANCEL)
+                    {
+                        try
+                        {
+                            Bibliotecario.this.habilitado.setSelected(false);
+                            deshabilitarBibliotecario();
+                        } catch (UnsupportedEncodingException ex)
+                        {
+                            Logger.getLogger(Bibliotecario.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (IOException ex)
+                        {
+                            Logger.getLogger(Bibliotecario.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (JSONException ex)
+                        {
+                            Logger.getLogger(Bibliotecario.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
               }
               else{
                   //Para desabilitar
                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Confirmacion");
+                    alert.setTitle("Confirmación");
                     //alert.setHeaderText("Look, a Confirmation Dialog");
-                    alert.setContentText("Deseas deshabilitar este bibliotecario?");
+                    alert.setHeaderText(null);
+                    alert.setContentText("¿Deseas deshabilitar este bibliotecario?");
 
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.get() == ButtonType.OK){
                        try {
+                           Bibliotecario.this.habilitado.setSelected(false);
                            deshabilitarBibliotecario();
                        } catch (UnsupportedEncodingException ex) {
                            Logger.getLogger(Bibliotecario.class.getName()).log(Level.SEVERE, null, ex);
@@ -140,7 +159,20 @@ public class Bibliotecario
                            Logger.getLogger(Bibliotecario.class.getName()).log(Level.SEVERE, null, ex);
                        }
                     } else {
-                        
+                       try
+                       {
+                           Bibliotecario.this.habilitado.setSelected(true);
+                           HabilitarBibliotecario();
+                       } catch (UnsupportedEncodingException ex)
+                       {
+                           Logger.getLogger(Bibliotecario.class.getName()).log(Level.SEVERE, null, ex);
+                       } catch (IOException ex)
+                       {
+                           Logger.getLogger(Bibliotecario.class.getName()).log(Level.SEVERE, null, ex);
+                       } catch (JSONException ex)
+                       {
+                           Logger.getLogger(Bibliotecario.class.getName()).log(Level.SEVERE, null, ex);
+                       }
                     }
               }
             }
@@ -196,49 +228,50 @@ public class Bibliotecario
     }
     
     
-    public void HabilitarBibliotecario() throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
-     URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.habilitarBibliotecarioPHP);
-     Map<String,Object> params = new LinkedHashMap<>();
-     params.put("rut", this.rut);
+    public void HabilitarBibliotecario() throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException
+    {
+        URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.habilitarBibliotecarioPHP);
+        Map<String,Object> params = new LinkedHashMap<>();
+        params.put("rut", this.rut);
      
         
-     StringBuilder postData = new StringBuilder();
-     for (Map.Entry<String,Object> param : params.entrySet()) {
-        if (postData.length() != 0) postData.append('&');
-        postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
-        postData.append('=');
-        postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
-    }
+        StringBuilder postData = new StringBuilder();
+        for (Map.Entry<String,Object> param : params.entrySet()) {
+            if (postData.length() != 0) postData.append('&');
+            postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+            postData.append('=');
+            postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+        }      
 
-    // Convierte el array, para ser enviendo
-    byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+        // Convierte el array, para ser enviendo
+        byte[] postDataBytes = postData.toString().getBytes("UTF-8");
 
-    // Conectar al server
-    HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-    
-    // Configura
-    conn.setRequestMethod("POST");
-    conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-    conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
-    conn.setDoOutput(true);
-    conn.getOutputStream().write(postDataBytes);
+        // Conectar al server
+        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 
-    // Obtiene la respuesta del servidor
-    Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-    
-    String response="";
-    //System.out.println(in);
-    for (int c; (c = in.read()) >= 0;)
-       response=response + (char)c;
-    
-    //Convierte el json enviado (decodigicado)
-    JSONObject obj = new JSONObject(response);
-    String mensaje = obj.getString("mensaje");
-    
-    Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-    //alerta.setTitle("Mensaje");
-    alerta.setContentText(mensaje);
-    alerta.showAndWait();
+        // Configura
+        conn.setRequestMethod("POST");
+        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+        conn.setDoOutput(true);
+        conn.getOutputStream().write(postDataBytes);
+
+        // Obtiene la respuesta del servidor
+        Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+
+        String response="";
+        //System.out.println(in);
+        for (int c; (c = in.read()) >= 0;)
+           response=response + (char)c;
+
+        //Convierte el json enviado (decodigicado)
+        JSONObject obj = new JSONObject(response);
+        String mensaje = obj.getString("mensaje");
+
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        //alerta.setTitle("Mensaje");
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
 
     }
         
@@ -246,47 +279,47 @@ public class Bibliotecario
        
     public void deshabilitarBibliotecario() throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
         URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.dehabilitarBibliotecarioPHP);
-     Map<String,Object> params = new LinkedHashMap<>();
-     params.put("rut", this.rut);
+        Map<String,Object> params = new LinkedHashMap<>();
+        params.put("rut", this.rut);
      
         
-     StringBuilder postData = new StringBuilder();
-     for (Map.Entry<String,Object> param : params.entrySet()) {
-        if (postData.length() != 0) postData.append('&');
-        postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
-        postData.append('=');
-        postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
-    }
+        StringBuilder postData = new StringBuilder();
+        for (Map.Entry<String,Object> param : params.entrySet()) {
+            if (postData.length() != 0) postData.append('&');
+            postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+            postData.append('=');
+            postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+        }
 
-    // Convierte el array, para ser enviendo
-    byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+        // Convierte el array, para ser enviendo
+        byte[] postDataBytes = postData.toString().getBytes("UTF-8");
 
-    // Conectar al server
-    HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-    
-    // Configura
-    conn.setRequestMethod("POST");
-    conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-    conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
-    conn.setDoOutput(true);
-    conn.getOutputStream().write(postDataBytes);
+        // Conectar al server
+        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
 
-    // Obtiene la respuesta del servidor
-    Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-    
-    String response="";
-    //System.out.println(in);
-    for (int c; (c = in.read()) >= 0;)
-       response=response + (char)c;
-    
-    //Convierte el json enviado (decodigicado)
-    JSONObject obj = new JSONObject(response);
-    String mensaje = obj.getString("mensaje");
-    
-    Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-    //alerta.setTitle("Mensaje");
-    alerta.setContentText(mensaje);
-    alerta.showAndWait();
+        // Configura
+        conn.setRequestMethod("POST");
+        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+        conn.setDoOutput(true);
+        conn.getOutputStream().write(postDataBytes);
+
+        // Obtiene la respuesta del servidor
+        Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+
+        String response="";
+        //System.out.println(in);
+        for (int c; (c = in.read()) >= 0;)
+           response=response + (char)c;
+
+        //Convierte el json enviado (decodigicado)
+        JSONObject obj = new JSONObject(response);
+        String mensaje = obj.getString("mensaje");
+
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
+        //alerta.setTitle("Mensaje");
+        alerta.setContentText(mensaje);
+        alerta.showAndWait();
         
     }
 }

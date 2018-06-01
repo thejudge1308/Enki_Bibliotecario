@@ -48,7 +48,7 @@ public class ConfigurarNivelController implements Initializable {
     @FXML
     private ComboBox<String> comboBoxNivel;
     @FXML
-    private Label idLabel;
+    private Label codigoLabel;
 
     private String codigo;
     
@@ -63,6 +63,8 @@ public class ConfigurarNivelController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
+            comboBoxEstante.getSelectionModel().clearSelection();
+            comboBoxEstante.getItems().clear();
             obtenerEstantes();
             this.comboBoxEstante.getSelectionModel().selectFirst();
             this.codigoEstante = comboBoxEstante.getSelectionModel().getSelectedItem().toString();
@@ -83,21 +85,19 @@ public class ConfigurarNivelController implements Initializable {
     private void onClick_buttonGuardar(ActionEvent event) {
         
         modificarCopia();
-         ((Stage)borderPaneConfigurarNivel.getScene().getWindow()).close();
+        ((Stage)borderPaneConfigurarNivel.getScene().getWindow()).close();
         
     }
 
     @FXML
     private void onClick_buttonCancelar(ActionEvent event) {
-        
-        
-        
+        ((Stage)borderPaneConfigurarNivel.getScene().getWindow()).close();  
     }
     
     public void setCodigo(String codigo){
         try {
             this.codigo = codigo;
-            this.idLabel.setText(codigo);
+            this.codigoLabel.setText(codigo);
             getEstantes();
             this.comboBoxEstante.getSelectionModel().select(0);
             
@@ -350,24 +350,8 @@ public class ConfigurarNivelController implements Initializable {
 
     @FXML
     private void seleccionarEstante(ActionEvent event) {
-        
-        
-         comboBoxNivel.getSelectionModel().clearSelection();
-         comboBoxNivel.getItems().clear();
-         System.out.println("Cantidad estantes: "+estantes.size());
-         for(int i=0;i<estantes.size();i++)
-        {
-            if(comboBoxEstante.getSelectionModel().getSelectedItem().equals(estantes.get(i).getCodigo()))
-                
-            {
-                codigoEstante=estantes.get(i).getCodigo();
-               
-            }
-        }
-        
-         
-        obtenerNivelesEstante(codigoEstante,estantes);
-        setCodigoEstante(codigoEstante);
+ 
+        setComboBoxs();
     }
     
     public void setCodigoEstante(String codigoEstante)
@@ -546,8 +530,9 @@ public class ConfigurarNivelController implements Initializable {
     String mensaje = obj.getString("mensaje");
     
     Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-    //alerta.setTitle("Mensaje");
-    alerta.setContentText(mensaje);
+    alerta.setTitle("Modificar ubicación");
+    alerta.setHeaderText(null);
+    alerta.setContentText("Ubicación modificada exitosamente");
     alerta.showAndWait();
     
   

@@ -141,14 +141,16 @@ public class Lector {
               if(Lector.this.habilitado.isSelected()){
                   //Para habilitar
                     Alert alert = new Alert(AlertType.CONFIRMATION);
-                    alert.setTitle("Confirmacion");
+                    alert.setTitle("Confirmación");
+                    alert.setHeaderText(null);
                     //alert.setHeaderText("Look, a Confirmation Dialog");
-                    alert.setContentText("Deseas habilitar este lector?");
+                    alert.setContentText("¿Desea habilitar este lector?");
 
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.get() == ButtonType.OK){
                         try {
-                            HabilitarLector();
+                            Lector.this.habilitado.setSelected(true);
+                            habilitarLector();
                         } catch (UnsupportedEncodingException ex) {
                             Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (IOException ex) {
@@ -156,8 +158,22 @@ public class Lector {
                         } catch (JSONException ex) {
                             Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                    } else {
-                        
+                    } 
+                    else if(result.get() == ButtonType.CANCEL){
+                        try
+                        {
+                            Lector.this.habilitado.setSelected(false);
+                            deshabilitarLector();
+                        } catch (UnsupportedEncodingException ex)
+                        {
+                            Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (IOException ex)
+                        {
+                            Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (JSONException ex)
+                        {
+                            Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
               }
               else{
@@ -170,6 +186,7 @@ public class Lector {
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.get() == ButtonType.OK){
                        try {
+                           Lector.this.habilitado.setSelected(false);
                            deshabilitarLector();
                        } catch (UnsupportedEncodingException ex) {
                            Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
@@ -178,8 +195,22 @@ public class Lector {
                        } catch (JSONException ex) {
                            Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
                        }
-                    } else {
+                    } else if(result.get() == ButtonType.CANCEL) {
                         
+                       try
+                       {
+                           Lector.this.habilitado.setSelected(true);
+                           habilitarLector();
+                       } catch (UnsupportedEncodingException ex)
+                       {
+                           Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
+                       } catch (IOException ex)
+                       {
+                           Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
+                       } catch (JSONException ex)
+                       {
+                           Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
+                       }
                     }
               }
             }
@@ -235,7 +266,7 @@ public class Lector {
         this.habilitado = habilitado;
     }
     
-    public void HabilitarLector() throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
+    public void habilitarLector() throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException{
      URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.habilitarLectorPHP);
      Map<String,Object> params = new LinkedHashMap<>();
      params.put("rut", this.rut);

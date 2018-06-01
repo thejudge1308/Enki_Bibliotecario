@@ -105,7 +105,7 @@ public class Copia {
                     
                     ConfigurarNivelController controller = fxmlLoader.getController();
                     controller.setCodigoCopia(codigo);
-                    //controller.setCodigo(codigo);
+                    controller.setCodigo(codigo);
                     //controller.setCantidadNiveles(cantidadniveles, codigo);
                     
                     Scene scene = null;
@@ -194,9 +194,9 @@ public class Copia {
     String mensaje = obj.getString("mensaje");
     
     Alert alert = new Alert(Alert.AlertType.INFORMATION);
-    alert.setTitle("Información de la solicitud");
+    alert.setTitle("Modificar estado");
     alert.setHeaderText(null);
-    alert.setContentText(mensaje);
+    alert.setContentText("Estado modificado exitosamente");
     alert.showAndWait();
 
    // System.out.println(response);

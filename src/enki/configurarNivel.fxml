@@ -28,8 +28,8 @@
             <ComboBox fx:id="comboBoxNivel" maxWidth="1.7976931348623157E308" onAction="#seleccionarNivel" GridPane.rowIndex="4" />
             <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                <children>
-                  <Label text="ID: " />
-                  <Label fx:id="idLabel" text="Label" />
+                  <Label text="Código: " />
+                  <Label fx:id="codigoLabel" text="Label" />
                </children>
             </HBox>
          </children>
