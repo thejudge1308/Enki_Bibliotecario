@@ -95,35 +95,9 @@ public class ConfigurarNivelController implements Initializable {
     }
     
     public void setCodigo(String codigo){
-        try {
-            this.codigo = codigo;
-            this.codigoLabel.setText(codigo);
-            getEstantes();
-            this.comboBoxEstante.getSelectionModel().select(0);
-            
-            for(int i=0;i<estantes.size();i++)
-            {
-                if(comboBoxEstante.getSelectionModel().getSelectedItem().equals(estantes.get(i).getCodigo()))
-
-                {
-                    codigoEstante=estantes.get(i).getCodigo();
-
-                }
-            }
-            
-            
-            obtenerNiveles(codigoEstante);
-            
-            this.comboBoxNivel.getSelectionModel().select(0);
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(ConfigurarNivelController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ProtocolException ex) {
-            Logger.getLogger(ConfigurarNivelController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ConfigurarNivelController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JSONException ex) {
-            Logger.getLogger(ConfigurarNivelController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.codigo = codigo;
+        this.codigoLabel.setText(codigo);
+        
     }
     
      public void setComboBoxs(){
@@ -135,77 +109,6 @@ public class ConfigurarNivelController implements Initializable {
         this.codigoNivel = this.comboBoxNivel.getSelectionModel().getSelectedItem().toString();
         
     }
-    
-    private void getEstantes() throws MalformedURLException, UnsupportedEncodingException, ProtocolException, IOException, JSONException{
-        
-    URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.obtenerEstantePHP);
-    Map<String,Object> params = new LinkedHashMap<>();
-    StringBuilder postData = new StringBuilder();
-    for (Map.Entry<String,Object> param : params.entrySet()) {
-        if (postData.length() != 0) postData.append('&');
-        postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
-        postData.append('=');
-        postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
-    }
-
-    // Convierte el array, para ser enviendo
-    byte[] postDataBytes = postData.toString().getBytes("UTF-8");
-
-    // Conectar al server
-    HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-    
-    // Configura
-    conn.setRequestMethod("POST");
-    conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-    conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
-    conn.setDoOutput(true);
-    conn.getOutputStream().write(postDataBytes);
-
-    // Obtiene la respuesta del servidor
-    Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-    
-    String response="";
-    System.out.println(in);
-    for (int c; (c = in.read()) >= 0;)
-       response=response + (char)c;
-    
-    //Convierte el json enviado (decodigicado)
-    JSONObject obj = new JSONObject(response);
-         
-    String mensaje = obj.getString("mensaje");
-         System.out.println("mensaje "+mensaje);
-    if(mensaje.equals("false")){
-        //System.out.println("no hay nada");
-    }else{
-        estantes = new ArrayList<Estante>();
-        Estante estante;
-        JSONArray jsonArray = obj.getJSONArray("datos");
-        for(int i = 0; i < jsonArray.length(); i++){
-                        String id = jsonArray.getJSONObject(i).getString("codigo")==null?"":jsonArray.getJSONObject(i).getString("codigo");
-            String numero = jsonArray.getJSONObject(i).getString("numero")==null?"":jsonArray.getJSONObject(i).getString("numero");
-            String niveles=jsonArray.getJSONObject(i).getString("cantidadniveles")==null?"":jsonArray.getJSONObject(i).getString("cantidadniveles");
-            String codigo=jsonArray.getJSONObject(i).getString("codigo")==null?"":jsonArray.getJSONObject(i).getString("codigo");
-            
-            String intervaloInf=jsonArray.getJSONObject(i).getString("intervaloInf")==null?"":jsonArray.getJSONObject(i).getString("intervaloInf");
-            String intervaloSup=jsonArray.getJSONObject(i).getString("intervaloSup")==null?"":jsonArray.getJSONObject(i).getString("intervaloSup");
-           
-              estante= new Estante(id,numero,niveles,intervaloInf,intervaloSup);
-            //System.out.println(lector.getRut());
-            estantes.add(estante);
-         
-            comboBoxEstante.getItems().addAll(numero);
-            //System.out.println("Codigo EStante: "+codigo);
-            //System.out.println("Numero EStante: "+numero);
-            
-            
-        }
-        
-        
-        
-        
-        
-    }
-}
     
     public void obtenerNiveles(String codigo)
     {

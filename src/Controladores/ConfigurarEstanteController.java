@@ -64,6 +64,7 @@ public class ConfigurarEstanteController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         //System.out.println("Cantidad niveles: "+cantidadNiveles);
+        buttonAceptar.setVisible(false);
         labelCantidad.setText(cantidadNiveles);
     }    
 
