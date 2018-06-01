@@ -99,28 +99,7 @@ public class CrearPrestamoController implements Initializable {
         labelPrestamo3.setVisible(false);
         buttonQuitarPrestamo3.setVisible(false);
         
-        textFieldRut.setOnKeyTyped(new EventHandler<KeyEvent> () {
-            @Override
-            public void handle(KeyEvent e) {
         
-                if (textFieldRut.getText().length() >= 8) { 
-                    e.consume();
-                }
-
-                else if(e.getCharacter().matches("[0-9]")){ 
-                    if(textFieldRut.getText().contains(".") && e.getCharacter().matches("[.]")){
-                        e.consume();
-                    }else if(textFieldRut.getText().length() == 0 && e.getCharacter().matches("[.]")){
-                        e.consume(); 
-
-                    }
-                }
-
-                else if (e.getCode() != KeyCode.BACK_SPACE){
-                    e.consume();
-                }
-            }
-        });
     }    
     
     @FXML
