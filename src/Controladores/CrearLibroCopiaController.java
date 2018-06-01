@@ -241,6 +241,15 @@ public class CrearLibroCopiaController implements Initializable {
         alerta.setContentText(mensaje);
         alerta.showAndWait();
         crearCopia(isbn);
+        
+            this.textBoxISBN.setText("");
+            this.textBoxAutor.setText("");
+            this.textBoxAño.setText("");
+            this.textBoxDewey.setText("");
+            this.textBoxTitulo.setText("");
+            this.textBoxEdicion.setText("");
+        
+        
         //crearVentanaAgregarCopia(isbn, titulo, anio, edicion);
         
     }else{
