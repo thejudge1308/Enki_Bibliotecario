@@ -112,7 +112,7 @@ public class Bibliotecario
                     if (result.get() == ButtonType.OK){
                         try {
                             Bibliotecario.this.habilitado.setSelected(true);
-                            HabilitarBibliotecario();
+                            habilitarBibliotecario();
                         } catch (UnsupportedEncodingException ex) {
                             Logger.getLogger(Bibliotecario.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (IOException ex) {
@@ -162,7 +162,7 @@ public class Bibliotecario
                        try
                        {
                            Bibliotecario.this.habilitado.setSelected(true);
-                           HabilitarBibliotecario();
+                           habilitarBibliotecario();
                        } catch (UnsupportedEncodingException ex)
                        {
                            Logger.getLogger(Bibliotecario.class.getName()).log(Level.SEVERE, null, ex);
@@ -228,7 +228,7 @@ public class Bibliotecario
     }
     
     
-    public void HabilitarBibliotecario() throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException
+    public void habilitarBibliotecario() throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException
     {
         URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.habilitarBibliotecarioPHP);
         Map<String,Object> params = new LinkedHashMap<>();
@@ -269,8 +269,9 @@ public class Bibliotecario
         String mensaje = obj.getString("mensaje");
 
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        //alerta.setTitle("Mensaje");
-        alerta.setContentText(mensaje);
+        alerta.setTitle("Modificar estado");
+        alerta.setHeaderText(null);
+        alerta.setContentText("Bibliotecario habilitado exitosamente");
         alerta.showAndWait();
 
     }
@@ -317,8 +318,9 @@ public class Bibliotecario
         String mensaje = obj.getString("mensaje");
 
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        //alerta.setTitle("Mensaje");
-        alerta.setContentText(mensaje);
+        alerta.setTitle("Modificar estado");
+        alerta.setHeaderText(null);
+        alerta.setContentText("Bibliotecario deshabilitado exitosamente");
         alerta.showAndWait();
         
     }

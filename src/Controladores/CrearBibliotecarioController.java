@@ -209,8 +209,9 @@ public class CrearBibliotecarioController implements Initializable {
     String mensaje = obj.getString("mensaje");
     
     Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-    alerta.setTitle("Mensaje");
-    alerta.setContentText(mensaje);
+    alerta.setTitle("Registrar bibliotecario");
+    alerta.setHeaderText(null);
+    alerta.setContentText("Bibliotecario registrado exitosamente");
     alerta.showAndWait();
    // System.out.println(response);
          

@@ -201,8 +201,9 @@ public class CrearLectorController implements Initializable {
     String mensaje = obj.getString("mensaje");
     
     Alert alerta = new Alert(AlertType.INFORMATION);
-    alerta.setTitle("Mensaje");
-    alerta.setContentText(mensaje);
+    alerta.setTitle("Registrar lector");
+    alerta.setHeaderText(null);
+    alerta.setContentText("Lector registrado exitosamente");
     alerta.showAndWait();
    // System.out.println(response);
          

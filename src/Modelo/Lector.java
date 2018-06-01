@@ -143,74 +143,28 @@ public class Lector {
                     Alert alert = new Alert(AlertType.CONFIRMATION);
                     alert.setTitle("Confirmación");
                     alert.setHeaderText(null);
-                    //alert.setHeaderText("Look, a Confirmation Dialog");
                     alert.setContentText("¿Desea habilitar este lector?");
 
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.get() == ButtonType.OK){
-                        try {
-                            Lector.this.habilitado.setSelected(true);
-                            habilitarLector();
-                        } catch (UnsupportedEncodingException ex) {
-                            Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (IOException ex) {
-                            Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (JSONException ex) {
-                            Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        Lector.this.habilitado.setSelected(true);
                     } 
                     else if(result.get() == ButtonType.CANCEL){
-                        try
-                        {
-                            Lector.this.habilitado.setSelected(false);
-                            deshabilitarLector();
-                        } catch (UnsupportedEncodingException ex)
-                        {
-                            Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (IOException ex)
-                        {
-                            Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (JSONException ex)
-                        {
-                            Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        Lector.this.habilitado.setSelected(false);
                     }
               }
               else{
                   //Para desabilitar
                    Alert alert = new Alert(AlertType.CONFIRMATION);
-                    alert.setTitle("Confirmacion");
-                    //alert.setHeaderText("Look, a Confirmation Dialog");
-                    alert.setContentText("Deseas deshabilitar este lector?");
+                    alert.setTitle("Confirmación");
+                    alert.setHeaderText(null);
+                    alert.setContentText("¿Desea deshabilitar este lector?");
 
                     Optional<ButtonType> result = alert.showAndWait();
                     if (result.get() == ButtonType.OK){
-                       try {
-                           Lector.this.habilitado.setSelected(false);
-                           deshabilitarLector();
-                       } catch (UnsupportedEncodingException ex) {
-                           Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
-                       } catch (IOException ex) {
-                           Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
-                       } catch (JSONException ex) {
-                           Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
-                       }
+                        Lector.this.habilitado.setSelected(false);
                     } else if(result.get() == ButtonType.CANCEL) {
-                        
-                       try
-                       {
-                           Lector.this.habilitado.setSelected(true);
-                           habilitarLector();
-                       } catch (UnsupportedEncodingException ex)
-                       {
-                           Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
-                       } catch (IOException ex)
-                       {
-                           Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
-                       } catch (JSONException ex)
-                       {
-                           Logger.getLogger(Lector.class.getName()).log(Level.SEVERE, null, ex);
-                       }
+                        Lector.this.habilitado.setSelected(true);                      
                     }
               }
             }
@@ -306,8 +260,9 @@ public class Lector {
     String mensaje = obj.getString("mensaje");
     
     Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-    //alerta.setTitle("Mensaje");
-    alerta.setContentText(mensaje);
+    alerta.setTitle("Modificar estado");
+    alerta.setHeaderText(null);
+    alerta.setContentText("Lector habilitado exitosamente");
     alerta.showAndWait();
 
     }
@@ -354,8 +309,9 @@ public class Lector {
     String mensaje = obj.getString("mensaje");
     
     Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-    //alerta.setTitle("Mensaje");
-    alerta.setContentText(mensaje);
+    alerta.setTitle("Modificar estado");
+    alerta.setHeaderText(null);
+    alerta.setContentText("Lector deshabilitado exitosamente");
     alerta.showAndWait();
         
     }
