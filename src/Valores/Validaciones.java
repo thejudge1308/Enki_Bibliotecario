@@ -47,7 +47,31 @@ public class Validaciones {
             }
         }
     };
+    
+    
 }        
+    
+        public static EventHandler<KeyEvent> ValidacionMaxNumero(final Integer max_Lengh) {
+    return new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(KeyEvent e) {
+            TextField txt_TextField = (TextField) e.getSource(); 
+            int pos = txt_TextField.getText().length()-1;
+            char ultimo = txt_TextField.getText().charAt(pos);
+            if (!Character.isDigit(ultimo)){
+                e.consume();
+                return;
+            }
+            if (txt_TextField.getText().length() >= max_Lengh) {                    
+                e.consume();
+            }else{
+                //e.consume();
+            }
+        }
+    };
+    
+    
+}     
     
    public static boolean isValidEmailAddress(String email) {
    boolean result = true;

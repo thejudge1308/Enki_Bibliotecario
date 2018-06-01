@@ -19,12 +19,13 @@
          <children>
             <HBox prefHeight="50.0" prefWidth="200.0" spacing="5.0">
                <children>
-                  <TextField fx:id="textFieldRut" prefWidth="500.0" promptText="RUT Lector">
+                  <TextField fx:id="textFieldRut" prefHeight="25.0" prefWidth="453.0" promptText="RUT Lector">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                   </TextField>
                   <Button fx:id="buttonBuscar" mnemonicParsing="false" onAction="#cargarLector" text="Cargar" />
+                  <Button fx:id="buttonLimpiar" mnemonicParsing="false" onAction="#limpiarButton" text="Limpiar" />
                </children>
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -97,7 +98,7 @@
                         <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                            <children>
                               <Label prefHeight="24.0" text="Préstamo 1" />
-                              <TextField fx:id="textFieldCodigo1" prefWidth="400.0" promptText="Código del libro" />
+                              <TextField fx:id="textFieldCodigo1" disable="true" prefWidth="400.0" promptText="Código del libro" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -108,7 +109,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
                            <children>
-                              <Button fx:id="buttonAgregarPrestamo1" mnemonicParsing="false" onAction="#agregarPrestamo1" prefWidth="51.0" text="+" />
+                              <Button fx:id="buttonAgregarPrestamo1" disable="true" mnemonicParsing="false" onAction="#agregarPrestamo1" prefWidth="51.0" text="+" />
                            </children>
                         </HBox>
                      </children>

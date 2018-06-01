@@ -6,6 +6,7 @@
 package Controladores;
 
 import Valores.SingletonUsuario;
+import Valores.Validaciones;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -62,8 +63,6 @@ public class CrearPrestamoController implements Initializable {
     @FXML
     private Button buttonAceptar;
     @FXML
-    private Button buttonCancelar;
-    @FXML
     private Label labelPrestamo2;
     @FXML
     private Label labelName;
@@ -83,12 +82,16 @@ public class CrearPrestamoController implements Initializable {
     private String correo;
     private BorderPane padre;
     private String rutLector;
+    @FXML
+    private Button buttonLimpiar;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
+        
         
         textFieldCodigo2.setVisible(false);
         buttonAgregarPrestamo2.setVisible(false);
@@ -105,72 +108,99 @@ public class CrearPrestamoController implements Initializable {
     @FXML
     private void cargarLector(ActionEvent event) throws MalformedURLException, UnsupportedEncodingException, IOException, JSONException {
         
-        if (!validarCopias(this.textFieldRut.getText())){
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error ");
-            alert.setHeaderText("Excede máximo de copias prestadas");
-            alert.setContentText("Intente finalizando sus prestamos actuales!");
-
-            alert.showAndWait();
-            
-            this.textFieldRut.setText("");
+        if (this.textFieldRut.getText().isEmpty()){
+            this.buttonAgregarPrestamo1.setDisable(false);
+            this.textFieldCodigo1.setDisable(false);
             return;
         }
         
-        boolean flag=false;
-        URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.getLectorPHP); // URL to your application
-        //System.out.println(url);
-        Map<String,Object> params = new LinkedHashMap<>();
-        params.put("rut", this.textFieldRut.getText().trim()); // All parameters, also easy
-        this.rutLector = this.textFieldRut.getText().trim();
+        if(Validaciones.validaRut(this.textFieldRut.getText())){
+            this.buttonAgregarPrestamo1.setDisable(false);
+            this.textFieldCodigo1.setDisable(false);
+                
+            if (!validarCopias(this.textFieldRut.getText())){
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error ");
+                alert.setHeaderText("Excede máximo de copias prestadas");
+                alert.setContentText("Intente finalizando sus prestamos actuales!");
 
-        StringBuilder postData = new StringBuilder();
-        for (Map.Entry<String,Object> param : params.entrySet()) {
-            if (postData.length() != 0) postData.append('&');
-            postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
-            postData.append('=');
-            postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
-        }
+                alert.showAndWait();
 
-        // Convert string to byte array, as it should be sent
-        byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+                this.textFieldRut.setText("");
+                return;
+            }
+            
+            this.textFieldRut.setDisable(true);
 
-        // Connect, easy
-        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-        // Tell server that this is POST and in which format is the data
-        conn.setRequestMethod("POST");
-        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
-        conn.setDoOutput(true);
-        conn.getOutputStream().write(postDataBytes);
+            boolean flag=false;
+            URL url = new URL(Valores.SingletonServidor.getInstancia().getServidor()+"/"+Valores.ValoresEstaticos.getLectorPHP); // URL to your application
+            //System.out.println(url);
+            Map<String,Object> params = new LinkedHashMap<>();
+            params.put("rut", this.textFieldRut.getText().trim()); // All parameters, also easy
+            this.rutLector = this.textFieldRut.getText().trim();
 
-        // This gets the output from your server
-        Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-        String response="";
-        //System.out.println(in.toString());
-        for (int c; (c = in.read()) >= 0;){
-            response=response + (char)c;
-        }
-           //System.out.println(response);
-           JSONObject obj = new JSONObject(response);
-           String mensaje = obj.getString("mensaje");
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String,Object> param : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+            }
 
-           //System.out.println("Mensaje: "+obj);
+            // Convert string to byte array, as it should be sent
+            byte[] postDataBytes = postData.toString().getBytes("UTF-8");
 
-         if(mensaje.contains("true")){
-             String nombre = obj.getString("nombre");
-             String ap = obj.getString("ap");
-             String am = obj.getString("am");
-             String dir = obj.getString("dir");
-             String cor = obj.getString("cor");
-             this.labelName.setText(nombre + " " +  ap + " " +  am);
-             this.labelRut.setText(this.textFieldRut.getText());
-             this.labelName1.setText(dir);
-             this.labelRut1.setText(cor);
-         }  
+            // Connect, easy
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            // Tell server that this is POST and in which format is the data
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+            conn.setDoOutput(true);
+            conn.getOutputStream().write(postDataBytes);
 
-         System.out.println("CARGADO LECTOR Y CORREO DEL TRABAJADOR ES: " + this.correo);
-        //return flag;
+            // This gets the output from your server
+            Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+            String response="";
+            //System.out.println(in.toString());
+            for (int c; (c = in.read()) >= 0;){
+                response=response + (char)c;
+            }
+               //System.out.println(response);
+               JSONObject obj = new JSONObject(response);
+               String mensaje = obj.getString("mensaje");
+
+               //System.out.println("Mensaje: "+obj);
+
+             if(mensaje.contains("true")){
+                 String nombre = obj.getString("nombre");
+                 String ap = obj.getString("ap");
+                 String am = obj.getString("am");
+                 String dir = obj.getString("dir");
+                 String cor = obj.getString("cor");
+                 this.labelName.setText(nombre + " " +  ap + " " +  am);
+                 this.labelRut.setText(this.textFieldRut.getText());
+                 this.labelName1.setText(dir);
+                 this.labelRut1.setText(cor);
+             }  
+
+             System.out.println("CARGADO LECTOR Y CORREO DEL TRABAJADOR ES: " + this.correo);
+            //return flag;
+            
+        }else{
+            this.buttonAgregarPrestamo1.setDisable(true);
+            this.textFieldCodigo1.setDisable(true);
+            
+            Alert alerta = new Alert(AlertType.WARNING);
+            alerta.setTitle("Advertencia");
+            alerta.setHeaderText("No se puede realizar esta operación.");
+            alerta.setContentText("EL campo rut está incorrecto, ingrese un rut válido.");
+            alerta.showAndWait();
+            this.textFieldRut.setText("");
+        }    
+        
+        
+        
     
     }
 
@@ -207,6 +237,7 @@ public class CrearPrestamoController implements Initializable {
             alert.setHeaderText("Revisar la información");
             alert.setContentText("¡Ingrese el rut del lector!");
             alert.showAndWait();
+            return;
         }
         
         if (textFieldCodigo1.isVisible() && textFieldCodigo2.isVisible()==false){
@@ -218,9 +249,11 @@ public class CrearPrestamoController implements Initializable {
                 alert.setHeaderText("Revisar la información");
                 alert.setContentText("¡Ingrese el codigo de la copia!");
                 alert.showAndWait();
+                return;
             }
             
             String codigo1 = textFieldCodigo1.getText();
+            
             
             if (validarCopiaDisponible(codigo1)){
                 System.out.println("Paso aqui");
@@ -239,10 +272,13 @@ public class CrearPrestamoController implements Initializable {
                 alert.setHeaderText("Revisar la información");
                 alert.setContentText("¡Ingrese ambos codigos de las copias!");
                 alert.showAndWait();
+                return;
             }
             
             String codigo1 = textFieldCodigo1.getText();
             String codigo2 = textFieldCodigo2.getText();
+            
+
             
             if (validarCopiaDisponible(codigo1)){
                 if (validarCopiaDisponible(codigo2)){
@@ -264,11 +300,14 @@ public class CrearPrestamoController implements Initializable {
                 alert.setHeaderText("Revisar la información");
                 alert.setContentText("¡Ingrese todos los codigos de las copias!");
                 alert.showAndWait();
+                return;
             }
             
             String codigo1 = textFieldCodigo1.getText();
             String codigo2 = textFieldCodigo2.getText();
             String codigo3 = textFieldCodigo3.getText();
+            
+
             
             if (validarCopiaDisponible(codigo1)){
                 if (validarCopiaDisponible(codigo2)){
@@ -309,9 +348,6 @@ public class CrearPrestamoController implements Initializable {
        
     }
 
-    @FXML
-    private void cancelar(ActionEvent event) {
-    }
 
     @FXML
     private void quitarPrestamo2(ActionEvent event) {
@@ -682,4 +718,34 @@ public class CrearPrestamoController implements Initializable {
         
         return aux;
     }
+
+    @FXML
+    private void limpiarButton(ActionEvent event) {
+        this.textFieldCodigo1.setText("");
+        this.textFieldCodigo2.setText("");
+        this.textFieldCodigo3.setText("");
+        
+        this.textFieldRut.setDisable(false);
+        this.textFieldRut.setText("");
+        
+        this.labelPrestamo2.setVisible(false);
+        this.buttonAgregarPrestamo1.setVisible(true);
+        
+        this.labelName.setText("");
+        this.labelName1.setText("");
+        this.labelRut.setText("");
+        this.labelRut1.setText("");
+        
+        this.textFieldCodigo1.setDisable(true);
+        this.textFieldCodigo2.setVisible(false);
+        this.textFieldCodigo3.setVisible(false);
+        
+        this.buttonAgregarPrestamo1.setDisable(true);
+        this.buttonAgregarPrestamo2.setVisible(false);
+        this.buttonQuitarPrestamo2.setVisible(false);
+        this.buttonQuitarPrestamo3.setVisible(false);
+        
+    }
+
+    
 }

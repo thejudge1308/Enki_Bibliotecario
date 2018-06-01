@@ -5,6 +5,7 @@
  */ 
 package Controladores; 
  
+import Modelo.Copia;
 import Modelo.CopiaP;
 import Modelo.Libro;
 import Modelo.PrestamoP;
@@ -65,7 +66,7 @@ public class DevolverPrestamoController implements Initializable {
     @FXML
     private Label fecha1;
     @FXML
-    private Label fecha2;
+    private Label fecha2, estadoLabel;
     @FXML
     private TableView table1;
     @FXML
@@ -221,7 +222,6 @@ public class DevolverPrestamoController implements Initializable {
             
             actualizarTodos();
             
-            BorderPane bp = null;
             try {
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("/enki/ListaPrestamos.fxml"));
@@ -234,9 +234,6 @@ public class DevolverPrestamoController implements Initializable {
                 Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            this.padre.setCenter(bp);
-
-            
             this.finalize();
         }
         else{
@@ -251,14 +248,18 @@ public class DevolverPrestamoController implements Initializable {
             
             
             
-            BorderPane bp = null;
             try {
-                bp = FXMLLoader.load(getClass().getResource("/enki/ListaPrestamos.fxml"));
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/enki/ListaPrestamos.fxml"));
+                Parent root = loader.load();
+                ListaPrestamosController m = loader.getController();
+                m.setPadre(this.padre);
+                m.refrescarTabla();
+                this.padre.setCenter(root);
             } catch (IOException ex) {
                 Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            this.padre.setCenter(bp);
         }
         
     }
@@ -267,7 +268,6 @@ public class DevolverPrestamoController implements Initializable {
     private void onClick_buttonVolver(ActionEvent event) throws Throwable {
         BorderPane bp = null;
         try {
-            bp = FXMLLoader.load(getClass().getResource("/enki/ListaPrestamos.fxml"));
             
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/enki/ListaPrestamos.fxml"));
@@ -280,7 +280,6 @@ public class DevolverPrestamoController implements Initializable {
             Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        this.padre.setCenter(bp);
     }
     
     @FXML
@@ -338,6 +337,7 @@ public class DevolverPrestamoController implements Initializable {
         this.prestamo.setText(String.valueOf(prestamo.getCodigo()));
         this.fecha1.setText(prestamo.getFechaPrestamo());
         this.fecha2.setText(prestamo.getFechaDevolucion());
+        this.estadoLabel.setText(prestamo.getEstado());
         
         //en copias1 dejar las que aun no se devuelven
         
@@ -347,6 +347,17 @@ public class DevolverPrestamoController implements Initializable {
         
         this.setearCopiasDevueltas(String.valueOf(prestamo.getCodigo()));
         
+        CopiaP more = new CopiaP("","");
+        
+        for (int i=0; i<this.copias1.size(); i++){
+            if (this.copias1.get(i).getCodigo().equals(codigoCopia)){
+                more.setAll(this.copias1.get(i));
+                this.copias1.remove(i);
+            }
+        }
+        
+        more.setEstado("Habilitado");
+        this.copias2.add(more);
         this.createUsersTableForm();
     }
 
@@ -404,7 +415,7 @@ public class DevolverPrestamoController implements Initializable {
                 
 
                 CopiaP c  = new CopiaP(codigoCopia,titulo);
-                c.setEstado("Pendiente");
+                c.setEstado("Prestado");
                 copias.add(c);
             }
             this.copias1.addAll(copias);
@@ -650,6 +661,8 @@ public class DevolverPrestamoController implements Initializable {
             return;
         }
         
+        this.estadoLabel.setText(prestamo.getEstado());
+        
         
         if (prestamo.getEstado().equals("Finalizado")){
             this.buttonFinalizar.setDisable(true);
@@ -657,6 +670,7 @@ public class DevolverPrestamoController implements Initializable {
             this.prestamo.setDisable(true);
             this.more.setDisable(true);
             this.less.setDisable(true);
+            this.prestamos.setDisable(false);
         }
         else {
             this.buttonFinalizar.setDisable(false);
@@ -682,6 +696,11 @@ public class DevolverPrestamoController implements Initializable {
         this.setearCopiasDevueltas(String.valueOf(prestamo.getCodigo()));
         
         this.createUsersTableForm();
+        
+        if (prestamo.getEstado().equals("Finalizado")){
+            this.less.setDisable(true);
+            this.tfCode.setDisable(true);
+        }
     }
 
 

@@ -3,6 +3,7 @@
 package Controladores;
 
 import Valores.SingletonUsuario;
+import Valores.Validaciones;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,6 +18,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import enki.*;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
@@ -36,6 +38,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -78,6 +83,8 @@ public class MainViewController implements Initializable {
     private Label labelCambiarContraseña;
     @FXML
     private Button buttonDevolucionLibro;
+    @FXML
+    private ImageView imagen;
     /**
      * Initializes the controller class.
      */
@@ -91,10 +98,18 @@ public class MainViewController implements Initializable {
             buttonCrearLibroCopia.setVisible(false);
             labelUsuario.setText(SingletonUsuario.usuario.getUsuario());
             labelCargo.setText("Bibliotecario");
+            
+            File file = new File("src/Img/bib.png");
+            Image image = new Image(file.toURI().toString());
+            imagen.setImage(image);
         }
         else{
             labelUsuario.setText(SingletonUsuario.usuario.getUsuario());
             labelCargo.setText("Administrador");
+            
+            File file = new File("src/Img/admi.png");
+            Image image = new Image(file.toURI().toString());
+            imagen.setImage(image);
         }
         
         BorderPane bp=null;
@@ -280,7 +295,7 @@ public class MainViewController implements Initializable {
         dialog.setTitle("Devolución de Material");
         dialog.setHeaderText("Devolución de Material Biblioteca");
         dialog.setContentText("Ingrese Codigo Copia:");
-
+        
         // Traditional way to get the response value.
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
@@ -345,11 +360,23 @@ public class MainViewController implements Initializable {
          if(mensaje.contains("true")){
             String estado = obj.getString("estado");
             
+             System.out.println("ESTADO ENCONTRADO: " + estado);
+             
+             if (estado.equals("Habilitado")){
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Revisar la informacion");
+                alert.setContentText("El libro con codigo de copia #" + get + " no se encuentra prestado.");
+
+                alert.showAndWait();
+                return false;
+             }
+            
             if (!estado.equals("Prestado")){
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText("Revisar la informacion");
-                alert.setContentText("El libro con codigo de copia #" + get + " no se encuentra disponible.");
+                alert.setContentText("El libro con codigo de copia #" + get + " \nno se encuentra disponible para prestamos.");
 
                 alert.showAndWait();
                 return false;
