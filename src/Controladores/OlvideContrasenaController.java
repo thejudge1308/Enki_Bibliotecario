@@ -141,8 +141,9 @@ public class OlvideContrasenaController implements Initializable {
             }
         }else{
             Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-            alerta.setTitle("Informacion");
+            alerta.setTitle("Recuperar contraseña");
             alerta.setContentText("No se ha podido realizar la operacion\nIngrese un correo valido");
+            alerta.setHeaderText(null);
             alerta.showAndWait();
         }
          ((Node)(event.getSource())).getScene().getWindow().hide();

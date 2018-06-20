@@ -282,13 +282,15 @@ public class ModificarBibliotecarioController implements Initializable{
     
     if(mensaje.equals("false")){
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setTitle("Problemas al modificar");
+        alerta.setTitle("Modificar bibliotecario");
+        alerta.setHeaderText(null);
         alerta.setContentText("El rut ingresado no se ha podido modificar o no existe");
         alerta.showAndWait();
         }
     else{
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setTitle("Mensaje");
+        alerta.setTitle("Modificar bibliotecario");
+        alerta.setHeaderText(null);
         alerta.setContentText("Modificado con éxito");
         alerta.showAndWait();
         }

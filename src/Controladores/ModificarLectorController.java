@@ -70,7 +70,8 @@ public class ModificarLectorController implements Initializable{
     @FXML
     private void onClick_buttonAceptar(ActionEvent event) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Confirmación");
+        alert.setTitle("Modificar lector");
+        alert.setHeaderText(null);
         alert.setContentText("Estás seguro que quieres modificar?");
 
         Optional<ButtonType> result = alert.showAndWait();
@@ -81,6 +82,7 @@ public class ModificarLectorController implements Initializable{
                   ((Node)(event.getSource())).getScene().getWindow().hide();
                 }else{
                      alert = new Alert(AlertType.NONE, "Ingrese email correctamente", ButtonType.OK);
+                     alert.setHeaderText(null);
                      alert.showAndWait();
                 }            
             } catch (UnsupportedEncodingException ex) {
@@ -262,12 +264,14 @@ public class ModificarLectorController implements Initializable{
     
     if(mensaje.equals("false")){
        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-    alerta.setTitle("Problemas al modificar");
+    alerta.setTitle("Modificar lector");
+    alerta.setHeaderText(null);
     alerta.setContentText("El rut ingresado no se ha podido modifiacar o no existe");
     alerta.showAndWait();
     }else{
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-    alerta.setTitle("Mensaje");
+    alerta.setTitle("Modificar lector");
+    alerta.setHeaderText(null);
     alerta.setContentText("Modificado con éxito");
     alerta.showAndWait();
     }

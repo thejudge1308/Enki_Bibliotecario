@@ -153,7 +153,8 @@ public class ConfigurarEstanteController implements Initializable {
     }
     
     Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-    alerta.setTitle("Informacion");
+    alerta.setTitle("Modificar estante");
+    alerta.setHeaderText(null);
     alerta.setContentText(mensaje);
     alerta.showAndWait();
    // System.out.println(response);
@@ -206,7 +207,8 @@ public class ConfigurarEstanteController implements Initializable {
     }
     
     Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-    alerta.setTitle("Informacion");
+    alerta.setTitle("Modificar estante");
+    alerta.setHeaderText(null);
     alerta.setContentText(mensaje);
     alerta.showAndWait();
    // System.out.println(response);
@@ -226,7 +228,8 @@ public class ConfigurarEstanteController implements Initializable {
     private void onClick_buttonQuitar(ActionEvent event) {
         if(this.labelCantidad.getText().equals("1")){
             Alert alerta = new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Alerta");
+            alerta.setTitle("Modificar estante");
+            alerta.setHeaderText(null);
             alerta.setContentText("Un estante debe tener minimo un nivel");
             alerta.showAndWait();
         }else{
